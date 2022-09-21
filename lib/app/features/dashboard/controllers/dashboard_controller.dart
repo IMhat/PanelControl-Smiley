@@ -18,6 +18,9 @@ class DashboardController extends GetxController {
     );
   }
 
+  // getAllTask() {
+  //   return getAllTaskK();
+  // }
   //tasks
 
   // List<TaskCardData> getAllTask() {

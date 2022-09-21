@@ -6,7 +6,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:project_management/app/constans/app_constants.dart';
 import 'package:project_management/app/features/dashboard/models/task.dart';
-import 'package:project_management/app/features/dashboard/views/screens/taskBodyScreen.dart';
+
 import 'package:project_management/app/shared_components/chatting_card.dart';
 import 'package:project_management/app/shared_components/get_premium_card.dart';
 import 'package:project_management/app/shared_components/list_profil_image.dart';
@@ -17,7 +17,7 @@ import 'package:project_management/app/shared_components/upgrade_premium_card.da
 import 'package:project_management/app/shared_components/project_card.dart';
 import 'package:project_management/app/shared_components/search_field.dart';
 import 'package:project_management/app/shared_components/selection_button.dart';
-import 'package:project_management/app/shared_components/task_card.dart';
+import 'package:project_management/app/shared_components/task_card(EJEMPLO).dart';
 import 'package:project_management/app/shared_components/today_text.dart';
 import 'package:project_management/app/utils/helpers/app_helpers.dart';
 
@@ -95,6 +95,7 @@ class DashboardScreen extends GetView<DashboardController> {
             //     return ;
             //   },
             // ),
+            const getAllTask(),
 
             const SizedBox(height: kSpacing * 2),
             _buildActiveProject(
@@ -124,7 +125,7 @@ class DashboardScreen extends GetView<DashboardController> {
                     ),
                     const SizedBox(height: kSpacing * 2),
                     // _buildTaskOverview(
-                    //   data:  ,
+                    //   data: controller.getAllTask(),
                     //   headerAxis: (constraints.maxWidth < 850)
                     //       ? Axis.vertical
                     //       : Axis.horizontal,
@@ -337,8 +338,9 @@ class DashboardScreen extends GetView<DashboardController> {
                   onSelected: (task) {},
                 ),
               )
+            // ignore: prefer_const_constructors
             : TaskCard(
-                task: data[index - 1],
+                task: data[index],
                 // onPressedMore: () {},
                 // onPressedTask: () {},
                 // onPressedContributors: () {},

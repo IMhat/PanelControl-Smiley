@@ -9,6 +9,7 @@ class Task {
   late String user;
   late dynamic points;
   late dynamic done;
+  late dynamic dueDay;
   // late int dueDay;
   // late List profilContributors;
   // //<ImageProvider>
@@ -24,7 +25,7 @@ class Task {
     this.user,
     this.points,
     this.done,
-    // this.dueDay,
+    this.dueDay,
     // this.profilContributors,
     // this.totalComments,
     // this.totalContributors,
@@ -41,7 +42,7 @@ class Task {
     user = map['user'];
     points = map['points'];
     done = map['done'];
-    // dueDay = map['dueDay'];
+    dueDay = map['dueDay'];
     // profilContributors = map['profilContributors'];
     // totalComments = map['totalComments'];
     // totalContributors = map['totalContributors'];
@@ -56,7 +57,7 @@ class Task {
         "user": user,
         "points": points,
         "done": done,
-        // "dueDay": dueDay,
+        "dueDay": dueDay,
         // "profilContributors": profilContributors,
         // "totalComments": totalComments,
         // "totalContributors": totalContributors,
@@ -71,7 +72,7 @@ class Task {
         user,
         points,
         done,
-        // dueDay,
+        dueDay,
         // profilContributors,
         // totalComments,
         // totalContributors,
