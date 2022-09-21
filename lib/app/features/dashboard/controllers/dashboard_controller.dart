@@ -20,82 +20,49 @@ class DashboardController extends GetxController {
 
   //tasks
 
-  // List<TaskCardData> getAllTask()
-
-  // {
-  // return [
-  //   const TaskCardData(
-  //     title: "asd",
-  //     type: "adas",
-  //     priority: "asd",
-  //     description: "adsz",
-  //     user: "asd",
-  //     points: "asd",
-  //     done: "asd",
-  //     dueDay: "asd",
-  //     profilContributors: "asd",
-  //     totalComments: "asd",
-  //     totalContributors: "asd",
-  // id: task.id
-  //          title: task.title,
-  //   type: task.type,
-  //   priority: task.priority,
-  //   description: task.description,
-  //   user: task.user,
-  //   points: task.points,
-  //   done: task.done,
-  //   dueDay: task.dueDay,
-  //   profilContributors: task.profilContributors,
-  //   totalComments: task.totalComments,
-  //   totalContributors: task.totalContributors,
-  //  // id: task.id
-  //     )
+  // List<TaskCardData> getAllTask() {
+  //   return [
+  //     const TaskCardData(
+  //       title: "Landing page Ux Design",
+  //       dueDay: 2,
+  //       totalComments: 50,
+  //       type: TaskType.todo,
+  //       totalContributors: 30,
+  //       profilContributors: [
+  //         AssetImage(ImageRasterPath.avatar1),
+  //         AssetImage(ImageRasterPath.avatar2),
+  //         AssetImage(ImageRasterPath.avatar3),
+  //         AssetImage(ImageRasterPath.avatar4),
+  //       ],
+  //     ),
+  //     const TaskCardData(
+  //       title: "Landing page UI Design",
+  //       dueDay: -1,
+  //       totalComments: 50,
+  //       totalContributors: 34,
+  //       type: TaskType.inProgress,
+  //       profilContributors: [
+  //         AssetImage(ImageRasterPath.avatar5),
+  //         AssetImage(ImageRasterPath.avatar6),
+  //         AssetImage(ImageRasterPath.avatar7),
+  //         AssetImage(ImageRasterPath.avatar8),
+  //       ],
+  //     ),
+  //     const TaskCardData(
+  //       title: "Landing page UI Design",
+  //       dueDay: 1,
+  //       totalComments: 50,
+  //       totalContributors: 34,
+  //       type: TaskType.done,
+  //       profilContributors: [
+  //         AssetImage(ImageRasterPath.avatar5),
+  //         AssetImage(ImageRasterPath.avatar3),
+  //         AssetImage(ImageRasterPath.avatar4),
+  //         AssetImage(ImageRasterPath.avatar2),
+  //       ],
+  //     ),
   //   ];
   // }
-
-  List<TaskCardData> getAllTask() {
-    return [
-      const TaskCardData(
-        title: "Landing page Ux Design",
-        dueDay: 2,
-        totalComments: 50,
-        type: TaskType.todo,
-        totalContributors: 30,
-        profilContributors: [
-          AssetImage(ImageRasterPath.avatar1),
-          AssetImage(ImageRasterPath.avatar2),
-          AssetImage(ImageRasterPath.avatar3),
-          AssetImage(ImageRasterPath.avatar4),
-        ],
-      ),
-      const TaskCardData(
-        title: "Landing page UI Design",
-        dueDay: -1,
-        totalComments: 50,
-        totalContributors: 34,
-        type: TaskType.inProgress,
-        profilContributors: [
-          AssetImage(ImageRasterPath.avatar5),
-          AssetImage(ImageRasterPath.avatar6),
-          AssetImage(ImageRasterPath.avatar7),
-          AssetImage(ImageRasterPath.avatar8),
-        ],
-      ),
-      const TaskCardData(
-        title: "Landing page UI Design",
-        dueDay: 1,
-        totalComments: 50,
-        totalContributors: 34,
-        type: TaskType.done,
-        profilContributors: [
-          AssetImage(ImageRasterPath.avatar5),
-          AssetImage(ImageRasterPath.avatar3),
-          AssetImage(ImageRasterPath.avatar4),
-          AssetImage(ImageRasterPath.avatar2),
-        ],
-      ),
-    ];
-  }
 
   ProjectCardData getSelectedProject() {
     return ProjectCardData(
@@ -167,5 +134,64 @@ class DashboardController extends GetxController {
         totalUnread: 1,
       ),
     ];
+  }
+}
+
+class getAllTask extends StatefulWidget {
+  const getAllTask({Key? key}) : super(key: key);
+
+  @override
+  State<getAllTask> createState() => _getAllTask();
+}
+
+class _getAllTask extends State<getAllTask> {
+  @override
+  Widget build(BuildContext context) {
+    final tasksService = Provider.of<TaskService>(context);
+    return ChangeNotifierProvider(
+      create: (_) => TaskFormProvider(tasksService.selectedTask),
+      child: _getAllTaskBody(tasksService: tasksService),
+    );
+  }
+}
+
+class _getAllTaskBody extends StatefulWidget {
+  _getAllTaskBody({Key? key, required this.tasksService}) : super(key: key);
+
+  TaskService tasksService;
+
+  @override
+  State<_getAllTaskBody> createState() => _getAllTaskBodyState();
+}
+
+class _getAllTaskBodyState extends State<_getAllTaskBody> {
+  @override
+  Widget build(BuildContext context) {
+    TaskService taskService;
+    final taskListProvider = Provider.of<TaskListProvider>(context);
+
+    return Container(
+      margin: const EdgeInsets.only(top: 20, left: 40, bottom: 20),
+      width: 1050,
+      height: 350,
+      child: Center(
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          //itemCount: taskListProvider.tasks.length,
+          itemCount: widget.tasksService.tasks.length,
+
+          itemBuilder: (BuildContext context, int index) => GestureDetector(
+            onTap: () {
+              widget.tasksService.selectedTask =
+                  widget.tasksService.tasks[index].copy();
+            },
+            child: TaskCard(
+              task: widget.tasksService.tasks[index],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

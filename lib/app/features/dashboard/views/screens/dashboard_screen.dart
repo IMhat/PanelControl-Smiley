@@ -5,6 +5,8 @@ import 'dart:developer';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:project_management/app/constans/app_constants.dart';
+import 'package:project_management/app/features/dashboard/models/task.dart';
+import 'package:project_management/app/features/dashboard/views/screens/taskBodyScreen.dart';
 import 'package:project_management/app/shared_components/chatting_card.dart';
 import 'package:project_management/app/shared_components/get_premium_card.dart';
 import 'package:project_management/app/shared_components/list_profil_image.dart';
@@ -23,6 +25,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:project_management/app/utils/services/task_services.dart';
+import 'package:project_management/app/utils/widgets/task_card.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/task_form_provider.dart';
+import '../../providers/task_list_provider.dart';
 
 // binding
 part '../../bindings/dashboard_binding.dart';
@@ -76,12 +83,19 @@ class DashboardScreen extends GetView<DashboardController> {
             //   child: GetPremiumCard(onPressed: () {}),
             // ),
             const SizedBox(height: kSpacing * 2),
-            _buildTaskOverview(
-              data: controller.getAllTask(),
-              headerAxis: Axis.vertical,
-              crossAxisCount: 6,
-              crossAxisCellCount: 6,
-            ),
+            // _buildTaskOverview(
+            //   data: controller.getAllTask(),
+            //   headerAxis: Axis.vertical,
+            //   crossAxisCount: 6,
+            //   crossAxisCellCount: 6,
+            // ),
+            // ListView.builder(
+            //   itemCount: 1,
+            //   itemBuilder: (BuildContext context, int index) {
+            //     return ;
+            //   },
+            // ),
+
             const SizedBox(height: kSpacing * 2),
             _buildActiveProject(
               data: controller.getActiveProject(),
@@ -109,18 +123,19 @@ class DashboardScreen extends GetView<DashboardController> {
                           : Axis.horizontal,
                     ),
                     const SizedBox(height: kSpacing * 2),
-                    _buildTaskOverview(
-                      data: controller.getAllTask(),
-                      headerAxis: (constraints.maxWidth < 850)
-                          ? Axis.vertical
-                          : Axis.horizontal,
-                      crossAxisCount: 6,
-                      crossAxisCellCount: (constraints.maxWidth < 950)
-                          ? 6
-                          : (constraints.maxWidth < 1100)
-                              ? 3
-                              : 2,
-                    ),
+                    // _buildTaskOverview(
+                    //   data:  ,
+                    //   headerAxis: (constraints.maxWidth < 850)
+                    //       ? Axis.vertical
+                    //       : Axis.horizontal,
+                    //   crossAxisCount: 6,
+                    //   crossAxisCellCount: (constraints.maxWidth < 950)
+                    //       ? 6
+                    //       : (constraints.maxWidth < 1100)
+                    //           ? 3
+                    //           : 2,
+                    // ),
+                    const getAllTask(),
                     const SizedBox(height: kSpacing * 2),
                     _buildActiveProject(
                       data: controller.getActiveProject(),
@@ -181,11 +196,12 @@ class DashboardScreen extends GetView<DashboardController> {
                     const SizedBox(height: kSpacing * 2),
                     _buildProgress(),
                     const SizedBox(height: kSpacing * 2),
-                    _buildTaskOverview(
-                      data: controller.getAllTask(),
-                      crossAxisCount: 6,
-                      crossAxisCellCount: (constraints.maxWidth < 1360) ? 3 : 2,
-                    ),
+                    // _buildTaskOverview(
+                    //   data: controller.getAllTask(),
+                    //   crossAxisCount: 6,
+                    //   crossAxisCellCount: (constraints.maxWidth < 1360) ? 3 : 2,
+                    // ),
+                    const getAllTask(),
                     const SizedBox(height: kSpacing * 2),
                     _buildActiveProject(
                       data: controller.getActiveProject(),
@@ -300,7 +316,7 @@ class DashboardScreen extends GetView<DashboardController> {
   }
 
   Widget _buildTaskOverview({
-    required List<TaskCardData> data,
+    required List<Task> data,
     int crossAxisCount = 6,
     int crossAxisCellCount = 2,
     Axis headerAxis = Axis.horizontal,
@@ -322,11 +338,11 @@ class DashboardScreen extends GetView<DashboardController> {
                 ),
               )
             : TaskCard(
-                data: data[index - 1],
-                onPressedMore: () {},
-                onPressedTask: () {},
-                onPressedContributors: () {},
-                onPressedComments: () {},
+                task: data[index - 1],
+                // onPressedMore: () {},
+                // onPressedTask: () {},
+                // onPressedContributors: () {},
+                // onPressedComments: () {},
               );
       },
       staggeredTileBuilder: (int index) =>

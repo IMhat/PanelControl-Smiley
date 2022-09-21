@@ -9,11 +9,11 @@ class Task {
   late String user;
   late dynamic points;
   late dynamic done;
-  late int dueDay;
-  late List profilContributors;
-  //<ImageProvider>
-  late int totalComments;
-  late int totalContributors;
+  // late int dueDay;
+  // late List profilContributors;
+  // //<ImageProvider>
+  // late int totalComments;
+  // late int totalContributors;
   late String id;
 
   Task(
@@ -24,10 +24,10 @@ class Task {
     this.user,
     this.points,
     this.done,
-    this.dueDay,
-    this.profilContributors,
-    this.totalComments,
-    this.totalContributors,
+    // this.dueDay,
+    // this.profilContributors,
+    // this.totalComments,
+    // this.totalContributors,
     this.id,
   );
   factory Task.fromJson(String str) => Task.fromMap(json.decode(str));
@@ -41,10 +41,10 @@ class Task {
     user = map['user'];
     points = map['points'];
     done = map['done'];
-    dueDay = map['dueDay'];
-    profilContributors = map['profilContributors'];
-    totalComments = map['totalComments'];
-    totalContributors = map['totalContributors'];
+    // dueDay = map['dueDay'];
+    // profilContributors = map['profilContributors'];
+    // totalComments = map['totalComments'];
+    // totalContributors = map['totalContributors'];
     id = map['id'];
   }
 
@@ -56,10 +56,10 @@ class Task {
         "user": user,
         "points": points,
         "done": done,
-        "dueDay": dueDay,
-        "profilContributors": profilContributors,
-        "totalComments": totalComments,
-        "totalContributors": totalContributors,
+        // "dueDay": dueDay,
+        // "profilContributors": profilContributors,
+        // "totalComments": totalComments,
+        // "totalContributors": totalContributors,
         "id": id,
       };
 
@@ -71,10 +71,10 @@ class Task {
         user,
         points,
         done,
-        dueDay,
-        profilContributors,
-        totalComments,
-        totalContributors,
+        // dueDay,
+        // profilContributors,
+        // totalComments,
+        // totalContributors,
         id,
       );
 

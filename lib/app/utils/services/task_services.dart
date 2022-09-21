@@ -61,9 +61,10 @@ class TaskService extends ChangeNotifier {
           item["points"],
           item["done"],
           item["dueDay"],
-          item["profilContributors"],
-          item["totalComments"],
-          item["totalContributors"],
+          // item["dueDay"],
+          // item["profilContributors"],
+          // item["totalComments"],
+          // item["totalContributors"],
           item["id"]));
 
       // _dbProvider.getTodasLasTasks();
@@ -80,23 +81,24 @@ class TaskService extends ChangeNotifier {
   }
 
   Future<http.Response> saveTasks(
-      String text,
-      String text2,
-      String text3,
-      String text4,
-      String text5,
-      dynamic text6,
-      dynamic text7,
-      dynamic text8,
-      dynamic text9,
-      dynamic text10,
-      dynamic text11) {
+    String text,
+    String text2,
+    String text3,
+    String text4,
+    String text5,
+    dynamic text6,
+    dynamic text7,
+    dynamic text8,
+    // dynamic text9,
+    // dynamic text10,
+    // dynamic text11
+  ) {
     return http.post(
       Uri.parse('https://smiley-appi.herokuapp.com/api/tasks'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{
+      body: jsonEncode(<String, dynamic>{
         'title': text,
         'type': text2,
         'priority': text3,
@@ -105,9 +107,9 @@ class TaskService extends ChangeNotifier {
         'points': text6,
         'done': text7,
         'dueDay': text8,
-        'profilContributors': text9,
-        'totalComments': text10,
-        'totalContributors': text11,
+        // 'profilContributors': text9,
+        // 'totalComments': text10,
+        // 'totalContributors': text11,
       }),
     );
   }
