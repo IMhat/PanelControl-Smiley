@@ -170,30 +170,81 @@ class _getAllTaskBody extends StatefulWidget {
 class _getAllTaskBodyState extends State<_getAllTaskBody> {
   @override
   Widget build(BuildContext context) {
-    TaskService taskService;
-    final taskListProvider = Provider.of<TaskListProvider>(context);
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 40, right: 50),
+                width: 200,
+                height: 60,
+                child: const Text(
+                  "Task Overview",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Container(
+                width: 450,
+                height: 120,
+                child: DefaultTabController(
+                  length: 4,
+                  child: Column(
+                    children: const [
+                      Text(
+                        "Elige tu categoría",
+                        style: TextStyle(fontSize: 25),
+                        textAlign: TextAlign.start,
+                      ),
+                      TabBar(
+                          indicator: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                              color: Color(0xff5D4FB1)),
+                          labelColor: Color.fromARGB(255, 255, 0, 0),
+                          unselectedLabelColor:
+                              Color.fromARGB(255, 255, 255, 255),
+                          tabs: [
+                            Tab(text: "All"),
+                            Tab(text: "To do"),
+                            Tab(text: "In progress"),
+                            Tab(text: "Done"),
+                          ]),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 20, left: 40, bottom: 20),
+            width: 400,
+            height: 350,
+            child: Center(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                //itemCount: taskListProvider.tasks.length,
+                itemCount: widget.tasksService.tasks.length,
 
-    return Container(
-      margin: const EdgeInsets.only(top: 20, left: 40, bottom: 20),
-      width: 1050,
-      height: 350,
-      child: Center(
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          //itemCount: taskListProvider.tasks.length,
-          itemCount: widget.tasksService.tasks.length,
-
-          itemBuilder: (BuildContext context, int index) => GestureDetector(
-            onTap: () {
-              widget.tasksService.selectedTask =
-                  widget.tasksService.tasks[index].copy();
-            },
-            child: TaskCard(
-              task: widget.tasksService.tasks[index],
+                itemBuilder: (BuildContext context, int index) =>
+                    GestureDetector(
+                  onTap: () {
+                    widget.tasksService.selectedTask =
+                        widget.tasksService.tasks[index].copy();
+                  },
+                  child: TaskCard(
+                    task: widget.tasksService.tasks[index],
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
