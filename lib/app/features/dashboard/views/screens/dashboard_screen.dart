@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 library dashboard;
 
 import 'dart:developer';
@@ -6,6 +8,8 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:project_management/app/constans/app_constants.dart';
 import 'package:project_management/app/features/dashboard/models/task.dart';
+import 'package:project_management/app/features/dashboard/views/screens/task_post.dart';
+import 'package:project_management/app/features/dashboard/views/screens/task_put.dart';
 
 import 'package:project_management/app/shared_components/chatting_card.dart';
 import 'package:project_management/app/shared_components/get_premium_card.dart';
@@ -50,6 +54,7 @@ part '../components/sidebar.dart';
 part '../components/team_member.dart';
 
 class DashboardScreen extends GetView<DashboardController> {
+  static const String route = '/dashboard';
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override

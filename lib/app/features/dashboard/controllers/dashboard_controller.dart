@@ -236,6 +236,11 @@ class _getAllTaskBodyState extends State<_getAllTaskBody> {
                   onTap: () {
                     widget.tasksService.selectedTask =
                         widget.tasksService.tasks[index].copy();
+                    // Navigator.of(context).pushNamed(TaskPutScreen.route);
+                    Navigator.pushNamed(
+                      context,
+                      '/taskPut',
+                    );
                   },
                   child: TaskCard(
                     task: widget.tasksService.tasks[index],

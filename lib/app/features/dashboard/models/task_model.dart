@@ -21,9 +21,9 @@ class TaskModel {
   String? type;
   String? priority;
   String? user;
-  String? points;
-  String? done;
-  String? dueDay;
+  dynamic points;
+  dynamic done;
+  dynamic dueDay;
   String? description;
 
   factory TaskModel.fromJson(Map<String, dynamic> json) => TaskModel(

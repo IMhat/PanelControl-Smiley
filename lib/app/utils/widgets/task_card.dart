@@ -16,7 +16,7 @@ class TaskCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(2.0),
       margin: const EdgeInsets.only(top: 0, bottom: 50),
-      width: 400, height: 300,
+      width: 400, height: 200,
       //decoration: _cardBorders(),
       child: Stack(
         alignment: Alignment.bottomLeft,
@@ -25,7 +25,9 @@ class TaskCard extends StatelessWidget {
             //title: taskListProvider.tasks[i].title,
             // subTitle: taskListProvider.tasks[i].description,
             title: task.title,
-            subTitle: task.description,
+            // subTitle: task.description,
+            type: task.type,
+            priority: task.priority,
           ),
         ],
       ),
@@ -115,7 +117,6 @@ class TaskCard extends StatelessWidget {
 
 //   }
 // }
-
 
 class _TaskDetails extends StatefulWidget {
   final String? title;

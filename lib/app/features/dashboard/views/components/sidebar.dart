@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 part of dashboard;
 
 class _Sidebar extends StatelessWidget {
@@ -23,6 +25,15 @@ class _Sidebar extends StatelessWidget {
               ),
             ),
             const Divider(thickness: 1),
+            Container(
+              child: RaisedButton(
+                child: Text('Add Task'),
+                onPressed: () {
+                  // Navigate to the overview page using a named route.
+                  Navigator.of(context).pushNamed(TaskPostScreen.route);
+                },
+              ),
+            ),
             SelectionButton(
               data: [
                 SelectionButtonData(
@@ -33,8 +44,13 @@ class _Sidebar extends StatelessWidget {
                 SelectionButtonData(
                   activeIcon: EvaIcons.archive,
                   icon: EvaIcons.archiveOutline,
-                  label: "Add tasks",
+                  label: "taskPost",
+                  // onPressed: () {
+                  //   // Navigate to the overview page using a named route.
+                  //   Navigator.of(context).pushNamed(TaskPostScreen.route);
+                  // },
                 ),
+
                 SelectionButtonData(
                   activeIcon: EvaIcons.archive,
                   icon: EvaIcons.archiveOutline,

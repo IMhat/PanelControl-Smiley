@@ -1,4 +1,5 @@
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:project_management/app/features/dashboard/views/screens/task_put.dart';
 
 import 'app/config/routes/app_pages.dart';
 import 'app/config/themes/app_theme.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'app/features/dashboard/providers/task_list_provider.dart';
+import 'app/features/dashboard/views/screens/dashboard_screen.dart';
+import 'app/features/dashboard/views/screens/task_post.dart';
 import 'app/utils/services/task_services.dart';
 // import 'package:get/get.dart';
 
@@ -49,6 +52,14 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.basic,
       initialRoute: AppPages.initial,
       getPages: AppPages.routes,
+      routes: {
+        // HomePage.route: (context) => HomePage(),
+        TaskPostScreen.route: (context) => TaskPostScreen(),
+
+        TaskPutScreen.route: (context) => TaskPutScreen(),
+
+        DashboardScreen.route: (context) => DashboardScreen(),
+      },
     );
   }
 }

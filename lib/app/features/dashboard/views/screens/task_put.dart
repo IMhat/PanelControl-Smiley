@@ -7,6 +7,8 @@ import '../../providers/task_list_provider.dart';
 import '../ui/input_decorations.dart';
 
 class TaskPutScreen extends StatefulWidget {
+  static const String route = '/taskPut';
+
   const TaskPutScreen({Key? key}) : super(key: key);
 
   @override
@@ -73,6 +75,30 @@ class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
                           }
                         },
                       ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        initialValue: task.type,
+                        onChanged: (value) => task.type = value,
+                        decoration: InputDecorations.authInputDecoration(
+                            hintText: "", labelText: 'Estado'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'El estado es obligatorio';
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        initialValue: task.priority,
+                        onChanged: (value) => task.priority = value,
+                        decoration: InputDecorations.authInputDecoration(
+                            hintText: "", labelText: 'Prioridad'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'La prioridad es obligatorio';
+                          }
+                        },
+                      ),
                       const SizedBox(height: 30),
                       TextFormField(
                         initialValue: task.description,
@@ -85,6 +111,42 @@ class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
                           }
                         },
                       ),
+                      const SizedBox(height: 30),
+                      TextFormField(
+                        initialValue: task.user,
+                        onChanged: (value) => task.user = value,
+                        decoration: InputDecorations.authInputDecoration(
+                            hintText: "", labelText: 'Asignacion'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'La asignacion es obligatoria';
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 30),
+                      // TextFormField(
+                      //   initialValue: task.points,
+                      //   onChanged: (value) => task.points = value,
+                      //   decoration: InputDecorations.authInputDecoration(
+                      //       hintText: "", labelText: 'Puntos'),
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Los puntos son obligatoria';
+                      //     }
+                      //   },
+                      // ),
+                      const SizedBox(height: 30),
+                      // TextFormField(
+                      //   initialValue: task.dueDay,
+                      //   onChanged: (value) => task.dueDay = value,
+                      //   decoration: InputDecorations.authInputDecoration(
+                      //       hintText: "", labelText: 'Lapso'),
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'El tiempo es obligatoria';
+                      //     }
+                      //   },
+                      // ),
                       const SizedBox(height: 30),
                     ],
                   )),
@@ -103,7 +165,7 @@ class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
                       await widget.taskService.updateTask(taskForm.task);
                       taskServiceProvider.tasks = [];
                       taskServiceProvider.loadTasks();
-                      Navigator.pushReplacementNamed(context, 'ManageTasks');
+                      Navigator.pushReplacementNamed(context, 'dashboard');
                     }),
                 FloatingActionButton(
                     backgroundColor: Colors.white,
@@ -130,6 +192,6 @@ class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
 }
 
 BoxDecoration _buildBoxDecoration() => const BoxDecoration(
-    color: Colors.white,
+    color: Color.fromARGB(255, 76, 0, 255),
     borderRadius: BorderRadius.only(
         bottomRight: Radius.circular(25), bottomLeft: Radius.circular(25)));

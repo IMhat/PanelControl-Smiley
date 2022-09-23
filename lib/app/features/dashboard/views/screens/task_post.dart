@@ -1,3 +1,5 @@
+import 'package:project_management/app/features/dashboard/views/screens/dashboard_screen.dart';
+
 import '../../../../utils/services/task_services.dart';
 import '../../models/task_model.dart';
 import '../../providers/task_form_provider.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TaskPostScreen extends StatefulWidget {
+  static const String route = '/taskPost';
   const TaskPostScreen({Key? key}) : super(key: key);
 
   @override
@@ -48,7 +51,7 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               width: double.infinity,
-              height: 200,
+              height: 800,
               decoration: _buildBoxDecoration(),
               child: Form(
                   key: _formKey,
@@ -66,12 +69,67 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
                           }
                         },
                       ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        controller: _typeController,
+                        decoration: InputDecorations.authInputDecoration(
+                            hintText: 'Estado de Tarea', labelText: 'Estado'),
+                        validator: (String? dato) {
+                          if (dato!.isEmpty) {
+                            return 'Este campo es requerido';
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        controller: _priorityController,
+                        decoration: InputDecorations.authInputDecoration(
+                            hintText: 'Prioridad de la Tarea',
+                            labelText: 'Prioridad'),
+                        validator: (String? dato) {
+                          if (dato!.isEmpty) {
+                            return 'Este campo es requerido';
+                          }
+                        },
+                      ),
                       const SizedBox(height: 30),
                       TextFormField(
                           controller: _descriptionController,
                           decoration: InputDecorations.authInputDecoration(
                               hintText: 'Descripcion de la tarea',
                               labelText: 'Descripcion'),
+                          validator: (String? dato) {
+                            if (dato!.isEmpty) {
+                              return 'Este campo es requerido';
+                            }
+                          }),
+                      const SizedBox(height: 30),
+                      TextFormField(
+                          controller: _userController,
+                          decoration: InputDecorations.authInputDecoration(
+                              hintText: 'Usuario Asignado',
+                              labelText: 'Asignacion'),
+                          validator: (String? dato) {
+                            if (dato!.isEmpty) {
+                              return 'Este campo es requerido';
+                            }
+                          }),
+                      const SizedBox(height: 30),
+                      TextFormField(
+                          controller: _pointsController,
+                          decoration: InputDecorations.authInputDecoration(
+                              hintText: 'Puntos de la Tarea',
+                              labelText: 'Puntos'),
+                          validator: (String? dato) {
+                            if (dato!.isEmpty) {
+                              return 'Este campo es requerido';
+                            }
+                          }),
+                      const SizedBox(height: 30),
+                      TextFormField(
+                          controller: _dueDayController,
+                          decoration: InputDecorations.authInputDecoration(
+                              hintText: 'Lapso de tiempo', labelText: 'Tiempo'),
                           validator: (String? dato) {
                             if (dato!.isEmpty) {
                               return 'Este campo es requerido';
@@ -92,14 +150,15 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
               await TaskService().saveTasks(
-                  _tituloController.text,
-                  _typeController.text,
-                  _descriptionController.text,
-                  _userController.text,
-                  _pointsController.text,
-                  _dueDayController.text,
-                  _doneController.text,
-                  _priorityController.text);
+                _tituloController.text,
+                _typeController.text,
+                _priorityController.text,
+                _descriptionController.text,
+                _userController.text,
+                _pointsController.text,
+                _dueDayController.text,
+                _doneController.text,
+              );
               final taskListProvider =
                   Provider.of<TaskListProvider>(context, listen: false);
               taskListProvider.nuevaTask(
@@ -107,13 +166,13 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
             }
             taskServiceProvider.tasks = [];
             taskServiceProvider.loadTasks();
-            Navigator.of(context).pop();
+            Navigator.of(context).pushNamed(DashboardScreen.route);
           }),
     );
   }
 }
 
 BoxDecoration _buildBoxDecoration() => const BoxDecoration(
-    color: Colors.white,
+    color: Color.fromARGB(255, 76, 0, 255),
     borderRadius: BorderRadius.only(
         bottomRight: Radius.circular(25), bottomLeft: Radius.circular(25)));
