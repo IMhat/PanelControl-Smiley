@@ -1,52 +1,65 @@
 import 'package:flutter/material.dart';
+// import 'package:project_management/app/features/dashboard/models/task_todo.dart';
+
+// import 'package:project_management/app/utils/services/ToDo_task_service.dart';
+import 'package:project_management/app/utils/services/inprogress_task_service.dart';
+
 import 'package:provider/provider.dart';
-import '../../../../utils/services/task_services.dart';
+// import '../../../../utils/services/task_services.dart';
 import '../../../../utils/services/transaction_services.dart';
 import '../../models/transaction_model.dart';
-import '../../providers/task_form_provider.dart';
+
+// import '../../providers/task_form_provider.dart';
+import '../../providers/task_inprogress_form_provider.dart';
+
 import '../../providers/transaction_list_provider.dart';
+
 import '../ui/input_decorations.dart';
 import 'dashboard_screen.dart';
 
-class TaskPutScreen extends StatefulWidget {
-  static const String route = '/taskPut';
+class TaskPutInprogressScreen extends StatefulWidget {
+  static const String route = '/taskPutInprogress';
 
-  const TaskPutScreen({Key? key}) : super(key: key);
+  const TaskPutInprogressScreen({Key? key}) : super(key: key);
 
   @override
-  State<TaskPutScreen> createState() => _TaskPutScreenState();
+  State<TaskPutInprogressScreen> createState() =>
+      _TaskPutInprogressScreenState();
 }
 
-class _TaskPutScreenState extends State<TaskPutScreen> {
+class _TaskPutInprogressScreenState extends State<TaskPutInprogressScreen> {
   @override
   Widget build(BuildContext context) {
-    final taskService = Provider.of<TaskService>(context);
+    final taskService = Provider.of<TaskInprogressService>(context);
 
     return ChangeNotifierProvider(
       create: (_) => TaskFormProvider(taskService.selectedTask),
-      child: _TaskPutScreenBody(taskService: taskService),
+      child: _TaskPutInprogressScreenBody(taskService: taskService),
     );
   }
 }
 
-class _TaskPutScreenBody extends StatefulWidget {
-  _TaskPutScreenBody({Key? key, required this.taskService}) : super(key: key);
+class _TaskPutInprogressScreenBody extends StatefulWidget {
+  _TaskPutInprogressScreenBody({Key? key, required this.taskService})
+      : super(key: key);
 
-  TaskService taskService;
+  TaskInprogressService taskService;
 
   @override
-  State<_TaskPutScreenBody> createState() => _TaskPutScreenBodyState();
+  State<_TaskPutInprogressScreenBody> createState() =>
+      _TaskPutInprogressScreenBodyState();
 }
 
-class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
+class _TaskPutInprogressScreenBodyState
+    extends State<_TaskPutInprogressScreenBody> {
   late TransactionModel transactionModel;
 
   @override
   Widget build(BuildContext context) {
-    final taskServiceProvider = Provider.of<TaskService>(context);
+    final taskServiceProvider = Provider.of<TaskInprogressService>(context);
 
     final taskForm = Provider.of<TaskFormProvider>(context);
-    final task = taskForm.task;
+    final task = taskForm.taskInprogress;
 
     final transactionServiceProvider =
         Provider.of<TransactionService>(context, listen: false);
@@ -272,8 +285,9 @@ class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
                     child: const Icon(Icons.save_outlined),
                     onPressed: () async {
                       //if (!taskForm.isValidForm()) return;
-                      await widget.taskService.updateTask(taskForm.task);
-                      taskServiceProvider.tasks = [];
+                      await widget.taskService
+                          .updateTask(taskForm.taskInprogress);
+                      taskServiceProvider.tasksInprogress = [];
                       taskServiceProvider.loadTasks();
                       Navigator.pushReplacementNamed(context, 'dashboard');
                     }),
@@ -286,11 +300,12 @@ class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
                     ),
                     onPressed: () async {
                       if (!taskForm.isValidForm()) return;
-                      await widget.taskService.deleteTask(taskForm.task);
+                      await widget.taskService
+                          .deleteTask(taskForm.taskInprogress);
                       // taskServiceProvider.loadTasks();
-                      taskServiceProvider.tasks = [];
+                      taskServiceProvider.tasksInprogress = [];
                       taskServiceProvider.loadTasks();
-                      
+
                       Navigator.of(context).pop();
                     }),
                 FloatingActionButton(

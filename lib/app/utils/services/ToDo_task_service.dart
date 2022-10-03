@@ -1,36 +1,33 @@
 import 'dart:convert';
-import 'package:project_management/app/features/dashboard/models/task.dart';
+// import 'package:project_management/app/features/dashboard/models/task.dart';
 
 // import 'package:project_management/app/shared_components/task_card.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:project_management/app/features/dashboard/models/task_todo.dart';
 
-class TaskService extends ChangeNotifier {
+class TaskToDoService extends ChangeNotifier {
   final String _baseUrl = 'smiley-appi.herokuapp.com';
-  List<Task> tasks = [];
-  // List<Task> taskbacklog = [];
-  // List<Task> tasktodo = [];
-  // List<Task> taskinprogress = [];
-  List<Task> tasksDone = [];
-  // List<Task> taskapproved = [];
+  List<TaskToDo> tasksToDo = [];
 
-  late Task selectedTask;
+  late TaskToDo selectedTask;
+
   bool isLoading = true;
   bool isSaving = false;
   // late DBProvider _dbProvider;
-  TaskService() {
+  TaskToDoService() {
     // _dbProvider = DBProvider();
     loadTasks();
   }
 
-  Future<String> updateTask(Task task) async {
+  Future<String> updateTask(TaskToDo task) async {
     notifyListeners();
     final url = Uri.https(_baseUrl, '/api/tasks/${task.id}');
     final resp = await http.put(url, body: task.toJson());
     final decodeData = resp.body;
-    final index = tasks.indexWhere((element) => element.id == task.id);
-    tasks[index] = task;
+    final index = tasksToDo.indexWhere((element) => element.id == task.id);
+    tasksToDo[index] = task;
 
     // _dbProvider.updateTask(TaskModel(
     //     id: task.id, title: task.title, description: task.description));
@@ -38,7 +35,7 @@ class TaskService extends ChangeNotifier {
     return task.id;
   }
 
-  Future<String> deleteTask(Task task) async {
+  Future<String> deleteTask(TaskToDo task) async {
     notifyListeners();
     final url = Uri.https(_baseUrl, '/api/tasks/${task.id}');
     final resp = await http.delete(url, body: task.toJson());
@@ -50,15 +47,15 @@ class TaskService extends ChangeNotifier {
     return task.id;
   }
 
-  Future<List<Task>> loadTasks() async {
+  Future<List<TaskToDo>> loadTasks() async {
     isLoading = true;
-    final url = Uri.https(_baseUrl, '/api/tasks/backlog');
+    final url = Uri.https(_baseUrl, '/api/tasks/todo');
     final resp = await http.get(url);
     final List<dynamic> tasksMap = jsonDecode(resp.body);
     final jsonData = jsonDecode(resp.body);
 
     for (var item in jsonData) {
-      tasks.add(Task(
+      tasksToDo.add(TaskToDo(
           item["title"],
           item["type"],
           item["priority"],
@@ -84,44 +81,7 @@ class TaskService extends ChangeNotifier {
 
     isLoading = false;
     notifyListeners();
-    return tasks;
-  }
-
-  Future<List<Task>> loadTasksDone() async {
-    isLoading = true;
-    final url = Uri.https(_baseUrl, '/api/tasks/done');
-    final resp = await http.get(url);
-    final List<dynamic> tasksMap = jsonDecode(resp.body);
-    final jsonData = jsonDecode(resp.body);
-
-    for (var item in jsonData) {
-      tasksDone.add(Task(
-          item["title"],
-          item["type"],
-          item["priority"],
-          item["description"],
-          item["user"],
-          item["points"],
-          // item["done"],
-          item["due"],
-          item["createdBy"],
-          // item["dueDay"],
-          // item["profilContributors"],
-          // item["totalComments"],
-          // item["totalContributors"],
-          item["id"]));
-
-      // _dbProvider.getTodasLasTasks();
-      // _dbProvider.nuevaTask(TaskModel(
-      //     id: item["id"],
-      //     title: item["title"],
-      //     description: item["description"]));
-      // _dbProvider.getTodasLasTasks();
-    }
-
-    isLoading = false;
-    notifyListeners();
-    return tasksDone;
+    return tasksToDo;
   }
 
   Future<http.Response> saveTasks(

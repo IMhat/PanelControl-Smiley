@@ -76,11 +76,11 @@ class TransactionService extends ChangeNotifier {
   Future<http.Response> saveTransactions(
     String text,
     String text2,
-    dynamic text3,
+    String? text3,
     String text4,
   ) {
     return http.post(
-      Uri.parse('https://smiley-appi.herokuapp.com/api/transaction'),
+      Uri.parse('https://smiley-appi.herokuapp.com/api/transaction/transfer'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

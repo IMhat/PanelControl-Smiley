@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:project_management/app/features/dashboard/controllers/task_approved_controller.dart';
+import 'package:project_management/app/features/dashboard/controllers/task_done_controller.dart';
+import 'package:project_management/app/features/dashboard/controllers/task_inprogress_controller.dart';
 import 'package:project_management/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:project_management/app/shared_components/chatting_card.dart';
 import 'package:project_management/app/shared_components/today_text.dart';
 import 'package:project_management/app/utils/widgets/task_bar.dart';
+
+import '../../controllers/task_todo_controller.dart';
 
 class TasksScreen extends StatefulWidget {
   static const String route = '/tasks';
@@ -170,7 +175,7 @@ class _TasksScreenState extends State<TasksScreen> {
                               ))
                         ],
                       ),
-                      const getAllTask()
+                      const getBacklogTask()
                     ],
                   ),
                   Column(children: [
@@ -185,7 +190,7 @@ class _TasksScreenState extends State<TasksScreen> {
                             ))
                       ],
                     ),
-                    const getAllTask()
+                    const getToDoTask()
                   ]),
                   Column(children: [
                     Row(
@@ -199,7 +204,7 @@ class _TasksScreenState extends State<TasksScreen> {
                             ))
                       ],
                     ),
-                    const getAllTask()
+                    const getInProgressTask()
                   ]),
                   Column(children: [
                     Row(
@@ -213,73 +218,88 @@ class _TasksScreenState extends State<TasksScreen> {
                             ))
                       ],
                     ),
-                    const getAllTask()
+                    const getDoneTask()
                   ]),
                   const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      OutlinedButton.icon(
-                        icon: const Icon(Icons.numbers, color: Colors.black),
-                        label: const Text("Linkdln",
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () {
-                          // Navigate to the overview page using a named route.
-                          //Navigator.of(context).pushNamed(TasksScreen.route);
-                        },
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 0, 130, 153),
-                          elevation: 10,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      OutlinedButton.icon(
-                        icon: const Icon(Icons.numbers, color: Colors.black),
-                        label: const Text("Twiter",
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () {
-                          // Navigate to the overview page using a named route.
-                          //Navigator.of(context).pushNamed(TasksScreen.route);
-                        },
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 0, 130, 153),
-                          elevation: 10,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      OutlinedButton.icon(
-                        icon: const Icon(Icons.numbers, color: Colors.black),
-                        label: const Text("Faceboock",
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () {
-                          // Navigate to the overview page using a named route.
-                          //Navigator.of(context).pushNamed(TasksScreen.route);
-                        },
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 0, 130, 153),
-                          elevation: 10,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      OutlinedButton.icon(
-                        icon: const Icon(Icons.numbers, color: Colors.black),
-                        label: const Text("Instagram",
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () {
-                          // Navigate to the overview page using a named route.
-                          //Navigator.of(context).pushNamed(TasksScreen.route);
-                        },
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 0, 130, 153),
-                          elevation: 10,
-                        ),
-                      ),
-                    ],
-                  )
+                  Column(children: [
+                    Row(
+                      children: [
+                        Text("Approved", style: textStyle),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.more_horiz,
+                              color: Color.fromARGB(255, 0, 130, 153),
+                            ))
+                      ],
+                    ),
+                    const getApprovedTask()
+                  ]),
+                  const SizedBox(width: 10),
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.end,
+                  //   children: [
+                  //     OutlinedButton.icon(
+                  //       icon: const Icon(Icons.numbers, color: Colors.black),
+                  //       label: const Text("Linkdln",
+                  //           style: TextStyle(color: Colors.white)),
+                  //       onPressed: () {
+                  //         // Navigate to the overview page using a named route.
+                  //         //Navigator.of(context).pushNamed(TasksScreen.route);
+                  //       },
+                  //       style: OutlinedButton.styleFrom(
+                  //         backgroundColor:
+                  //             const Color.fromARGB(255, 0, 130, 153),
+                  //         elevation: 10,
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 10),
+                  //     OutlinedButton.icon(
+                  //       icon: const Icon(Icons.numbers, color: Colors.black),
+                  //       label: const Text("Twiter",
+                  //           style: TextStyle(color: Colors.white)),
+                  //       onPressed: () {
+                  //         // Navigate to the overview page using a named route.
+                  //         //Navigator.of(context).pushNamed(TasksScreen.route);
+                  //       },
+                  //       style: OutlinedButton.styleFrom(
+                  //         backgroundColor:
+                  //             const Color.fromARGB(255, 0, 130, 153),
+                  //         elevation: 10,
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 10),
+                  //     OutlinedButton.icon(
+                  //       icon: const Icon(Icons.numbers, color: Colors.black),
+                  //       label: const Text("Faceboock",
+                  //           style: TextStyle(color: Colors.white)),
+                  //       onPressed: () {
+                  //         // Navigate to the overview page using a named route.
+                  //         //Navigator.of(context).pushNamed(TasksScreen.route);
+                  //       },
+                  //       style: OutlinedButton.styleFrom(
+                  //         backgroundColor:
+                  //             const Color.fromARGB(255, 0, 130, 153),
+                  //         elevation: 10,
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 10),
+                  //     OutlinedButton.icon(
+                  //       icon: const Icon(Icons.numbers, color: Colors.black),
+                  //       label: const Text("Instagram",
+                  //           style: TextStyle(color: Colors.white)),
+                  //       onPressed: () {
+                  //         // Navigate to the overview page using a named route.
+                  //         //Navigator.of(context).pushNamed(TasksScreen.route);
+                  //       },
+                  //       style: OutlinedButton.styleFrom(
+                  //         backgroundColor:
+                  //             const Color.fromARGB(255, 0, 130, 153),
+                  //         elevation: 10,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // )
                   // getAllTask(),
                 ],
               ),

@@ -1,52 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:project_management/app/features/dashboard/models/task_todo.dart';
+import 'package:project_management/app/utils/services/ToDo_task_service.dart';
 import 'package:provider/provider.dart';
-import '../../../../utils/services/task_services.dart';
+// import '../../../../utils/services/task_services.dart';
 import '../../../../utils/services/transaction_services.dart';
 import '../../models/transaction_model.dart';
-import '../../providers/task_form_provider.dart';
+
+// import '../../providers/task_form_provider.dart';
+import '../../providers/task_todo_form_provider.dart';
 import '../../providers/transaction_list_provider.dart';
+
 import '../ui/input_decorations.dart';
 import 'dashboard_screen.dart';
 
-class TaskPutScreen extends StatefulWidget {
-  static const String route = '/taskPut';
+class TaskPutToDoScreen extends StatefulWidget {
+  static const String route = '/taskPutToDo';
 
-  const TaskPutScreen({Key? key}) : super(key: key);
+  const TaskPutToDoScreen({Key? key}) : super(key: key);
 
   @override
-  State<TaskPutScreen> createState() => _TaskPutScreenState();
+  State<TaskPutToDoScreen> createState() => _TaskPutToDoScreenState();
 }
 
-class _TaskPutScreenState extends State<TaskPutScreen> {
+class _TaskPutToDoScreenState extends State<TaskPutToDoScreen> {
   @override
   Widget build(BuildContext context) {
-    final taskService = Provider.of<TaskService>(context);
+    final taskService = Provider.of<TaskToDoService>(context);
 
     return ChangeNotifierProvider(
       create: (_) => TaskFormProvider(taskService.selectedTask),
-      child: _TaskPutScreenBody(taskService: taskService),
+      child: _TaskPutToDoScreenBody(taskService: taskService),
     );
   }
 }
 
-class _TaskPutScreenBody extends StatefulWidget {
-  _TaskPutScreenBody({Key? key, required this.taskService}) : super(key: key);
+class _TaskPutToDoScreenBody extends StatefulWidget {
+  _TaskPutToDoScreenBody({Key? key, required this.taskService})
+      : super(key: key);
 
-  TaskService taskService;
+  TaskToDoService taskService;
 
   @override
-  State<_TaskPutScreenBody> createState() => _TaskPutScreenBodyState();
+  State<_TaskPutToDoScreenBody> createState() => _TaskPutToDoScreenBodyState();
 }
 
-class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
+class _TaskPutToDoScreenBodyState extends State<_TaskPutToDoScreenBody> {
   late TransactionModel transactionModel;
 
   @override
   Widget build(BuildContext context) {
-    final taskServiceProvider = Provider.of<TaskService>(context);
+    final taskServiceProvider = Provider.of<TaskToDoService>(context);
 
     final taskForm = Provider.of<TaskFormProvider>(context);
-    final task = taskForm.task;
+    final task = taskForm.tasktodo;
 
     final transactionServiceProvider =
         Provider.of<TransactionService>(context, listen: false);
@@ -272,8 +278,8 @@ class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
                     child: const Icon(Icons.save_outlined),
                     onPressed: () async {
                       //if (!taskForm.isValidForm()) return;
-                      await widget.taskService.updateTask(taskForm.task);
-                      taskServiceProvider.tasks = [];
+                      await widget.taskService.updateTask(taskForm.tasktodo);
+                      taskServiceProvider.tasksToDo = [];
                       taskServiceProvider.loadTasks();
                       Navigator.pushReplacementNamed(context, 'dashboard');
                     }),
@@ -286,11 +292,11 @@ class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
                     ),
                     onPressed: () async {
                       if (!taskForm.isValidForm()) return;
-                      await widget.taskService.deleteTask(taskForm.task);
+                      await widget.taskService.deleteTask(taskForm.tasktodo);
                       // taskServiceProvider.loadTasks();
-                      taskServiceProvider.tasks = [];
+                      taskServiceProvider.tasksToDo = [];
                       taskServiceProvider.loadTasks();
-                      
+
                       Navigator.of(context).pop();
                     }),
                 FloatingActionButton(
