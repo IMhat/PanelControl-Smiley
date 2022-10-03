@@ -224,7 +224,7 @@ class _TasksScreenState extends State<TasksScreen> {
                               },
                               style: OutlinedButton.styleFrom(
                                 backgroundColor:
-                                    const Color.fromARGB(255, 0, 130, 153),
+                                    const Color.fromARGB(255, 197, 48, 239),
                                 elevation: 10,
                               ),
                             ),
@@ -240,7 +240,7 @@ class _TasksScreenState extends State<TasksScreen> {
                               },
                               style: OutlinedButton.styleFrom(
                                 backgroundColor:
-                                    const Color.fromARGB(255, 0, 130, 153),
+                                    Color.fromARGB(255, 2, 14, 255),
                                 elevation: 10,
                               ),
                             ),
@@ -256,7 +256,7 @@ class _TasksScreenState extends State<TasksScreen> {
                               },
                               style: OutlinedButton.styleFrom(
                                 backgroundColor:
-                                    const Color.fromARGB(255, 0, 130, 153),
+                                    const Color.fromARGB(255, 237, 204, 16),
                                 elevation: 10,
                               ),
                             ),
@@ -272,7 +272,7 @@ class _TasksScreenState extends State<TasksScreen> {
                               },
                               style: OutlinedButton.styleFrom(
                                 backgroundColor:
-                                    const Color.fromARGB(255, 0, 130, 153),
+                                    const Color.fromARGB(255, 255, 1, 1),
                                 elevation: 10,
                               ),
                             ),
@@ -387,7 +387,7 @@ class _TasksScreenState extends State<TasksScreen> {
                         },
                         style: OutlinedButton.styleFrom(
                           backgroundColor:
-                              const Color.fromARGB(255, 0, 130, 153),
+                              const Color.fromARGB(255, 52, 65, 242),
                           elevation: 10,
                         ),
                       ),
@@ -401,8 +401,7 @@ class _TasksScreenState extends State<TasksScreen> {
                           //Navigator.of(context).pushNamed(TasksScreen.route);
                         },
                         style: OutlinedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 0, 130, 153),
+                          backgroundColor: (const Color(0xff00ACEE)),
                           elevation: 10,
                         ),
                       ),
@@ -416,8 +415,7 @@ class _TasksScreenState extends State<TasksScreen> {
                           //Navigator.of(context).pushNamed(TasksScreen.route);
                         },
                         style: OutlinedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 0, 130, 153),
+                          backgroundColor: (const Color(0xff3B5998)),
                           elevation: 10,
                         ),
                       ),
@@ -431,8 +429,7 @@ class _TasksScreenState extends State<TasksScreen> {
                           //Navigator.of(context).pushNamed(TasksScreen.route);
                         },
                         style: OutlinedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 0, 130, 153),
+                          backgroundColor: Color.fromARGB(255, 151, 67, 92),
                           elevation: 10,
                         ),
                       ),
