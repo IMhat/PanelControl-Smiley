@@ -25,7 +25,7 @@ class _Sidebar extends StatelessWidget {
               colors: [
             (Color(0xff7F00F0)),
             Color.fromARGB(255, 165, 92, 179),
-            Color.fromARGB(255, 247, 90, 9)
+            Color.fromARGB(255, 247, 90, 99)
           ])),
       child: SingleChildScrollView(
         controller: ScrollController(),
