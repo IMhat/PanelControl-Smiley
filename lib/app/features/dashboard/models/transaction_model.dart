@@ -15,7 +15,7 @@ class TransactionModel {
 
   String? fromUsername;
   String? toUsername;
-  dynamic amount;
+  String? amount;
   String? summary;
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) =>

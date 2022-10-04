@@ -5,8 +5,7 @@ import 'package:project_management/app/features/dashboard/views/screens/dashboar
 import '../../../../shared_components/responsive_builder.dart';
 import '../../../../utils/services/task_services.dart';
 import '../../models/task_model.dart';
-import '../../providers/task_form_provider.dart';
-import '../../providers/task_list_provider.dart';
+
 import '../ui/input_decorations.dart';
 
 import 'package:flutter/material.dart';
@@ -26,12 +25,17 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
   final TextEditingController _priorityController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _userController = TextEditingController();
+
   final TextEditingController _pointsController = TextEditingController();
-  final TextEditingController _doneController = TextEditingController();
-  final TextEditingController _dueDayController = TextEditingController();
-  final TextEditingController _comentsController = TextEditingController();
+
+  // final TextEditingController _doneController = TextEditingController();
+  final TextEditingController _dueController = TextEditingController();
+
+  // final TextEditingController _comentsController = TextEditingController();
+  final TextEditingController _createdByController = TextEditingController();
 
   late TaskModel taskModel;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // var _lista = ['To do', 'In progress', 'Done'];
   // String _vista = 'Seleccione un estado';
@@ -41,6 +45,7 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
         Provider.of<TaskService>(context, listen: false);
     // final taskForm = Provider.of<TaskFormProvider>(context);
     //final task = taskForm.task;
+
     return Scaffold(
       drawer: (ResponsiveBuilder.isDesktop(context))
           ? null
@@ -132,7 +137,7 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
               margin: const EdgeInsets.only(left: 500),
               padding: const EdgeInsets.symmetric(horizontal: 20),
               width: 800,
-              height: 600,
+              height: 700,
               decoration: _buildBoxDecoration(),
               child: Form(
                   key: _formKey,
@@ -140,6 +145,7 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
                     children: [
                       const SizedBox(height: 10),
                       TextFormField(
+                        keyboardType: TextInputType.number,
                         style: const TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0)),
                         controller: _tituloController,
@@ -149,7 +155,7 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
                                 color: Color.fromRGBO(74, 177, 120, 1)),
                             labelText: 'Titulo',
                             labelStyle: TextStyle(color: Colors.black)),
-                        validator: (String? dato) {
+                        validator: (dynamic dato) {
                           if (dato!.isEmpty) {
                             return 'Este campo es requerido';
                           }
@@ -173,6 +179,7 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
                       //   ),
                       // ),
                       TextFormField(
+                        keyboardType: TextInputType.number,
                         style: const TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0)),
                         controller: _typeController,
@@ -182,7 +189,7 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
                                 color: Color.fromRGBO(74, 177, 120, 1)),
                             labelText: 'Estado',
                             labelStyle: TextStyle(color: Colors.black)),
-                        validator: (String? dato) {
+                        validator: (dynamic dato) {
                           if (dato!.isEmpty) {
                             return 'Este campo es requerido';
                           }
@@ -190,6 +197,7 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
+                        keyboardType: TextInputType.number,
                         style: const TextStyle(
                             color: Color.fromARGB(255, 0, 0, 0)),
                         controller: _priorityController,
@@ -199,7 +207,25 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
                                 color: Color.fromRGBO(74, 177, 120, 1)),
                             labelText: 'Prioridad',
                             labelStyle: TextStyle(color: Colors.black)),
-                        validator: (String? dato) {
+                        validator: (dynamic dato) {
+                          if (dato!.isEmpty) {
+                            return 'Este campo es requerido';
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 0, 0, 0)),
+                        controller: _createdByController,
+                        decoration: const InputDecoration(
+                            hintText: 'createdBy',
+                            hintStyle: TextStyle(
+                                color: Color.fromRGBO(74, 177, 120, 1)),
+                            labelText: 'createdBy',
+                            labelStyle: TextStyle(color: Colors.black)),
+                        validator: (dynamic dato) {
                           if (dato!.isEmpty) {
                             return 'Este campo es requerido';
                           }
@@ -207,6 +233,7 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
                       ),
                       const SizedBox(height: 30),
                       TextFormField(
+                          keyboardType: TextInputType.number,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0)),
                           controller: _descriptionController,
@@ -216,13 +243,14 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
                                   color: Color.fromRGBO(74, 177, 120, 1)),
                               labelText: 'Descripción',
                               labelStyle: TextStyle(color: Colors.black)),
-                          validator: (String? dato) {
+                          validator: (dynamic dato) {
                             if (dato!.isEmpty) {
                               return 'Este campo es requerido';
                             }
                           }),
                       const SizedBox(height: 30),
                       TextFormField(
+                          keyboardType: TextInputType.number,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0)),
                           controller: _userController,
@@ -232,13 +260,14 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
                                   color: Color.fromRGBO(74, 177, 120, 1)),
                               labelText: 'Asignación',
                               labelStyle: TextStyle(color: Colors.black)),
-                          validator: (String? dato) {
+                          validator: (dynamic dato) {
                             if (dato!.isEmpty) {
                               return 'Este campo es requerido';
                             }
                           }),
                       const SizedBox(height: 30),
                       TextFormField(
+                          keyboardType: TextInputType.number,
                           style: const TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0)),
                           controller: _pointsController,
@@ -248,93 +277,94 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
                                   color: Color.fromRGBO(74, 177, 120, 1)),
                               labelText: 'Puntos',
                               labelStyle: TextStyle(color: Colors.black)),
-                          validator: (String? dato) {
+                          validator: (dynamic dato) {
                             if (dato!.isEmpty) {
                               return 'Este campo es requerido';
                             }
                           }),
                       const SizedBox(height: 30),
-                      TextFormField(
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0)),
-                          controller: _dueDayController,
-                          decoration: const InputDecoration(
-                              hintText: 'Lapso de tiempo',
-                              hintStyle: TextStyle(
-                                  color: Color.fromRGBO(74, 177, 120, 1)),
-                              labelText: 'Tiempo',
-                              labelStyle: TextStyle(color: Colors.black)),
-                          validator: (String? dato) {
-                            if (dato!.isEmpty) {
-                              return 'Este campo es requerido';
-                            }
-                          }),
+                      // TextFormField(
+                      //     keyboardType: TextInputType.number,
+                      //     style: const TextStyle(
+                      //         color: Color.fromARGB(255, 0, 0, 0)),
+                      //     controller: _dueController,
+                      //     decoration: const InputDecoration(
+                      //         hintText: 'Lapso de tiempo',
+                      //         hintStyle: TextStyle(
+                      //             color: Color.fromRGBO(74, 177, 120, 1)),
+                      //         labelText: 'Tiempo',
+                      //         labelStyle: TextStyle(color: Colors.black)),
+                      //     validator: (dynamic dato) {
+                      //       if (dato!.isEmpty) {
+                      //         return 'Este campo es requerido';
+                      //       }
+                      //     }),
                     ],
                   )),
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 10, left: 500),
-              width: 800,
-              height: 100,
-              decoration: _buildBoxDecoration(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(ImageRasterPath.avatar4),
-                  ),
-                  Text(
-                    "Mariano creó esta tarea",
-                    style: TextStyle(color: Colors.black, fontSize: 20),
-                  ),
-                  Text(
-                    "Ayer a las 4:33",
-                    style: TextStyle(color: Colors.grey),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 10, left: 500),
-              width: 800,
-              height: 150,
-              decoration: _buildBoxDecoration(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const CircleAvatar(
-                    backgroundImage: AssetImage(ImageRasterPath.avatar4),
-                  ),
-                  Container(
-                    width: 500,
-                    height: 100,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 0, 21, 255)),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: TextFormField(
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 0, 0, 0)),
-                        controller: _comentsController,
-                        decoration: const InputDecoration(
-                            hintText: 'Comentarios',
-                            hintStyle: TextStyle(
-                                color: Color.fromRGBO(74, 177, 120, 1)),
-                            labelText: 'Agrega un comentario',
-                            labelStyle: TextStyle(color: Colors.black)),
-                        validator: (String? dato) {
-                          if (dato!.isEmpty) {
-                            return 'Este campo es requerido';
-                          }
-                        },
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
+            // Container(
+            //   margin: const EdgeInsets.only(top: 10, left: 500),
+            //   width: 800,
+            //   height: 100,
+            //   decoration: _buildBoxDecoration(),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: const [
+            //       CircleAvatar(
+            //         backgroundImage: AssetImage(ImageRasterPath.avatar4),
+            //       ),
+            //       Text(
+            //         "Mariano creó esta tarea",
+            //         style: TextStyle(color: Colors.black, fontSize: 20),
+            //       ),
+            //       Text(
+            //         "Ayer a las 4:33",
+            //         style: TextStyle(color: Colors.grey),
+            //       )
+            //     ],
+            //   ),
+            // ),
+            // Container(
+            //   margin: const EdgeInsets.only(top: 10, left: 500),
+            //   width: 800,
+            //   height: 150,
+            //   decoration: _buildBoxDecoration(),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: [
+            //       const CircleAvatar(
+            //         backgroundImage: AssetImage(ImageRasterPath.avatar4),
+            //       ),
+            //       Container(
+            //         width: 500,
+            //         height: 100,
+            //         decoration: BoxDecoration(
+            //             border: Border.all(
+            //                 color: const Color.fromARGB(255, 0, 21, 255)),
+            //             borderRadius: BorderRadius.circular(10)),
+            //         child: Container(
+            //           padding: const EdgeInsets.only(left: 10, right: 10),
+            //           child: TextFormField(
+            //             style: const TextStyle(
+            //                 color: Color.fromARGB(255, 0, 0, 0)),
+            //             controller: _comentsController,
+            //             decoration: const InputDecoration(
+            //                 hintText: 'Comentarios',
+            //                 hintStyle: TextStyle(
+            //                     color: Color.fromRGBO(74, 177, 120, 1)),
+            //                 labelText: 'Agrega un comentario',
+            //                 labelStyle: TextStyle(color: Colors.black)),
+            //             validator: (String? dato) {
+            //               if (dato!.isEmpty) {
+            //                 return 'Este campo es requerido';
+            //               }
+            //             },
+            //           ),
+            //         ),
+            //       )
+            //     ],
+            //   ),
+            // ),
             const SizedBox(
               height: 100,
             )
@@ -344,22 +374,23 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.save_outlined),
           onPressed: () async {
-            if (_formKey.currentState!.validate()) {
-              await TaskService().saveTasks(
-                _tituloController.text,
-                _typeController.text,
-                _priorityController.text,
-                _descriptionController.text,
-                _userController.text,
-                _pointsController.text,
-                _dueDayController.text,
-                _doneController.text,
-              );
-              final taskListProvider =
-                  Provider.of<TaskListProvider>(context, listen: false);
-              taskListProvider.nuevaTask(
-                  _tituloController.text, _descriptionController.text);
-            }
+            // if (_formKey.currentState!.validate()) {
+            await TaskService().saveTasks(
+              _tituloController.text,
+              _typeController.text,
+              _priorityController.text,
+              _descriptionController.text,
+              _userController.text,
+              _pointsController.text,
+              _dueController.text,
+              _createdByController.text,
+              // _doneController.text,
+            );
+            // final taskListProvider =
+            //     Provider.of<TaskListProvider>(context, listen: false);
+            // taskListProvider.nuevaTask(
+            //     _tituloController.text, _descriptionController.text);
+            //}
             taskServiceProvider.tasks = [];
             taskServiceProvider.loadTasks();
             Navigator.of(context).pushNamed(DashboardScreen.route);

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:project_management/app/shared_components/list_profil_image.dart';
 
-class Task {
+class TaskDone {
   late dynamic title;
   late dynamic type;
   late dynamic priority;
@@ -17,7 +17,7 @@ class Task {
   // late int totalContributors;
   late dynamic id;
 
-  Task(
+  TaskDone(
     this.title,
     this.type,
     this.priority,
@@ -32,10 +32,10 @@ class Task {
     // this.totalContributors,
     this.id,
   );
-  factory Task.fromJson(dynamic str) => Task.fromMap(json.decode(str));
+  factory TaskDone.fromJson(dynamic str) => TaskDone.fromMap(json.decode(str));
 
   dynamic toJson() => json.encode(toMap());
-  Task.fromMap(Map<String, dynamic> map) {
+  TaskDone.fromMap(Map<String, dynamic> map) {
     title = map['title'];
     type = map['type'];
     priority = map['priority'];
@@ -67,7 +67,7 @@ class Task {
         "id": id,
       };
 
-  Task copy() => Task(
+  TaskDone copy() => TaskDone(
         title,
         type,
         priority,

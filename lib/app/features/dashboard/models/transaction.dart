@@ -3,7 +3,7 @@ import 'dart:convert';
 class Transaction {
   late String fromUsername;
   late String toUsername;
-  late dynamic amount;
+  late String? amount;
   late String summary;
   late String id;
 

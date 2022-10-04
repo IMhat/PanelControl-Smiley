@@ -4,6 +4,11 @@ import 'package:project_management/app/features/dashboard/views/screens/dashboar
 import 'package:project_management/app/shared_components/today_text.dart';
 import 'package:project_management/app/utils/widgets/task_bar.dart';
 
+import '../../controllers/task_approved_controller.dart';
+import '../../controllers/task_done_controller.dart';
+import '../../controllers/task_inprogress_controller.dart';
+import '../../controllers/task_todo_controller.dart';
+
 class TasksScreen extends StatefulWidget {
   static const String route = '/tasks';
   const TasksScreen({Key? key}) : super(key: key);
@@ -21,6 +26,13 @@ class _TasksScreenState extends State<TasksScreen> {
         Color.fromARGB(255, 165, 92, 179),
         Color.fromARGB(255, 247, 90, 98)
       ]);
+  final decoration = const BoxDecoration(
+      color: Color.fromARGB(255, 235, 234, 234),
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10)));
   // final textStyle = const TextStyle(
   //     fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black);
   // final outlineButtonStyle = OutlinedButton.styleFrom(
@@ -31,7 +43,7 @@ class _TasksScreenState extends State<TasksScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 224, 224, 226),
+      backgroundColor: const Color.fromARGB(255, 242, 242, 244),
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(
@@ -49,6 +61,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       TextButton(
                           onPressed: () {},
                           child: Container(
+                            decoration: decoration,
                             width: 200,
                             height: 50,
                             child: ShaderMask(
@@ -90,6 +103,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       TextButton(
                           onPressed: () {},
                           child: Container(
+                            decoration: decoration,
                             width: 200,
                             height: 50,
                             child: ShaderMask(
@@ -120,6 +134,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       TextButton(
                           onPressed: () {},
                           child: Container(
+                            decoration: decoration,
                             width: 200,
                             height: 50,
                             child: ShaderMask(
@@ -150,6 +165,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       TextButton(
                           onPressed: () {},
                           child: Container(
+                            decoration: decoration,
                             width: 200,
                             height: 50,
                             child: ShaderMask(
@@ -180,6 +196,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       TextButton(
                           onPressed: () {},
                           child: Container(
+                            decoration: decoration,
                             width: 200,
                             height: 50,
                             child: ShaderMask(
@@ -224,7 +241,7 @@ class _TasksScreenState extends State<TasksScreen> {
                               },
                               style: OutlinedButton.styleFrom(
                                 backgroundColor:
-                                    const Color.fromARGB(255, 197, 48, 239),
+                                    const Color.fromARGB(255, 198, 133, 231),
                                 elevation: 10,
                               ),
                             ),
@@ -232,7 +249,7 @@ class _TasksScreenState extends State<TasksScreen> {
                             OutlinedButton.icon(
                               icon: const Icon(Icons.numbers,
                                   color: Colors.black),
-                              label: const Text("En desarrollo",
+                              label: const Text("Desarrollo",
                                   style: TextStyle(color: Colors.white)),
                               onPressed: () {
                                 // Navigate to the overview page using a named route.
@@ -240,7 +257,7 @@ class _TasksScreenState extends State<TasksScreen> {
                               },
                               style: OutlinedButton.styleFrom(
                                 backgroundColor:
-                                    Color.fromARGB(255, 2, 14, 255),
+                                    const Color.fromARGB(255, 60, 117, 240),
                                 elevation: 10,
                               ),
                             ),
@@ -296,15 +313,15 @@ class _TasksScreenState extends State<TasksScreen> {
                       )
                     ],
                   ),
+
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Row(
                         children: [
                           const Text(
                             "Backlog Tasks",
                             style: TextStyle(
-                                fontSize: 30,
+                                fontSize: 25,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xffE54580)),
                           ),
@@ -316,7 +333,7 @@ class _TasksScreenState extends State<TasksScreen> {
                               ))
                         ],
                       ),
-                      const getAllTask()
+                      const getBacklogTask()
                     ],
                   ),
                   Column(children: [
@@ -324,7 +341,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       children: [
                         const Text("To Do Tasks",
                             style: TextStyle(
-                                fontSize: 30,
+                                fontSize: 25,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xffBC29B3))),
                         IconButton(
@@ -335,14 +352,14 @@ class _TasksScreenState extends State<TasksScreen> {
                             ))
                       ],
                     ),
-                    const getAllTask()
+                    const getToDoTask()
                   ]),
                   Column(children: [
                     Row(
                       children: [
                         const Text("In Progress",
                             style: TextStyle(
-                                fontSize: 30,
+                                fontSize: 25,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xffA81BCC))),
                         IconButton(
@@ -353,14 +370,14 @@ class _TasksScreenState extends State<TasksScreen> {
                             ))
                       ],
                     ),
-                    const getAllTask()
+                    const getInProgressTask()
                   ]),
                   Column(children: [
                     Row(
                       children: [
                         const Text("Done",
                             style: TextStyle(
-                                fontSize: 30,
+                                fontSize: 25,
                                 fontWeight: FontWeight.bold,
                                 color: (Color(0xff7F00F0)))),
                         IconButton(
@@ -371,70 +388,92 @@ class _TasksScreenState extends State<TasksScreen> {
                             ))
                       ],
                     ),
-                    const getAllTask()
+                    const getDoneTask()
                   ]),
                   const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      OutlinedButton.icon(
-                        icon: const Icon(Icons.numbers, color: Colors.black),
-                        label: const Text("Linkdln",
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () {
-                          // Navigate to the overview page using a named route.
-                          //Navigator.of(context).pushNamed(TasksScreen.route);
-                        },
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 52, 65, 242),
-                          elevation: 10,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      OutlinedButton.icon(
-                        icon: const Icon(Icons.numbers, color: Colors.black),
-                        label: const Text("Twiter",
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () {
-                          // Navigate to the overview page using a named route.
-                          //Navigator.of(context).pushNamed(TasksScreen.route);
-                        },
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: (const Color(0xff00ACEE)),
-                          elevation: 10,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      OutlinedButton.icon(
-                        icon: const Icon(Icons.numbers, color: Colors.black),
-                        label: const Text("Faceboock",
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () {
-                          // Navigate to the overview page using a named route.
-                          //Navigator.of(context).pushNamed(TasksScreen.route);
-                        },
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: (const Color(0xff3B5998)),
-                          elevation: 10,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      OutlinedButton.icon(
-                        icon: const Icon(Icons.numbers, color: Colors.black),
-                        label: const Text("Instagram",
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () {
-                          // Navigate to the overview page using a named route.
-                          //Navigator.of(context).pushNamed(TasksScreen.route);
-                        },
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 151, 67, 92),
-                          elevation: 10,
-                        ),
-                      ),
-                    ],
-                  )
+                  Column(children: [
+                    Row(
+                      children: [
+                        const Text("Approved",
+                            style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: (Color.fromARGB(255, 15, 73, 13)))),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.more_horiz,
+                              color: Color.fromARGB(255, 0, 130, 153),
+                            ))
+                      ],
+                    ),
+                    const getApprovedTask()
+                  ]),
+                  const SizedBox(width: 10),
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.end,
+                  //   children: [
+                  //     OutlinedButton.icon(
+                  //       icon: const Icon(Icons.numbers, color: Colors.black),
+                  //       label: const Text("Linkdln",
+                  //           style: TextStyle(color: Colors.white)),
+                  //       onPressed: () {
+                  //         // Navigate to the overview page using a named route.
+                  //         //Navigator.of(context).pushNamed(TasksScreen.route);
+                  //       },
+                  //       style: OutlinedButton.styleFrom(
+                  //         backgroundColor:
+                  //             const Color.fromARGB(255, 0, 130, 153),
+                  //         elevation: 10,
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 10),
+                  //     OutlinedButton.icon(
+                  //       icon: const Icon(Icons.numbers, color: Colors.black),
+                  //       label: const Text("Twiter",
+                  //           style: TextStyle(color: Colors.white)),
+                  //       onPressed: () {
+                  //         // Navigate to the overview page using a named route.
+                  //         //Navigator.of(context).pushNamed(TasksScreen.route);
+                  //       },
+                  //       style: OutlinedButton.styleFrom(
+                  //         backgroundColor:
+                  //             const Color.fromARGB(255, 0, 130, 153),
+                  //         elevation: 10,
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 10),
+                  //     OutlinedButton.icon(
+                  //       icon: const Icon(Icons.numbers, color: Colors.black),
+                  //       label: const Text("Faceboock",
+                  //           style: TextStyle(color: Colors.white)),
+                  //       onPressed: () {
+                  //         // Navigate to the overview page using a named route.
+                  //         //Navigator.of(context).pushNamed(TasksScreen.route);
+                  //       },
+                  //       style: OutlinedButton.styleFrom(
+                  //         backgroundColor:
+                  //             const Color.fromARGB(255, 0, 130, 153),
+                  //         elevation: 10,
+                  //       ),
+                  //     ),
+                  //     const SizedBox(height: 10),
+                  //     OutlinedButton.icon(
+                  //       icon: const Icon(Icons.numbers, color: Colors.black),
+                  //       label: const Text("Instagram",
+                  //           style: TextStyle(color: Colors.white)),
+                  //       onPressed: () {
+                  //         // Navigate to the overview page using a named route.
+                  //         //Navigator.of(context).pushNamed(TasksScreen.route);
+                  //       },
+                  //       style: OutlinedButton.styleFrom(
+                  //         backgroundColor:
+                  //             const Color.fromARGB(255, 0, 130, 153),
+                  //         elevation: 10,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // )
                   // getAllTask(),
                 ],
               ),

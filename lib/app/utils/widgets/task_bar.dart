@@ -95,19 +95,19 @@ class TaskBar extends StatelessWidget {
                     onPressed: () {},
                     icon: const Icon(
                       Icons.notifications,
-                      color: Color.fromARGB(255, 0, 130, 153),
+                      color: (Color(0xff7F00F0)),
                     )),
                 IconButton(
                     onPressed: () {},
                     icon: const Icon(
                       Icons.add_to_drive_rounded,
-                      color: Color.fromARGB(255, 0, 130, 153),
+                      color: (Color(0xff7F00F0)),
                     )),
                 IconButton(
                     onPressed: () {},
                     icon: const Icon(
                       Icons.present_to_all_outlined,
-                      color: Color.fromARGB(255, 0, 130, 153),
+                      color: (Color(0xff7F00F0)),
                     )),
               ],
             ),

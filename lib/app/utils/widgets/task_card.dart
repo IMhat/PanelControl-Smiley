@@ -138,7 +138,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
       scrollDirection: Axis.horizontal,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        width: 270,
+        width: 260,
         height: 180,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -161,7 +161,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
                   width: 10,
                   height: 10,
                   decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: const Color.fromARGB(255, 255, 239, 133),
                       border: Border.all(
                           color: const Color.fromARGB(255, 255, 251, 251)),
                       borderRadius: BorderRadius.circular(50)),
@@ -169,7 +169,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
                 Text(
                   widget.title.toString(),
                   style: const TextStyle(
-                      fontSize: 15,
+                      fontSize: 20,
                       color: Color.fromARGB(255, 0, 0, 0),
                       fontWeight: FontWeight.bold),
                   maxLines: 1,
@@ -187,7 +187,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
               child: Text(
                 widget.priority.toString(),
                 style: const TextStyle(
-                    fontSize: 12,
+                    fontSize: 20,
                     color: Color.fromARGB(255, 0, 0, 0),
                     fontWeight: FontWeight.bold),
               ),
@@ -196,36 +196,18 @@ class _TaskDetailsState extends State<_TaskDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: const EdgeInsets.only(top: 5),
-                  width: 80,
-                  height: 35,
+                  padding: const EdgeInsets.only(top: 0),
+                  width: 100,
+                  height: 30,
                   decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: const Color.fromARGB(255, 255, 239, 133),
                       border: Border.all(
                           color: const Color.fromARGB(255, 255, 251, 251)),
-                      borderRadius: BorderRadius.circular(60)),
+                      borderRadius: BorderRadius.circular(50)),
                   child: Text(
                     widget.type.toString(),
                     style: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 0, 0, 0)),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 5),
-                  width: 80,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 230, 206, 199),
-                      border: Border.all(
-                          color: const Color.fromARGB(255, 255, 251, 251)),
-                      borderRadius: BorderRadius.circular(60)),
-                  child: const Text(
-                    "Development",
-                    style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 0, 0, 0)),
                     textAlign: TextAlign.center,

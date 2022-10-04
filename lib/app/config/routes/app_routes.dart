@@ -5,6 +5,10 @@ class Routes {
   static const dashboard = _Paths.dashboard;
 
   static const taskPut = _Paths.taskPut;
+  static const taskPutToDo = _Paths.taskPutToDo;
+  static const taskPutDone = _Paths.taskPutDone;
+  static const taskPutInprogress = _Paths.taskPutInprogress;
+  static const taskPutApproved = _Paths.taskPutApproved;
   static const taskPost = _Paths.taskPost;
   static const tasks = _Paths.tasks;
 
@@ -16,6 +20,10 @@ class Routes {
 class _Paths {
   static const dashboard = '/dashboard';
   static const taskPut = '/taskPut';
+  static const taskPutToDo = '/taskPutToDo';
+  static const taskPutDone = '/taskPutDone';
+  static const taskPutInprogress = '/taskPutInprogress';
+  static const taskPutApproved = '/taskPutApproved';
   static const taskPost = '/taskPost';
   static const tasks = '/tasks';
 

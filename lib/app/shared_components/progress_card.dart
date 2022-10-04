@@ -65,7 +65,7 @@ class ProgressCard extends StatelessWidget {
                   style: TextStyle(color: kFontColorPallets[1]),
                 ),
                 const SizedBox(height: kSpacing),
-               const MyButtonCheck()
+                const MyButtonCheck()
                 // ElevatedButton(
                 //   onPressed: onPressedCheck,
                 //   child: const Text("Check"),
