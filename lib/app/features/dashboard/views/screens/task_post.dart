@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:project_management/app/constans/app_constants.dart';
 import 'package:project_management/app/features/dashboard/views/screens/dashboard_screen.dart';
+import 'package:project_management/app/features/dashboard/views/screens/tasks_screen.dart';
 
 import '../../../../shared_components/responsive_builder.dart';
 import '../../../../utils/services/task_services.dart';
@@ -393,7 +394,7 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
             //}
             taskServiceProvider.tasks = [];
             taskServiceProvider.loadTasks();
-            Navigator.of(context).pushNamed(DashboardScreen.route);
+            Navigator.of(context).pushNamed(TasksScreen.route);
           }),
     );
   }

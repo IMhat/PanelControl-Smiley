@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_management/app/features/dashboard/models/task_todo.dart';
+import 'package:project_management/app/features/dashboard/views/screens/tasks_screen.dart';
 import 'package:project_management/app/utils/services/ToDo_task_service.dart';
 import 'package:provider/provider.dart';
 // import '../../../../utils/services/task_services.dart';
@@ -321,7 +322,7 @@ class _TaskPutToDoScreenBodyState extends State<_TaskPutToDoScreenBody> {
 
                       // transactionServiceProvider.transactions = [];
                       // transactionServiceProvider.loadTransactions();
-                      Navigator.of(context).pushNamed(DashboardScreen.route);
+                      Navigator.of(context).pushNamed(TasksScreen.route);
                     })
               ],
             ),
