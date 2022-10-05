@@ -24,7 +24,17 @@ class TaskToDoService extends ChangeNotifier {
   Future<String> updateTask(TaskToDo task) async {
     notifyListeners();
     final url = Uri.https(_baseUrl, '/api/tasks/${task.id}');
-    final resp = await http.put(url, body: task.toJson());
+
+    final resp = await http.put(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "type": task.type,
+      }),
+    );
+
     final decodeData = resp.body;
     final index = tasksToDo.indexWhere((element) => element.id == task.id);
     tasksToDo[index] = task;
