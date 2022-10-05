@@ -282,7 +282,7 @@ class _TaskPutToDoScreenBodyState extends State<_TaskPutToDoScreenBody> {
                       await widget.taskService.updateTask(taskForm.tasktodo);
                       taskServiceProvider.tasksToDo = [];
                       taskServiceProvider.loadTasks();
-                      Navigator.pushReplacementNamed(context, 'dashboard');
+                      Navigator.of(context).pushNamed(TasksScreen.route);
                     }),
                 FloatingActionButton(
                     backgroundColor: Colors.white,

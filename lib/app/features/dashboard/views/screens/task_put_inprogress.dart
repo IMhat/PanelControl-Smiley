@@ -290,7 +290,7 @@ class _TaskPutInprogressScreenBodyState
                           .updateTask(taskForm.taskInprogress);
                       taskServiceProvider.tasksInprogress = [];
                       taskServiceProvider.loadTasks();
-                      Navigator.pushReplacementNamed(context, 'dashboard');
+                      Navigator.of(context).pushNamed(TasksScreen.route);
                     }),
                 FloatingActionButton(
                     backgroundColor: Colors.white,
