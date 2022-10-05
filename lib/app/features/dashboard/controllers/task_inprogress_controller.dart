@@ -75,21 +75,21 @@ class _getInProgressTaskBodyState extends State<_getInProgressTaskBody> {
               ),
             ),
           ),
-          OutlinedButton.icon(
-            icon: const Icon(Icons.add, color: Colors.black),
-            label: const Text(
-              "Add New Task",
-              style: TextStyle(color: Colors.white),
-            ),
-            onPressed: () {
-              // Navigate to the overview page using a named route.
-              Navigator.of(context).pushNamed(TaskPostScreen.route);
-            },
-            style: OutlinedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 0, 130, 153),
-              elevation: 10,
-            ),
-          ),
+          // OutlinedButton.icon(
+          //   icon: const Icon(Icons.add, color: Colors.black),
+          //   label: const Text(
+          //     "Add New Task",
+          //     style: TextStyle(color: Colors.white),
+          //   ),
+          //   onPressed: () {
+          //     // Navigate to the overview page using a named route.
+          //     Navigator.of(context).pushNamed(TaskPostScreen.route);
+          //   },
+          //   style: OutlinedButton.styleFrom(
+          //     backgroundColor: const Color.fromARGB(255, 0, 130, 153),
+          //     elevation: 10,
+          //   ),
+          // ),
         ],
       ),
     );

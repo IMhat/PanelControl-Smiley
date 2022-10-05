@@ -34,8 +34,8 @@ class ProgressReportCard extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            Color.fromRGBO(111, 88, 255, 1),
-            Color.fromRGBO(157, 86, 248, 1),
+            Color(0xffCFBDF8),
+            Color.fromARGB(255, 176, 127, 239),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -128,8 +128,9 @@ class _Indicator extends StatelessWidget {
           ),
         ],
       ),
-      progressColor: Colors.white,
-      backgroundColor: Colors.white.withOpacity(.3),
+      progressColor: const Color.fromARGB(255, 249, 120, 120),
+      backgroundColor: const Color.fromRGBO(74, 177, 120, 1),
+      //withOpacity(.3)
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project_management/app/constans/app_constants.dart';
+import 'package:project_management/app/utils/widgets/button_check.dart';
 
 class ProgressCardData {
   final int totalUndone;
@@ -64,10 +65,11 @@ class ProgressCard extends StatelessWidget {
                   style: TextStyle(color: kFontColorPallets[1]),
                 ),
                 const SizedBox(height: kSpacing),
-                ElevatedButton(
-                  onPressed: onPressedCheck,
-                  child: const Text("Check"),
-                )
+                const MyButtonCheck()
+                // ElevatedButton(
+                //   onPressed: onPressedCheck,
+                //   child: const Text("Check"),
+                // )
               ],
             ),
           ),

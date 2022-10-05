@@ -13,11 +13,24 @@ class _Sidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.deepPurple,
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              begin: AlignmentDirectional.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [
+            0.2,
+            0.4,
+            0.8
+          ],
+              colors: [
+            (Color(0xff7F00F0)),
+            Color.fromARGB(255, 165, 92, 179),
+            Color.fromARGB(255, 247, 90, 99)
+          ])),
       child: SingleChildScrollView(
         controller: ScrollController(),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.all(kSpacing),
@@ -44,75 +57,78 @@ class _Sidebar extends StatelessWidget {
             // ),
             const SizedBox(height: 20),
             OutlinedButton.icon(
-              icon: const Icon(Icons.edit_note, color: Colors.black),
-              label: const Text("Tasks", style: TextStyle(color: Colors.white)),
+              icon: const Icon(Icons.edit_note, color: Color(0xffA81BCC)),
+              label: const Text("Tasks",
+                  style: TextStyle(color: Color(0xffA81BCC))),
               onPressed: () {
                 // Navigate to the overview page using a named route.
                 Navigator.of(context).pushNamed(TasksScreen.route);
               },
               style: OutlinedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 0, 130, 153),
+                  backgroundColor: Colors.white,
                   elevation: 10,
-                  fixedSize: const Size(300, 50)),
+                  fixedSize: const Size(200, 50)),
             ),
             const SizedBox(height: 10),
             OutlinedButton.icon(
-              icon: const Icon(Icons.add_shopping_cart, color: Colors.black),
+              icon:
+                  const Icon(Icons.add_shopping_cart, color: Color(0xffA81BCC)),
               label: const Text("Add Products",
-                  style: TextStyle(color: Colors.white)),
+                  style: TextStyle(color: Color(0xffA81BCC))),
               onPressed: () {
                 // Navigate to the overview page using a named route.
                 Navigator.of(context).pushNamed(TasksScreen.route);
               },
               style: OutlinedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 0, 130, 153),
+                  backgroundColor: Colors.white,
                   elevation: 10,
-                  fixedSize: const Size(300, 50)),
+                  fixedSize: const Size(200, 50)),
             ),
             const SizedBox(height: 10),
             OutlinedButton.icon(
-              icon: const Icon(Icons.today_rounded, color: Colors.black),
-              label:
-                  const Text("Calendar", style: TextStyle(color: Colors.white)),
+              icon: const Icon(Icons.today_rounded, color: Color(0xffA81BCC)),
+              label: const Text("Calendar",
+                  style: TextStyle(color: Color(0xffA81BCC))),
               onPressed: () {
                 // Navigate to the overview page using a named route.
                 Navigator.of(context).pushNamed(TasksScreen.route);
               },
               style: OutlinedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 0, 130, 153),
+                  backgroundColor: Colors.white,
                   elevation: 10,
-                  fixedSize: const Size(300, 50)),
+                  fixedSize: const Size(200, 50)),
             ),
             const SizedBox(height: 10),
             OutlinedButton.icon(
               icon: const Icon(
                 Icons.email_sharp,
-                color: Colors.black,
+                color: Color(0xffA81BCC),
               ),
-              label: const Text("Email", style: TextStyle(color: Colors.white)),
+              label: const Text("Email",
+                  style: TextStyle(color: Color(0xffA81BCC))),
               onPressed: () {
                 // Navigate to the overview page using a named route.
                 Navigator.of(context).pushNamed(TasksScreen.route);
               },
               style: OutlinedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 0, 130, 153),
+                  backgroundColor: Colors.white,
                   elevation: 10,
-                  fixedSize: const Size(300, 50)),
+                  fixedSize: const Size(200, 50)),
             ),
             const SizedBox(height: 10),
             OutlinedButton.icon(
-              icon:
-                  const Icon(Icons.settings_accessibility, color: Colors.black),
-              label:
-                  const Text("Profile", style: TextStyle(color: Colors.white)),
+              icon: const Icon(Icons.settings_accessibility,
+                  color: Color(0xffA81BCC)),
+              label: const Text("Profile",
+                  style: TextStyle(color: Color(0xffA81BCC))),
               onPressed: () {
                 // Navigate to the overview page using a named route.
                 Navigator.of(context).pushNamed(TasksScreen.route);
               },
               style: OutlinedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 0, 130, 153),
+                  backgroundColor: Colors.white,
                   elevation: 10,
-                  fixedSize: const Size(300, 50)),
+                  fixedSize: const Size(200, 50)),
             ),
             const SizedBox(height: 10),
             // SelectionButton(

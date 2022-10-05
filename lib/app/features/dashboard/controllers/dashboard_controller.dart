@@ -178,7 +178,7 @@ class _getBacklogTaskBodyState extends State<_getBacklogTaskBody> {
           Container(
             margin: const EdgeInsets.only(top: 20, left: 40, bottom: 20),
             width: 270,
-            height: 700,
+            height: 680,
             child: Center(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
@@ -214,7 +214,7 @@ class _getBacklogTaskBodyState extends State<_getBacklogTaskBody> {
               Navigator.of(context).pushNamed(TaskPostScreen.route);
             },
             style: OutlinedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 0, 130, 153),
+              backgroundColor: (const Color(0xff7F00F0)),
               elevation: 10,
             ),
           ),

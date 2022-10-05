@@ -308,7 +308,6 @@ class _TaskPutDoneScreenBodyState extends State<_TaskPutDoneScreenBody> {
                     onPressed: () async {
                       task.type = "approved";
                       widget.taskService.updateTask(taskForm.taskDone);
-
                       await TransactionService().saveTransactions(
                         task.createdBy,
                         task.user,

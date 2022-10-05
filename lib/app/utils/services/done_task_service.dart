@@ -29,11 +29,18 @@ class TaskDoneService extends ChangeNotifier {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{
+      body: jsonEncode(<String, dynamic>{
         "type": task.type,
+        'title': task.title,
+        'priority': task.priority,
+        'description': task.description,
+        'user': task.user,
+        'points': task.points,
+        // 'done': text7,
+        'due': task.due,
+        'createdBy': task.createdBy
       }),
     );
-
     final decodeData = resp.body;
     final index = tasksDone.indexWhere((element) => element.id == task.id);
     tasksDone[index] = task;

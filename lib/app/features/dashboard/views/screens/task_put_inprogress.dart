@@ -313,7 +313,6 @@ class _TaskPutInprogressScreenBodyState
                     onPressed: () async {
                       task.type = "approved";
                       widget.taskService.updateTask(taskForm.taskInprogress);
-
                       await TransactionService().saveTransactions(
                         task.createdBy,
                         task.user,

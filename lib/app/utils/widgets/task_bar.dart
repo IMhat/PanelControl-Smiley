@@ -21,15 +21,14 @@ class TaskBar extends StatelessWidget {
             width: 250,
             child: Container(
               decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: (Color(0xff7F00F0)),
                   borderRadius: BorderRadius.all(Radius.circular(8))),
               child: const TextField(
                 controller: null,
                 decoration: InputDecoration(
                   hintText: "Search tasks",
-                  hintStyle: TextStyle(color: Colors.black, fontSize: 15),
-                  icon: Icon(Icons.search,
-                      color: Color.fromARGB(255, 77, 76, 76)),
+                  hintStyle: TextStyle(color: Colors.white, fontSize: 15),
+                  icon: Icon(Icons.search, color: Colors.white),
                   suffixIcon: Icon(
                     Icons.file_download_outlined,
                     size: 20.00,
@@ -91,6 +90,25 @@ class TaskBar extends StatelessWidget {
                     'Sprints',
                   ),
                 ),
+                const SizedBox(width: 50),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.notifications,
+                      color: (Color(0xff7F00F0)),
+                    )),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.add_to_drive_rounded,
+                      color: (Color(0xff7F00F0)),
+                    )),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.present_to_all_outlined,
+                      color: (Color(0xff7F00F0)),
+                    )),
               ],
             ),
           ),

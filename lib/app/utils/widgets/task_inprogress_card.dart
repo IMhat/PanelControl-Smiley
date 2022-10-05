@@ -85,7 +85,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
                   width: 10,
                   height: 10,
                   decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: const Color.fromARGB(255, 239, 127, 72),
                       border: Border.all(
                           color: const Color.fromARGB(255, 255, 251, 251)),
                       borderRadius: BorderRadius.circular(50)),
@@ -120,18 +120,18 @@ class _TaskDetailsState extends State<_TaskDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: const EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.only(top: 0),
                   width: 100,
-                  height: 40,
+                  height: 30,
                   decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: const Color.fromARGB(255, 239, 127, 72),
                       border: Border.all(
                           color: const Color.fromARGB(255, 255, 251, 251)),
                       borderRadius: BorderRadius.circular(50)),
                   child: Text(
                     widget.type.toString(),
                     style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 0, 0, 0)),
                     textAlign: TextAlign.center,

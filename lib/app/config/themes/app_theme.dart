@@ -18,8 +18,8 @@ class AppTheme {
         ).merge(
           ButtonStyle(elevation: MaterialStateProperty.all(0)),
         )),
-        canvasColor: const Color.fromARGB(255, 224, 224, 226),
-        cardColor: const Color.fromARGB(255, 0, 130, 153),
+        canvasColor: const Color.fromARGB(255, 254, 254, 255),
+        cardColor: const Color(0xffCFBDF8),
       );
 
   // you can add other custom theme in this class like  light theme, dark theme ,etc.

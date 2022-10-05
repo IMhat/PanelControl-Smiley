@@ -120,7 +120,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
                 Container(
                   padding: const EdgeInsets.only(top: 5),
                   width: 100,
-                  height: 40,
+                  height: 30,
                   decoration: BoxDecoration(
                       color: Colors.green,
                       border: Border.all(
@@ -129,7 +129,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
                   child: Text(
                     widget.type.toString(),
                     style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 0, 0, 0)),
                     textAlign: TextAlign.center,
