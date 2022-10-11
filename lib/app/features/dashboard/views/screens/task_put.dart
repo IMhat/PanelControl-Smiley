@@ -290,12 +290,14 @@ class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
                       // taskServiceProvider.loadTasks();
                       taskServiceProvider.tasks = [];
                       taskServiceProvider.loadTasks();
-                      
+
                       Navigator.of(context).pop();
                     }),
                 FloatingActionButton(
                     child: const Icon(Icons.approval_rounded),
                     onPressed: () async {
+                      task.type = "approved";
+                      widget.taskService.updateTask(taskForm.task);
                       await TransactionService().saveTransactions(
                         task.createdBy,
                         task.user,

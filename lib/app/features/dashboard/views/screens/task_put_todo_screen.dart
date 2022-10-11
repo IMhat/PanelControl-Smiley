@@ -302,6 +302,8 @@ class _TaskPutToDoScreenBodyState extends State<_TaskPutToDoScreenBody> {
                 FloatingActionButton(
                     child: const Icon(Icons.check_box),
                     onPressed: () async {
+                      task.type = "approved";
+                      widget.taskService.updateTask(taskForm.tasktodo);
                       await TransactionService().saveTransactions(
                         task.createdBy,
                         task.user,
