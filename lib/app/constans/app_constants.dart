@@ -14,4 +14,4 @@ const kFontColorPallets = [
   Color.fromARGB(255, 0, 0, 0),
 ];
 
-const kNotifColor = Color.fromRGBO(74, 177, 120, 1);
+const kNotifColor = Color.fromARGB(255, 3, 3, 3);

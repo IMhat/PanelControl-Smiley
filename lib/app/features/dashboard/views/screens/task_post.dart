@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:get/get.dart';
 import 'package:project_management/app/constans/app_constants.dart';
 import 'package:project_management/app/features/dashboard/views/screens/dashboard_screen.dart';
 
 import '../../../../shared_components/responsive_builder.dart';
 import '../../../../utils/services/task_services.dart';
+import '../../../../utils/widgets/bar_post_task.dart';
 import '../../models/task_model.dart';
 
 import '../ui/input_decorations.dart';
@@ -39,6 +42,13 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // var _lista = ['To do', 'In progress', 'Done'];
   // String _vista = 'Seleccione un estado';
+  final decoration = const BoxDecoration(
+      color: Color.fromARGB(255, 255, 255, 255),
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10)));
   @override
   Widget build(BuildContext context) {
     final taskServiceProvider =
@@ -59,431 +69,350 @@ class _TaskPostScreenState extends State<TaskPostScreen> {
         title: const Text('Nueva Tarea'),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(left: 500),
-              width: 800,
-              height: 90,
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 10),
-                    padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
-                    width: 280,
-                    height: 40,
-                    // decoration: BoxDecoration(
-                    //     border: Border.all(
-                    //         color: const Color.fromARGB(255, 0, 21, 255)),
-                    //     borderRadius: BorderRadius.circular(10)),
-                    // child: OutlinedButton.icon(
-                    //     onPressed: () {},
-                    //     icon: const Icon(Icons.check),
-                    //     label: const Text("Marcar como finalizada"))
-                  ),
-                  Container(
-                    width: 300,
-                    height: 60,
-                    child: Row(
-                      children: [
-                        // IconButton(
-                        //     onPressed: () {},
-                        //     icon: const Icon(
-                        //       Icons.emoji_people,
-                        //       color: Colors.black,
-                        //     )),
-                      ],
-                    ),
-                  )
-                ],
+        child: Wrap(children: [
+          Column(
+            children: [
+              const SizedBox(
+                height: 10,
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 500),
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              width: 800,
-              height: 700,
-              decoration: _buildBoxDecoration(),
-              child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(5.0),
-                            width: 300,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: (const Color(0xff7F00F0))),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: TextFormField(
+              Container(
+                margin: const EdgeInsets.only(left: 500),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                width: 800,
+                height: 900,
+                decoration: _buildBoxDecoration(),
+                child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10),
+                        Container(
+                          margin: const EdgeInsets.only(right: 200),
+                          padding: const EdgeInsets.all(5.0),
+                          width: 300,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0)),
+                            controller: _tituloController,
+                            decoration: const InputDecoration(
+                                hintText: 'Titulo de la tarea',
+                                hintStyle: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0)),
+                                labelText: 'Titulo de la tarea',
+                                labelStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w600)),
+                            validator: (dynamic dato) {
+                              if (dato!.isEmpty) {
+                                return 'Este campo es requerido';
+                              }
+                            },
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(right: 250),
+                          width: 200,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0)),
+                            controller: _typeController,
+                            decoration: const InputDecoration(
+                                hintText: 'Estado de la tarea',
+                                hintStyle: TextStyle(
+                                    color: Color.fromRGBO(74, 177, 120, 1)),
+                                labelText: 'En Estado',
+                                labelStyle: TextStyle(color: Colors.black)),
+                            validator: (dynamic dato) {
+                              if (dato!.isEmpty) {
+                                return 'Este campo es requerido';
+                              }
+                            },
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(right: 250),
+                          padding: const EdgeInsets.all(9.0),
+                          width: 200,
+                          height: 50,
+                          child: TextFormField(
                               keyboardType: TextInputType.number,
                               style: const TextStyle(
                                   color: Color.fromARGB(255, 0, 0, 0)),
-                              controller: _tituloController,
+                              controller: _userController,
                               decoration: const InputDecoration(
-                                  hintText: 'Titulo de la tarea',
+                                  // hintText: 'Usuario asignado',
                                   hintStyle: TextStyle(
-                                      color: Color.fromRGBO(74, 177, 120, 1)),
-                                  labelText: 'Titulo',
-                                  labelStyle: TextStyle(color: Colors.black)),
+                                      color: Color.fromARGB(255, 0, 0, 0)),
+                                  labelText: 'Colaborador',
+                                  labelStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600)),
                               validator: (dynamic dato) {
                                 if (dato!.isEmpty) {
                                   return 'Este campo es requerido';
                                 }
-                              },
+                              }),
+                        ),
+                        Wrap(children: [
+                          Container(
+                            child: const CircleAvatar(
+                              radius: 25.0,
+                              backgroundColor:
+                                  Color.fromARGB(255, 211, 211, 211),
+                              backgroundImage: AssetImage(
+                                  'assets/images/raster/avatar-1.png'),
                             ),
+                          ),
+                          const SizedBox(
+                            width: 3,
                           ),
                           Container(
-                            width: 150,
-                            padding: const EdgeInsets.all(5.0),
+                            width: 50,
+                            height: 50,
                             decoration: BoxDecoration(
-                                border: Border.all(color: (const Color(0xff7F00F0))),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              style: const TextStyle(
-                                  color: Color.fromARGB(255, 0, 0, 0)),
-                              controller: _priorityController,
-                              decoration: const InputDecoration(
-                                  hintText: 'Prioridad de la tarea',
-                                  hintStyle: TextStyle(
-                                      color: Color.fromRGBO(74, 177, 120, 1)),
-                                  labelText: 'Prioridad',
-                                  labelStyle: TextStyle(color: Colors.black)),
-                              validator: (dynamic dato) {
-                                if (dato!.isEmpty) {
-                                  return 'Este campo es requerido';
-                                }
-                              },
+                                color: const Color.fromARGB(255, 228, 226, 226),
+                                borderRadius: BorderRadius.circular(50)),
+                            child: IconButton(
+                              onPressed: (() {}),
+                              icon: const Icon(Icons.add),
+                              color: Colors.black,
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      // Container(
-                      //   child: DropdownButton(
-                      //     items: _lista.map((String a) {
-                      //       return DropdownMenuItem(value: a, child: Text(a));
-                      //     }).toList(),
-                      //     onChanged: (_value) => {
-                      //       setState(() {
-                      //         _vista = _value.toString();
-                      //       })
-                      //     },
-                      //     hint: Text(
-                      //       _vista,
-                      //       style: TextStyle(color: Colors.black),
-                      //     ),
-                      //   ),
-                      // ),
-
-                      const SizedBox(height: 10),
-
-                      const SizedBox(height: 10),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Row(
-                            children: [
-                              const Text(
-                                "De",
-                                style: const TextStyle(
-                                    color: Colors.black, fontSize: 20),
-                              ),
-                              const SizedBox(width: 5),
-                              Container(
-                                padding: const EdgeInsets.all(9.0),
-                                width: 200,
-                                decoration: BoxDecoration(
-                                    color: const Color.fromARGB(255, 228, 226, 226),
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: TextFormField(
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Container(
+                              width: 150,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 229, 168, 168),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: TextButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                    "Etiqueta",
+                                    style: const TextStyle(color: Colors.black),
+                                  ))),
+                          const SizedBox(
+                            width: 3,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(right: 150),
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 228, 226, 226),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: IconButton(
+                              onPressed: (() {}),
+                              icon: const Icon(Icons.add),
+                              color: Colors.black,
+                            ),
+                          ),
+                        ]),
+                        const SizedBox(height: 20),
+                        Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(right: 400),
+                              child: const Text("Descripción",
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.black)),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 80),
+                              padding: const EdgeInsets.all(5.0),
+                              width: 650,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 239, 239, 239),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: TextFormField(
                                   keyboardType: TextInputType.number,
                                   style: const TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0)),
-                                  controller: _createdByController,
+                                  controller: _descriptionController,
                                   decoration: const InputDecoration(
-                                      hintText: 'createdBy',
+                                      // hintText: 'Descripción de la tarea',
                                       hintStyle: TextStyle(
-                                          color:
-                                              Color.fromRGBO(74, 177, 120, 1)),
-                                      labelText: 'createdBy',
+                                          color: Color.fromARGB(255, 0, 0, 0)),
+                                      labelText: 'Añadir una descripción',
                                       labelStyle:
                                           TextStyle(color: Colors.black)),
                                   validator: (dynamic dato) {
                                     if (dato!.isEmpty) {
                                       return 'Este campo es requerido';
                                     }
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const Text(
-                                "para",
-                                style: const TextStyle(
-                                    color: Colors.black, fontSize: 20),
-                              ),
-                              const SizedBox(width: 5),
-                              Container(
-                                padding: const EdgeInsets.all(9.0),
-                                width: 200,
-                                decoration: BoxDecoration(
-                                    color: const Color.fromARGB(255, 228, 226, 226),
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    style: const TextStyle(
-                                        color: Color.fromARGB(255, 0, 0, 0)),
-                                    controller: _userController,
-                                    decoration: const InputDecoration(
-                                        hintText: 'Usuario asignado',
-                                        hintStyle: TextStyle(
-                                            color: Color.fromRGBO(
-                                                74, 177, 120, 1)),
-                                        labelText: 'Asignación',
-                                        labelStyle:
-                                            TextStyle(color: Colors.black)),
-                                    validator: (dynamic dato) {
-                                      if (dato!.isEmpty) {
-                                        return 'Este campo es requerido';
-                                      }
-                                    }),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const Text(
-                                "en",
+                                  }),
+                            ),
+                          ],
+                        ),
+                        Wrap(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(right: 200),
+                              child: const Text(
+                                "Actividad",
                                 style: TextStyle(
-                                    color: Colors.black, fontSize: 20),
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600),
                               ),
-                              const SizedBox(width: 5),
-                              Container(
-                                padding: const EdgeInsets.all(9.0),
-                                width: 200,
-                                decoration: BoxDecoration(
-                                    color: const Color.fromARGB(255, 228, 226, 226),
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0)),
-                                  controller: _typeController,
-                                  decoration: const InputDecoration(
-                                      hintText: 'Estado de la tarea',
-                                      hintStyle: TextStyle(
-                                          color:
-                                              Color.fromRGBO(74, 177, 120, 1)),
-                                      labelText: 'Estado',
-                                      labelStyle:
-                                          TextStyle(color: Colors.black)),
-                                  validator: (dynamic dato) {
-                                    if (dato!.isEmpty) {
-                                      return 'Este campo es requerido';
-                                    }
-                                  },
-                                ),
-                              ),
-                            ],
+                            ),
+                            Container(
+                              width: 200,
+                              height: 50,
+                              child: TextButton(
+                                  onPressed: (() {}),
+                                  child: Text(
+                                    "Mostrar detalles",
+                                    style: TextStyle(color: Colors.black),
+                                  )),
+                            )
+                          ],
+                        ),
+                        const SizedBox(width: 5),
+                        Container(
+                          margin: const EdgeInsets.only(left: 80),
+                          padding: const EdgeInsets.all(5.0),
+                          width: 650,
+                          height: 60,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 239, 239, 239),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0)),
+                            controller: _createdByController,
+                            decoration: const InputDecoration(
+                                // hintText: 'Actividad',
+                                hintStyle: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0)),
+                                labelText: 'Escriba un comentario',
+                                labelStyle: TextStyle(color: Colors.black)),
+                            validator: (dynamic dato) {
+                              if (dato!.isEmpty) {
+                                return 'Este campo es requerido';
+                              }
+                            },
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 30),
-                      Container(
-                        padding: const EdgeInsets.all(5.0),
-                        height: 200,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: const Color.fromARGB(255, 0, 21, 255)),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextFormField(
+                        ),
+                        Container(
+                          height: 100,
+                          width: 150,
+                          padding: const EdgeInsets.all(5.0),
+                          child: TextFormField(
                             keyboardType: TextInputType.number,
                             style: const TextStyle(
                                 color: Color.fromARGB(255, 0, 0, 0)),
-                            controller: _descriptionController,
+                            controller: _priorityController,
                             decoration: const InputDecoration(
-                                // hintText: 'Descripción de la tarea',
+                                hintText: 'Prioridad de la tarea',
                                 hintStyle: TextStyle(
-                                    color: Color.fromRGBO(74, 177, 120, 1)),
-                                labelText: 'Descripción de la tarea',
-                                labelStyle: TextStyle(color: Colors.black)),
+                                    color: Color.fromARGB(255, 0, 0, 0)),
+                                labelText: 'Prioridad',
+                                labelStyle: TextStyle(
+                                    color: Colors.black, fontSize: 2)),
                             validator: (dynamic dato) {
                               if (dato!.isEmpty) {
                                 return 'Este campo es requerido';
                               }
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        TextButton(
+                            onPressed: (() async {
+                              // if (_formKey.currentState!.validate()) {
+                              await TaskService().saveTasks(
+                                _tituloController.text,
+                                _typeController.text,
+                                _priorityController.text,
+                                _descriptionController.text,
+                                _userController.text,
+                                _pointsController.text,
+                                _dueController.text,
+                                _createdByController.text,
+                                // _doneController.text,
+                              );
+                              // final taskListProvider =
+                              //     Provider.of<TaskListProvider>(context, listen: false);
+                              // taskListProvider.nuevaTask(
+                              //     _tituloController.text, _descriptionController.text);
+                              //}
+                              taskServiceProvider.tasks = [];
+                              taskServiceProvider.loadTasks();
+                              Navigator.of(context)
+                                  .pushNamed(DashboardScreen.route);
                             }),
-                      ),
-                      const SizedBox(height: 30),
-                      Container(
-                        margin: const EdgeInsets.only(left: 500),
-                        padding: const EdgeInsets.all(5.0),
-                        width: 200,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: (const Color(0xff7F00F0))),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextFormField(
-                            keyboardType: TextInputType.number,
-                            style: const TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0)),
-                            controller: _pointsController,
-                            decoration: const InputDecoration(
-                                // hintText: 'Puntos de la tarea',
-                                hintStyle: TextStyle(
-                                    color: Color.fromRGBO(74, 177, 120, 1)),
-                                labelText: 'Puntos',
-                                labelStyle: TextStyle(color: Colors.black)),
-                            validator: (dynamic dato) {
-                              if (dato!.isEmpty) {
-                                return 'Este campo es requerido';
-                              }
-                            }),
-                      ),
-                      const SizedBox(height: 30),
-                      TextButton(
-                          onPressed: (() async {
-                            // if (_formKey.currentState!.validate()) {
-                            await TaskService().saveTasks(
-                              _tituloController.text,
-                              _typeController.text,
-                              _priorityController.text,
-                              _descriptionController.text,
-                              _userController.text,
-                              _pointsController.text,
-                              _dueController.text,
-                              _createdByController.text,
-                              // _doneController.text,
-                            );
-                            // final taskListProvider =
-                            //     Provider.of<TaskListProvider>(context, listen: false);
-                            // taskListProvider.nuevaTask(
-                            //     _tituloController.text, _descriptionController.text);
-                            //}
-                            taskServiceProvider.tasks = [];
-                            taskServiceProvider.loadTasks();
-                            Navigator.of(context)
-                                .pushNamed(DashboardScreen.route);
-                          }),
-                          child: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            width: 150,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                  begin: AlignmentDirectional.topEnd,
-                                  colors: [
-                                    Color.fromARGB(255, 242, 133, 157),
-                                    Color.fromARGB(255, 167, 79, 211),
-                                  ]),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Text(
-                              "Crear Tarea",
-                              style: TextStyle(
-                                color: Colors.white,
+                            child: Container(
+                              padding: const EdgeInsets.all(8.0),
+                              width: 150,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                    begin: AlignmentDirectional.topEnd,
+                                    colors: [
+                                      Color.fromARGB(255, 242, 133, 157),
+                                      Color.fromARGB(255, 167, 79, 211),
+                                    ]),
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                          )),
-                      // TextFormField(
-                      //     keyboardType: TextInputType.number,
-                      //     style: const TextStyle(
-                      //         color: Color.fromARGB(255, 0, 0, 0)),
-                      //     controller: _dueController,
-                      //     decoration: const InputDecoration(
-                      //         hintText: 'Lapso de tiempo',
-                      //         hintStyle: TextStyle(
-                      //             color: Color.fromRGBO(74, 177, 120, 1)),
-                      //         labelText: 'Tiempo',
-                      //         labelStyle: TextStyle(color: Colors.black)),
-                      //     validator: (dynamic dato) {
-                      //       if (dato!.isEmpty) {
-                      //         return 'Este campo es requerido';
-                      //       }
-                      //     }),
-                    ],
-                  )),
-            ),
-            // Container(
-            //   margin: const EdgeInsets.only(top: 10, left: 500),
-            //   width: 800,
-            //   height: 100,
-            //   decoration: _buildBoxDecoration(),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //     children: const [
-            //       CircleAvatar(
-            //         backgroundImage: AssetImage(ImageRasterPath.avatar4),
-            //       ),
-            //       Text(
-            //         "Mariano creó esta tarea",
-            //         style: TextStyle(color: Colors.black, fontSize: 20),
-            //       ),
-            //       Text(
-            //         "Ayer a las 4:33",
-            //         style: TextStyle(color: Colors.grey),
-            //       )
-            //     ],
-            //   ),
-            // ),
-            // Container(
-            //   margin: const EdgeInsets.only(top: 10, left: 500),
-            //   width: 800,
-            //   height: 150,
-            //   decoration: _buildBoxDecoration(),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //     children: [
-            //       const CircleAvatar(
-            //         backgroundImage: AssetImage(ImageRasterPath.avatar4),
-            //       ),
-            //       Container(
-            //         width: 500,
-            //         height: 100,
-            //         decoration: BoxDecoration(
-            //             border: Border.all(
-            //                 color: const Color.fromARGB(255, 0, 21, 255)),
-            //             borderRadius: BorderRadius.circular(10)),
-            //         child: Container(
-            //           padding: const EdgeInsets.only(left: 10, right: 10),
-            //           child: TextFormField(
-            //             style: const TextStyle(
-            //                 color: Color.fromARGB(255, 0, 0, 0)),
-            //             controller: _comentsController,
-            //             decoration: const InputDecoration(
-            //                 hintText: 'Comentarios',
-            //                 hintStyle: TextStyle(
-            //                     color: Color.fromRGBO(74, 177, 120, 1)),
-            //                 labelText: 'Agrega un comentario',
-            //                 labelStyle: TextStyle(color: Colors.black)),
-            //             validator: (String? dato) {
-            //               if (dato!.isEmpty) {
-            //                 return 'Este campo es requerido';
-            //               }
-            //             },
-            //           ),
-            //         ),
-            //       )
-            //     ],
-            //   ),
-            // ),
-            const SizedBox(
-              height: 100,
-            ),
-          ],
-        ),
+                              child: const Text(
+                                "Crear Tarea",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            )),
+                      ],
+                    )),
+              ),
+              const SizedBox(
+                height: 100,
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                padding: const EdgeInsets.all(5.0),
+                width: 200,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 240, 238, 238),
+                    borderRadius: BorderRadius.circular(10)),
+                child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    controller: _pointsController,
+                    decoration: const InputDecoration(
+                        // hintText: 'Puntos de la tarea',
+                        hintStyle:
+                            TextStyle(color: Color.fromRGBO(74, 177, 120, 1)),
+                        labelText: 'Puntos',
+                        labelStyle: TextStyle(color: Colors.black)),
+                    validator: (dynamic dato) {
+                      if (dato!.isEmpty) {
+                        return 'Este campo es requerido';
+                      }
+                    }),
+              ),
+              const BarPost(),
+            ],
+          ),
+        ]),
       ),
 
       // floatingActionButton: FloatingActionButton(

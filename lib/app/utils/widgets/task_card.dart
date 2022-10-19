@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constans/app_constants.dart';
 import '../../features/dashboard/models/task.dart';
+import '../../shared_components/today_text.dart';
 
 class TaskCard extends StatelessWidget {
   final Task task;
@@ -11,8 +12,8 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(2.0),
-      margin: const EdgeInsets.only(top: 0, bottom: 50),
-      width: 400, height: 190,
+
+      width: 400, height: 200,
       //decoration: _cardBorders(),
       child: Stack(
         alignment: Alignment.bottomLeft,
@@ -35,84 +36,6 @@ class TaskCard extends StatelessWidget {
     );
   }
 }
-//   Widget build(BuildContext context) {
-//     return Container(
-//       constraints: const BoxConstraints(maxWidth: 300),
-//       child: Card(
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.circular(kBorderRadius),
-//         ),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Padding(
-//               padding: const EdgeInsets.all(5),
-//               child: _TaskDetails(
-//                 // title: taskListProvider.tasks[i].title,
-//                 // subTitle: taskListProvider.tasks[i].description,
-//                 title: task.title,
-//                 subTitle: task.description,
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.symmetric(horizontal: kSpacing),
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: [
-//                   // ElevatedButton(
-//                   //   style: ElevatedButton.styleFrom(
-//                   //     elevation: 0,
-//                   //     primary: task.type.getColor(),
-//                   //     shape: RoundedRectangleBorder(
-//                   //       borderRadius: BorderRadius.circular(30),
-//                   //     ),
-//                   //   ),
-//                   //   onPressed: onPressedTask,
-//                   //   child: Text(
-//                   //     task.type.toStringValue(),
-//                   //   ),
-//                   // ),
-//                   // ListProfilImage(
-//                   //   images: task.profilContributors,
-//                   //   onPressed: onPressedContributors,
-//                   // ),
-//                 ],
-//               ),
-//             ),
-//             const SizedBox(height: kSpacing / 2),
-//             Padding(
-//               padding: const EdgeInsets.symmetric(horizontal: kSpacing / 2),
-//               child: Row(
-//                 children: [
-//                   // _IconButton(
-//                   //   iconData: EvaIcons.messageCircleOutline,
-//                   //   onPressed: onPressedComments,
-//                   //   totalContributors: task.totalComments,
-//                   // ),
-//                   const SizedBox(width: kSpacing / 2),
-//                   // _IconButton(
-//                   //   iconData: EvaIcons.peopleOutline,
-//                   //   onPressed: onPressedContributors,
-//                   //   totalContributors: task.totalContributors,
-//                   // ),
-//                 ],
-//               ),
-//             ),
-//             const SizedBox(height: kSpacing / 2),
-//           ],
-//         ),
-
-//       ),
-
-//             floatingActionButton: FloatingActionButton(
-//         child: const Icon(Icons.add),
-//         onPressed: () => Navigator.pushNamed(context, 'usersPost'),
-//       )
-
-//     );
-
-//   }
-// }
 
 class _TaskDetails extends StatefulWidget {
   final String? title;
@@ -137,47 +60,35 @@ class _TaskDetailsState extends State<_TaskDetails> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Container(
+        margin: EdgeInsets.only(left: 3, top: 3),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        width: 260,
-        height: 180,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey[850]!.withOpacity(0.29),
-                offset: const Offset(-10, 10),
-                blurRadius: 10,
-              )
-            ]),
+        width: 250,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding: const EdgeInsets.only(top: 5),
-                  width: 10,
-                  height: 10,
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 255, 239, 133),
-                      border: Border.all(
-                          color: const Color.fromARGB(255, 255, 251, 251)),
-                      borderRadius: BorderRadius.circular(50)),
-                ),
-                Text(
-                  widget.title.toString(),
-                  style: const TextStyle(
-                      fontSize: 20,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontWeight: FontWeight.bold),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                SizedBox(
+                  width: 180,
+                  height: 40,
+                  child: Text(
+                    widget.title.toString(),
+                    style: const TextStyle(
+                        fontSize: 14,
+                        color: (Color(0xff6F6F6F)),
+                        fontWeight: FontWeight.bold),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 const Icon(
                   Icons.menu,
-                  color: Color.fromARGB(255, 0, 130, 153),
+                  color: Color.fromARGB(255, 0, 0, 0),
                 ),
               ],
             ),
@@ -187,7 +98,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
               child: Text(
                 widget.priority.toString(),
                 style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 12,
                     color: Color.fromARGB(255, 0, 0, 0),
                     fontWeight: FontWeight.bold),
               ),
@@ -200,7 +111,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
                   width: 100,
                   height: 30,
                   decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 255, 239, 133),
+                      color: (Color(0xffED6B5B)),
                       border: Border.all(
                           color: const Color.fromARGB(255, 255, 251, 251)),
                       borderRadius: BorderRadius.circular(50)),
@@ -223,38 +134,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
             //   style: const TextStyle(
             //       fontSize: 15, color: Color.fromARGB(255, 9, 0, 0)),
             // ),
-            const SizedBox(
-              height: 40,
-              child: Icon(
-                Icons.comment_bank,
-                color: Color.fromARGB(255, 0, 130, 153),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              // children: [
-              //   ElevatedButton(
-              //     style: elevatedButtonStyle,
-              //     onPressed: () {
-              //       Navigator.pushNamed(
-              //         context,
-              //         'TaskDetail',
-              //       );
-              //     },
-              //     child: const Text("Ver"),
-              //   ),
-              //   ElevatedButton(
-              //     style: elevatedButtonStyle,
-              //     onPressed: () {
-              //       Navigator.pushNamed(
-              //         context,
-              //         'tasksPost',
-              //       );
-              //     },
-              //     child: const Text("Empezar"),
-              //   ),
-              // ],
-            ),
+            TodayText()
           ],
         ),
       ),

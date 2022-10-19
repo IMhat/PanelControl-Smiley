@@ -7,7 +7,7 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const TodayText(),
+        //const TodayText(),
         const SizedBox(width: kSpacing),
         Expanded(child: SearchField()),
       ],

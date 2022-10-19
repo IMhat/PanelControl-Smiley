@@ -27,6 +27,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:project_management/app/utils/services/ToDo_task_service.dart';
 
 import 'package:project_management/app/utils/services/task_services.dart';
+import 'package:project_management/app/utils/widgets/sidebar_home_task.dart';
 import 'package:project_management/app/utils/widgets/task_card.dart';
 import 'package:project_management/app/utils/widgets/task_todo_card.dart';
 import 'package:provider/provider.dart';
@@ -182,15 +183,16 @@ class DashboardScreen extends GetView<DashboardController> {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Flexible(
-                flex: (constraints.maxWidth < 1360) ? 4 : 3,
-                child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(kBorderRadius),
-                      bottomRight: Radius.circular(kBorderRadius),
-                    ),
-                    child: _Sidebar(data: controller.getSelectedProject())),
-              ),
+              SidebarHomeTask(),
+              // Flexible(
+              //   flex: (constraints.maxWidth < 1360) ? 4 : 3,
+              //   child: ClipRRect(
+              //       borderRadius: const BorderRadius.only(
+              //         topRight: Radius.circular(kBorderRadius),
+              //         bottomRight: Radius.circular(kBorderRadius),
+              //       ),
+              //       child: _Sidebar(data: controller.getSelectedProject())),
+              // ),
               Flexible(
                 flex: 9,
                 child: Column(

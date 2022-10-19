@@ -176,9 +176,13 @@ class _getBacklogTaskBodyState extends State<_getBacklogTaskBody> {
       child: Column(
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 20, left: 40, bottom: 20),
-            width: 270,
-            height: 680,
+            margin: const EdgeInsets.only(top: 20, left: 40, bottom: 170),
+            width: 260,
+            height: 710,
+            decoration: const BoxDecoration(
+              color: Color(0xffBFB9FF),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
             child: Center(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
@@ -204,7 +208,8 @@ class _getBacklogTaskBodyState extends State<_getBacklogTaskBody> {
             ),
           ),
           OutlinedButton.icon(
-            icon: const Icon(Icons.add, color: Colors.black),
+            icon: const Icon(Icons.add,
+                color: Color.fromARGB(255, 255, 255, 255)),
             label: const Text(
               "Add New Task",
               style: TextStyle(color: Colors.white),
@@ -214,7 +219,7 @@ class _getBacklogTaskBodyState extends State<_getBacklogTaskBody> {
               Navigator.of(context).pushNamed(TaskPostScreen.route);
             },
             style: OutlinedButton.styleFrom(
-              backgroundColor: (const Color(0xff7F00F0)),
+              backgroundColor: (const Color(0xff48409E)),
               elevation: 10,
             ),
           ),

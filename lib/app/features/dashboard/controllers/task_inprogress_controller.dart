@@ -48,9 +48,13 @@ class _getInProgressTaskBodyState extends State<_getInProgressTaskBody> {
       child: Column(
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 20, left: 40, bottom: 20),
+            margin: const EdgeInsets.only(top: 20, left: 40, bottom: 200),
             width: 270,
-            height: 700,
+            height: 710,
+            decoration: const BoxDecoration(
+              color: Color(0xffBFB9FF),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
             child: Center(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
