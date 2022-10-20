@@ -1,3 +1,4 @@
+import 'package:project_management/app/features/auth/screens/auth_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/task_post.dart';
 import 'package:project_management/app/features/dashboard/views/screens/task_put.dart';
 import 'package:project_management/app/features/dashboard/views/screens/task_put_approved.dart';
@@ -17,12 +18,17 @@ part 'app_routes.dart';
 /// contains all configuration pages
 class AppPages {
   /// when the app is opened, this page will be the first to be shown
-  static const initial = Routes.dashboard;
+  static const initial = Routes.auth;
 
   static final routes = [
     GetPage(
       name: _Paths.dashboard,
       page: () => const DashboardScreen(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.auth,
+      page: () => const AuthScreen(),
       binding: DashboardBinding(),
     ),
     GetPage(

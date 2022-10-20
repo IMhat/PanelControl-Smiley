@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project_management/app/features/auth/services/auth_service.dart';
+import 'package:project_management/app/features/auth/widgets/account_button.dart';
 
 import '../../features/dashboard/views/screens/tasks_screen.dart';
 import '../../shared_components/today_text.dart';
@@ -239,6 +241,19 @@ class SidebarHomeTask extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
+              Container(
+                margin: const EdgeInsets.only(top: 0, bottom: 20),
+                //decoration: _cardBorders(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AccountButton(
+                      text: 'Log Out',
+                      onTap: () => AuthService().logOut(context),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         )
@@ -246,3 +261,14 @@ class SidebarHomeTask extends StatelessWidget {
     );
   }
 }
+
+BoxDecoration _cardBorders() => BoxDecoration(
+        color: const Color.fromARGB(255, 255, 255, 255),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[850]!.withOpacity(0.29),
+            offset: const Offset(-10, 15),
+            blurRadius: 10,
+          )
+        ]);
