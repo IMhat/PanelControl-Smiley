@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_management/app/features/dashboard/models/task_todo.dart';
+import 'package:project_management/app/shared_components/today_text.dart';
 import '../../constans/app_constants.dart';
 
 class TaskToDoCard extends StatelessWidget {
@@ -11,8 +12,8 @@ class TaskToDoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(2.0),
-      margin: const EdgeInsets.only(top: 0, bottom: 50),
-      width: 400, height: 190,
+      margin: const EdgeInsets.only(top: 2),
+      width: 400, height: 200,
       //decoration: _cardBorders(),
       child: Stack(
         alignment: Alignment.bottomLeft,
@@ -59,47 +60,36 @@ class _TaskDetailsState extends State<_TaskDetails> {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Container(
+        margin: const EdgeInsets.only(top: 2, left: 3),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         width: 260,
-        height: 180,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey[850]!.withOpacity(0.29),
-                offset: const Offset(-10, 10),
-                blurRadius: 10,
-              )
-            ]),
+        height: 200,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding: const EdgeInsets.only(top: 5),
-                  width: 10,
-                  height: 10,
-                  decoration: BoxDecoration(
-                      color: Colors.green,
-                      border: Border.all(
-                          color: const Color.fromARGB(255, 255, 251, 251)),
-                      borderRadius: BorderRadius.circular(50)),
-                ),
-                Text(
-                  widget.title.toString(),
-                  style: const TextStyle(
-                      fontSize: 20,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontWeight: FontWeight.bold),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                SizedBox(
+                  width: 180,
+                  height: 40,
+                  child: Text(
+                    widget.title.toString(),
+                    style: const TextStyle(
+                        fontSize: 14,
+                        color: (Color(0xff6F6F6F)),
+                        fontWeight: FontWeight.bold),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 const Icon(
                   Icons.menu,
-                  color: Color.fromARGB(255, 0, 130, 153),
+                  color: Color.fromARGB(255, 0, 0, 0),
                 ),
               ],
             ),
@@ -109,7 +99,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
               child: Text(
                 widget.priority.toString(),
                 style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 15,
                     color: Color.fromARGB(255, 0, 0, 0),
                     fontWeight: FontWeight.bold),
               ),
@@ -122,7 +112,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
                   width: 100,
                   height: 30,
                   decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: (Color.fromARGB(255, 169, 167, 167)),
                       border: Border.all(
                           color: const Color.fromARGB(255, 255, 251, 251)),
                       borderRadius: BorderRadius.circular(50)),
@@ -145,13 +135,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
             //   style: const TextStyle(
             //       fontSize: 15, color: Color.fromARGB(255, 9, 0, 0)),
             // ),
-            const SizedBox(
-              height: 40,
-              child: Icon(
-                Icons.comment_bank,
-                color: Color.fromARGB(255, 0, 130, 153),
-              ),
-            ),
+            const TodayText(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             ),

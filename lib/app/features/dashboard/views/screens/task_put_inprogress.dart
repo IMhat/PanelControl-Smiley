@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_management/app/features/dashboard/views/screens/tasks_screen.dart';
 // import 'package:project_management/app/features/dashboard/models/task_todo.dart';
 
 // import 'package:project_management/app/utils/services/ToDo_task_service.dart';
@@ -290,7 +289,7 @@ class _TaskPutInprogressScreenBodyState
                           .updateTask(taskForm.taskInprogress);
                       taskServiceProvider.tasksInprogress = [];
                       taskServiceProvider.loadTasks();
-                      Navigator.of(context).pushNamed(TasksScreen.route);
+                      Navigator.pushReplacementNamed(context, 'dashboard');
                     }),
                 FloatingActionButton(
                     backgroundColor: Colors.white,
@@ -331,7 +330,7 @@ class _TaskPutInprogressScreenBodyState
 
                       // transactionServiceProvider.transactions = [];
                       // transactionServiceProvider.loadTransactions();
-                      Navigator.of(context).pushNamed(TasksScreen.route);
+                      Navigator.of(context).pushNamed(DashboardScreen.route);
                     })
               ],
             ),

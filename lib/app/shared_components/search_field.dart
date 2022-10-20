@@ -21,7 +21,7 @@ class SearchField extends StatelessWidget {
         prefixIcon: const Icon(EvaIcons.search),
         hintText: "search..",
         isDense: true,
-        fillColor: (const Color(0xff7F00F0)),
+        fillColor: (const Color(0xff48409E)),
       ),
       onEditingComplete: () {
         FocusScope.of(context).unfocus();

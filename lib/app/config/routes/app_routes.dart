@@ -3,6 +3,7 @@ part of 'app_pages.dart';
 /// used to switch pages
 class Routes {
   static const dashboard = _Paths.dashboard;
+  static const auth = _Paths.auth;
 
   static const taskPut = _Paths.taskPut;
   static const taskPutToDo = _Paths.taskPutToDo;
@@ -19,6 +20,7 @@ class Routes {
 // made separately to make it easier to manage route naming
 class _Paths {
   static const dashboard = '/dashboard';
+  static const auth = '/auth-screen';
   static const taskPut = '/taskPut';
   static const taskPutToDo = '/taskPutToDo';
   static const taskPutDone = '/taskPutDone';

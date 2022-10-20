@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_management/app/features/dashboard/views/screens/tasks_screen.dart';
 // import 'package:project_management/app/features/dashboard/models/task_todo.dart';
 
 // import 'package:project_management/app/utils/services/ToDo_task_service.dart';
@@ -286,7 +285,7 @@ class _TaskPutDoneScreenBodyState extends State<_TaskPutDoneScreenBody> {
                       await widget.taskService.updateTask(taskForm.taskDone);
                       taskServiceProvider.tasksDone = [];
                       taskServiceProvider.loadTasks();
-                      Navigator.of(context).pushNamed(TasksScreen.route);
+                      Navigator.pushReplacementNamed(context, 'dashboard');
                     }),
                 FloatingActionButton(
                     backgroundColor: Colors.white,
@@ -326,7 +325,7 @@ class _TaskPutDoneScreenBodyState extends State<_TaskPutDoneScreenBody> {
 
                       // transactionServiceProvider.transactions = [];
                       // transactionServiceProvider.loadTransactions();
-                      Navigator.of(context).pushNamed(TasksScreen.route);
+                      Navigator.of(context).pushNamed(DashboardScreen.route);
                     })
               ],
             ),

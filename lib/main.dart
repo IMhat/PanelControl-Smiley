@@ -7,6 +7,7 @@ import 'package:project_management/app/features/dashboard/views/screens/transact
 import 'package:project_management/app/utils/services/approved_task_service.dart';
 import 'package:project_management/app/utils/services/done_task_service.dart';
 import 'package:project_management/app/utils/services/inprogress_task_service.dart';
+import 'package:project_management/router.dart';
 
 import 'app/config/routes/app_pages.dart';
 import 'app/config/themes/app_theme.dart';
@@ -14,9 +15,12 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+import 'app/features/auth/screens/initial_screen.dart';
 import 'app/features/dashboard/providers/task_list_provider.dart';
 import 'app/features/dashboard/providers/transaction_list_provider.dart';
+import 'app/features/dashboard/providers/user_provider.dart';
 import 'app/features/dashboard/views/screens/dashboard_screen.dart';
+import 'app/features/dashboard/views/screens/noAdmin.dart';
 import 'app/features/dashboard/views/screens/task_post.dart';
 import 'app/features/dashboard/views/screens/task_put_approved.dart';
 import 'app/features/dashboard/views/screens/task_put_inprogress.dart';
@@ -39,6 +43,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (_) => TaskService()),
         ChangeNotifierProvider(create: (_) => TaskToDoService()),
         ChangeNotifierProvider(create: (_) => TaskInprogressService()),
@@ -69,8 +74,9 @@ class MyApp extends StatelessWidget {
       title: 'Project Management',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.basic,
-      initialRoute: AppPages.initial,
+      // initialRoute: AppPages.initial,
       getPages: AppPages.routes,
+      onGenerateRoute: (settings) => generateRoute(settings),
       routes: {
         // HomePage.route: (context) => HomePage(),
         TaskPostScreen.route: (context) => const TaskPostScreen(),
@@ -92,6 +98,11 @@ class MyApp extends StatelessWidget {
 
         // TransactionPostScreen.route: (context) => const TransactionPostScreen(),
       },
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? Provider.of<UserProvider>(context).user.type == 'admin'
+              ? const InitialScreen()
+              : const NoAdminScreen()
+          : const InitialScreen(),
     );
   }
 }

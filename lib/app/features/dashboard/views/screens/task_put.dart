@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_management/app/features/dashboard/views/screens/tasks_screen.dart';
 import 'package:provider/provider.dart';
 import '../../../../utils/services/task_services.dart';
 import '../../../../utils/services/transaction_services.dart';
@@ -276,7 +275,7 @@ class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
                       await widget.taskService.updateTask(taskForm.task);
                       taskServiceProvider.tasks = [];
                       taskServiceProvider.loadTasks();
-                      Navigator.of(context).pushNamed(TasksScreen.route);
+                      Navigator.pushReplacementNamed(context, 'dashboard');
                     }),
                 FloatingActionButton(
                     backgroundColor: Colors.white,
@@ -316,7 +315,7 @@ class _TaskPutScreenBodyState extends State<_TaskPutScreenBody> {
 
                       // transactionServiceProvider.transactions = [];
                       // transactionServiceProvider.loadTransactions();
-                      Navigator.of(context).pushNamed(TasksScreen.route);
+                      Navigator.of(context).pushNamed(DashboardScreen.route);
                     })
               ],
             ),

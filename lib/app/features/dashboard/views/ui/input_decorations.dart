@@ -11,7 +11,7 @@ class InputDecorations {
         ),
         focusedBorder: const UnderlineInputBorder(
             borderSide:
-                BorderSide(color: Color.fromARGB(255, 0, 130, 153), width: 2)),
+                BorderSide(color: Color.fromARGB(255, 0, 0, 0), width: 2)),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.black),
         labelText: labelText,
