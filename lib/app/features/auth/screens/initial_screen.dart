@@ -22,14 +22,14 @@ class InitialScreen extends StatelessWidget {
               width: 200,
               height: 100,
               color: Colors.white,
-              child: Image.asset("assets/logouteam.png")),
+              child: Image.asset("assets/images/raster/logouteam.png")),
           Container(
             margin: const EdgeInsets.only(top: 70),
             width: 250,
             height: 80,
             color: Colors.white,
             child: const Text(
-              "Crea tu cuenta para ganar puntos",
+              "Bienvenido administrador",
               style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
@@ -43,7 +43,7 @@ class InitialScreen extends StatelessWidget {
             height: 80,
             color: Colors.white,
             child: const Text(
-              "Con la app podrás registrarte y obtener puntos",
+              "Inicia sesión para administrar",
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -72,7 +72,7 @@ class _InitialScreenForm extends StatelessWidget {
         key: loginForm.formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Container(
-          margin: EdgeInsets.only(right: 40),
+          margin: EdgeInsets.only(right: 200),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

@@ -1,12 +1,12 @@
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:project_management/app/features/dashboard/views/screens/get_orders.dart';
 import 'package:project_management/app/features/dashboard/views/screens/task_put.dart';
 import 'package:project_management/app/features/dashboard/views/screens/task_put_done.dart';
 import 'package:project_management/app/features/dashboard/views/screens/tasks_screen.dart';
 
 import 'package:project_management/app/features/dashboard/views/screens/transaction_post.dart';
-import 'package:project_management/app/utils/services/approved_task_service.dart';
-import 'package:project_management/app/utils/services/done_task_service.dart';
-import 'package:project_management/app/utils/services/inprogress_task_service.dart';
+import 'package:project_management/app/router/app_routes.dart';
+
 import 'package:project_management/router.dart';
 
 import 'app/config/routes/app_pages.dart';
@@ -19,14 +19,15 @@ import 'app/features/auth/screens/initial_screen.dart';
 import 'app/features/dashboard/providers/task_list_provider.dart';
 import 'app/features/dashboard/providers/transaction_list_provider.dart';
 import 'app/features/dashboard/providers/user_provider.dart';
+import 'app/features/dashboard/views/screens/add_product_screen.dart';
+import 'app/features/dashboard/views/screens/add_task_screen.dart';
 import 'app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'app/features/dashboard/views/screens/noAdmin.dart';
+import 'app/features/dashboard/views/screens/orders_detail_screen.dart';
 import 'app/features/dashboard/views/screens/task_post.dart';
 import 'app/features/dashboard/views/screens/task_put_approved.dart';
 import 'app/features/dashboard/views/screens/task_put_inprogress.dart';
 import 'app/features/dashboard/views/screens/task_put_todo_screen.dart';
-import 'app/utils/services/ToDo_task_service.dart';
-import 'app/utils/services/task_services.dart';
 import 'app/utils/services/transaction_services.dart';
 // import 'package:get/get.dart';
 
@@ -44,16 +45,11 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
-        ChangeNotifierProvider(create: (_) => TaskService()),
-        ChangeNotifierProvider(create: (_) => TaskToDoService()),
-        ChangeNotifierProvider(create: (_) => TaskInprogressService()),
-        ChangeNotifierProvider(create: (_) => TaskDoneService()),
-        ChangeNotifierProvider(create: (_) => TaskApprovedService()),
         ChangeNotifierProvider(create: (_) => TransactionService()),
         // ChangeNotifierProvider(create: (_) => ProductService()),
         // ChangeNotifierProvider(create: (_) => PointService()),
         // ChangeNotifierProvider(create: (_) => TaskListProvider()),
-        ChangeNotifierProvider(create: (_) => TransactionListProvider()),
+        // ChangeNotifierProvider(create: (_) => TransactionListProvider()),
         // ChangeNotifierProvider(create: (_) => ProductListProvider()),
         // ChangeNotifierProvider(create: (_) => PointListProvider()),
         // ChangeNotifierProvider(create: (_) => UserListProvider()),
@@ -76,28 +72,32 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.basic,
       // initialRoute: AppPages.initial,
       getPages: AppPages.routes,
-      onGenerateRoute: (settings) => generateRoute(settings),
-      routes: {
-        // HomePage.route: (context) => HomePage(),
-        TaskPostScreen.route: (context) => const TaskPostScreen(),
+      // onGenerateRoute: (settings) => generateRoute(settings),
+      // routes: {
+      //   // HomePage.route: (context) => HomePage(),
+      //   AddTaskScreen.route: (context) => const AddTaskScreen(),
+      //   AddProductScreen.route: (context) => const AddProductScreen(),
+      //   OrdersScreen.route: (context) => const OrdersScreen(),
 
-        TaskPutScreen.route: (context) => const TaskPutScreen(),
+      //   // TaskPutScreen.route: (context) => const TaskPutScreen(),
 
-        TaskPutToDoScreen.route: (context) => const TaskPutToDoScreen(),
+      //   // TaskPutToDoScreen.route: (context) => const TaskPutToDoScreen(),
 
-        TaskPutInprogressScreen.route: (context) =>
-            const TaskPutInprogressScreen(),
+      //   // TaskPutInprogressScreen.route: (context) =>
+      //   //     const TaskPutInprogressScreen(),
 
-        TaskPutDoneScreen.route: (context) => const TaskPutDoneScreen(),
+      //   // TaskPutDoneScreen.route: (context) => const TaskPutDoneScreen(),
 
-        TaskPutApprovedScreen.route: (context) => const TaskPutApprovedScreen(),
+      //   // TaskPutApprovedScreen.route: (context) => const TaskPutApprovedScreen(),
 
-        DashboardScreen.route: (context) => const DashboardScreen(),
+      //   DashboardScreen.route: (context) => const DashboardScreen(),
 
-        TasksScreen.route: (context) => const TasksScreen(),
+      //   TasksScreen.route: (context) => const TasksScreen(),
 
-        // TransactionPostScreen.route: (context) => const TransactionPostScreen(),
-      },
+      //   // TransactionPostScreen.route: (context) => const TransactionPostScreen(),
+      // },
+      // onGenerateRoute: (settings) => generateRoute(settings),
+      routes: AppRoutes.getAppRoutes(),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
           ? Provider.of<UserProvider>(context).user.type == 'admin'
               ? const InitialScreen()

@@ -13,6 +13,12 @@ class Routes {
   static const taskPost = _Paths.taskPost;
   static const tasks = _Paths.tasks;
 
+  static const productPost = _Paths.productPost;
+  static const getProducts = _Paths.getProducts;
+
+  static const getOrders = _Paths.getOrders;
+  static const getOrdersDetails = _Paths.getOrdersDetails;
+
   static const transactionPost = _Paths.transactionPost;
 }
 
@@ -26,8 +32,14 @@ class _Paths {
   static const taskPutDone = '/taskPutDone';
   static const taskPutInprogress = '/taskPutInprogress';
   static const taskPutApproved = '/taskPutApproved';
-  static const taskPost = '/taskPost';
+  static const taskPost = '/add-task';
   static const tasks = '/tasks';
+
+  static const productPost = '/add-product';
+  static const getProducts = '/get-product';
+
+  static const getOrders = '/getOrders';
+  static const getOrdersDetails = '/order-details';
 
   static const transactionPost = '/transaction';
   // Example :

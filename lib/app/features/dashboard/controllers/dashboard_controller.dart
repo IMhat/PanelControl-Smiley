@@ -140,91 +140,91 @@ class DashboardController extends GetxController {
   }
 }
 
-//BACKLOG TASK
+// //BACKLOG TASK
 
-class getBacklogTask extends StatefulWidget {
-  const getBacklogTask({Key? key}) : super(key: key);
+// class getBacklogTask extends StatefulWidget {
+//   const getBacklogTask({Key? key}) : super(key: key);
 
-  @override
-  State<getBacklogTask> createState() => _getBacklogTask();
-}
+//   @override
+//   State<getBacklogTask> createState() => _getBacklogTask();
+// }
 
-class _getBacklogTask extends State<getBacklogTask> {
-  @override
-  Widget build(BuildContext context) {
-    final tasksService = Provider.of<TaskService>(context);
-    return ChangeNotifierProvider(
-      create: (_) => TaskFormProvider(tasksService.selectedTask),
-      child: _getBacklogTaskBody(tasksService: tasksService),
-    );
-  }
-}
+// class _getBacklogTask extends State<getBacklogTask> {
+//   @override
+//   Widget build(BuildContext context) {
+//     final tasksService = Provider.of<TaskService>(context);
+//     return ChangeNotifierProvider(
+//       create: (_) => TaskFormProvider(tasksService.selectedTask),
+//       child: _getBacklogTaskBody(tasksService: tasksService),
+//     );
+//   }
+// }
 
-class _getBacklogTaskBody extends StatefulWidget {
-  _getBacklogTaskBody({Key? key, required this.tasksService}) : super(key: key);
+// class _getBacklogTaskBody extends StatefulWidget {
+//   _getBacklogTaskBody({Key? key, required this.tasksService}) : super(key: key);
 
-  TaskService tasksService;
+//   TaskService tasksService;
 
-  @override
-  State<_getBacklogTaskBody> createState() => _getBacklogTaskBodyState();
-}
+//   @override
+//   State<_getBacklogTaskBody> createState() => _getBacklogTaskBodyState();
+// }
 
-class _getBacklogTaskBodyState extends State<_getBacklogTaskBody> {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 20, left: 40, bottom: 170),
-            width: 260,
-            height: 710,
-            decoration: const BoxDecoration(
-              color: Color(0xffBFB9FF),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            child: Center(
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                //itemCount: taskListProvider.tasks.length,
-                itemCount: widget.tasksService.tasks.length,
+// class _getBacklogTaskBodyState extends State<_getBacklogTaskBody> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return SingleChildScrollView(
+//       child: Column(
+//         children: [
+//           Container(
+//             margin: const EdgeInsets.only(top: 20, left: 40, bottom: 170),
+//             width: 260,
+//             height: 710,
+//             decoration: const BoxDecoration(
+//               color: Color(0xffBFB9FF),
+//               borderRadius: BorderRadius.all(Radius.circular(10)),
+//             ),
+//             child: Center(
+//               child: ListView.builder(
+//                 scrollDirection: Axis.vertical,
+//                 //itemCount: taskListProvider.tasks.length,
+//                 itemCount: widget.tasksService.tasks.length,
 
-                itemBuilder: (BuildContext context, int index) =>
-                    GestureDetector(
-                  onTap: () {
-                    widget.tasksService.selectedTask =
-                        widget.tasksService.tasks[index].copy();
-                    // Navigator.of(context).pushNamed(TaskPutScreen.route);
-                    Navigator.pushNamed(
-                      context,
-                      '/taskPut',
-                    );
-                  },
-                  child: TaskCard(
-                    task: widget.tasksService.tasks[index],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          OutlinedButton.icon(
-            icon: const Icon(Icons.add,
-                color: Color.fromARGB(255, 255, 255, 255)),
-            label: const Text(
-              "Add New Task",
-              style: TextStyle(color: Colors.white),
-            ),
-            onPressed: () {
-              // Navigate to the overview page using a named route.
-              Navigator.of(context).pushNamed(TaskPostScreen.route);
-            },
-            style: OutlinedButton.styleFrom(
-              backgroundColor: (const Color(0xff48409E)),
-              elevation: 10,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//                 itemBuilder: (BuildContext context, int index) =>
+//                     GestureDetector(
+//                   onTap: () {
+//                     widget.tasksService.selectedTask =
+//                         widget.tasksService.tasks[index].copy();
+//                     // Navigator.of(context).pushNamed(TaskPutScreen.route);
+//                     Navigator.pushNamed(
+//                       context,
+//                       '/taskPut',
+//                     );
+//                   },
+//                   child: TaskCard(
+//                     task: widget.tasksService.tasks[index],
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ),
+          // OutlinedButton.icon(
+          //   icon: const Icon(Icons.add,
+          //       color: Color.fromARGB(255, 255, 255, 255)),
+          //   label: const Text(
+          //     "Add New Task",
+          //     style: TextStyle(color: Colors.white),
+          //   ),
+          //   onPressed: () {
+          //     // Navigate to the overview page using a named route.
+          //     Navigator.of(context).pushNamed(TaskPostScreen.route);
+          //   },
+          //   style: OutlinedButton.styleFrom(
+          //     backgroundColor: (const Color(0xff48409E)),
+          //     elevation: 10,
+          //   ),
+          // ),
+//         ],
+//       ),
+//     );
+//   }
+// }

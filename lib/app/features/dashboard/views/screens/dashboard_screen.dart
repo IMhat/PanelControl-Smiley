@@ -2,13 +2,14 @@
 
 library dashboard;
 
+import 'package:project_management/app/features/dashboard/models/tasks.dart';
 import 'package:project_management/app/features/dashboard/views/screens/transaction_post.dart';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 //import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:project_management/app/constans/app_constants.dart';
-import 'package:project_management/app/features/dashboard/models/task.dart';
+
 import 'package:project_management/app/features/dashboard/views/screens/task_post.dart';
 import 'package:project_management/app/features/dashboard/views/screens/tasks_screen.dart';
 import 'package:project_management/app/shared_components/chatting_card.dart';
@@ -24,10 +25,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-import 'package:project_management/app/utils/services/ToDo_task_service.dart';
-
-import 'package:project_management/app/utils/services/task_services.dart';
 import 'package:project_management/app/utils/widgets/sidebar_home_task.dart';
+import 'package:project_management/app/utils/widgets/single_task.dart';
 import 'package:project_management/app/utils/widgets/task_card.dart';
 import 'package:project_management/app/utils/widgets/task_todo_card.dart';
 import 'package:provider/provider.dart';
@@ -344,7 +343,7 @@ class DashboardScreen extends GetView<DashboardController> {
                 ),
               )
             // ignore: prefer_const_constructors
-            : TaskCard(
+            : SingleTask(
                 task: data[index],
                 // onPressedMore: () {},
                 // onPressedTask: () {},

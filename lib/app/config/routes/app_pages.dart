@@ -1,4 +1,5 @@
 import 'package:project_management/app/features/auth/screens/auth_screen.dart';
+import 'package:project_management/app/features/dashboard/views/screens/get_orders.dart';
 import 'package:project_management/app/features/dashboard/views/screens/task_post.dart';
 import 'package:project_management/app/features/dashboard/views/screens/task_put.dart';
 import 'package:project_management/app/features/dashboard/views/screens/task_put_approved.dart';
@@ -8,9 +9,14 @@ import 'package:project_management/app/features/dashboard/views/screens/tasks_sc
 
 import 'package:project_management/app/features/dashboard/views/screens/transaction_post.dart';
 
+import '../../features/dashboard/models/order.dart';
+import '../../features/dashboard/views/screens/add_product_screen.dart';
+import '../../features/dashboard/views/screens/add_task_screen.dart';
 import '../../features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:get/get.dart';
 
+import '../../features/dashboard/views/screens/orders_detail_screen.dart';
+import '../../features/dashboard/views/screens/products_screen.dart';
 import '../../features/dashboard/views/screens/task_put_inprogress.dart';
 
 part 'app_routes.dart';
@@ -32,35 +38,56 @@ class AppPages {
       binding: DashboardBinding(),
     ),
     GetPage(
-      name: _Paths.taskPut,
-      page: () => const TaskPutScreen(),
-      binding: DashboardBinding(),
-    ),
-    GetPage(
-      name: _Paths.taskPutToDo,
-      page: () => const TaskPutToDoScreen(),
-      binding: DashboardBinding(),
-    ),
-    GetPage(
-      name: _Paths.taskPutDone,
-      page: () => const TaskPutDoneScreen(),
-      binding: DashboardBinding(),
-    ),
-    GetPage(
-      name: _Paths.taskPutInprogress,
-      page: () => const TaskPutInprogressScreen(),
-      binding: DashboardBinding(),
-    ),
-    GetPage(
-      name: _Paths.taskPutApproved,
-      page: () => const TaskPutApprovedScreen(),
-      binding: DashboardBinding(),
-    ),
-    GetPage(
       name: _Paths.taskPost,
-      page: () => const TaskPostScreen(),
+      page: () => const AddTaskScreen(),
       binding: DashboardBinding(),
     ),
+    GetPage(
+      name: _Paths.productPost,
+      page: () => const AddProductScreen(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.getOrders,
+      page: () => const OrdersScreen(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.getProducts,
+      page: () => const PostsScreen(),
+      binding: DashboardBinding(),
+    ),
+    // GetPage(
+
+    //   name: _Paths.getOrdersDetails,
+    //   page: () => const OrderDetailScreen(order: ,),
+    //   binding: DashboardBinding(),
+    // ),
+    // GetPage(
+    //   name: _Paths.taskPutToDo,
+    //   page: () => const TaskPutToDoScreen(),
+    //   binding: DashboardBinding(),
+    // ),
+    // GetPage(
+    //   name: _Paths.taskPutDone,
+    //   page: () => const TaskPutDoneScreen(),
+    //   binding: DashboardBinding(),
+    // ),
+    // GetPage(
+    //   name: _Paths.taskPutInprogress,
+    //   page: () => const TaskPutInprogressScreen(),
+    //   binding: DashboardBinding(),
+    // ),
+    // GetPage(
+    //   name: _Paths.taskPutApproved,
+    //   page: () => const TaskPutApprovedScreen(),
+    //   binding: DashboardBinding(),
+    // ),
+    // GetPage(
+    //   name: _Paths.taskPost,
+    //   page: () => const TaskPostScreen(),
+    //   binding: DashboardBinding(),
+    // ),
     GetPage(
       name: _Paths.tasks,
       page: () => const TasksScreen(),
