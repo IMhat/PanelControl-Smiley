@@ -10,7 +10,7 @@ import 'package:project_management/app/utils/services/admin_services.dart';
 import 'package:project_management/app/utils/widgets/single_product.dart';
 
 class OrdersScreen extends StatefulWidget {
-  static const String route = '/getOrders';
+  static const String routeName = '/getOrders';
   const OrdersScreen({Key? key}) : super(key: key);
 
   @override
@@ -54,7 +54,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   // },
 
                   onTap: () {
-                    Navigator.of(context).pushNamed(OrderDetailScreen.route);
+                    Navigator.of(context)
+                        .pushNamed(OrderDetailScreen.routeName);
                   },
 
                   child: SizedBox(

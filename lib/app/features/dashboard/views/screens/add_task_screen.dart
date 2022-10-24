@@ -10,7 +10,7 @@ import 'package:project_management/app/constans/utils.dart';
 import 'package:project_management/app/utils/services/admin_services.dart';
 
 class AddTaskScreen extends StatefulWidget {
-  static const String route = '/add-task';
+  static const String routeName = '/add-task';
   const AddTaskScreen({Key? key}) : super(key: key);
 
   @override

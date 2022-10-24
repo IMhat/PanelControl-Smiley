@@ -8,7 +8,7 @@ import '../../../../utils/services/admin_services.dart';
 import '../../../../utils/widgets/single_product.dart';
 
 class PostsScreen extends StatefulWidget {
-  static const String route = '/get-product';
+  static const String routeName = '/get-product';
   const PostsScreen({Key? key}) : super(key: key);
 
   @override
@@ -42,7 +42,7 @@ class _PostsScreenState extends State<PostsScreen> {
   }
 
   void navigateToAddProduct() {
-    Navigator.pushNamed(context, AddProductScreen.route);
+    Navigator.pushNamed(context, AddProductScreen.routeName);
   }
 
   @override

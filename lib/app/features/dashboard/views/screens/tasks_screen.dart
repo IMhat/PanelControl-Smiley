@@ -17,7 +17,7 @@ import '../../controllers/task_todo.dart';
 import '../../controllers/task_todo_controller.dart';
 
 class TasksScreen extends StatefulWidget {
-  static const String route = '/tasks';
+  static const String routeName = '/tasks';
   const TasksScreen({Key? key}) : super(key: key);
 
   @override

@@ -17,27 +17,27 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const AuthScreen(),
       );
-    case DashboardScreen.route:
+    case DashboardScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const DashboardScreen(),
       );
-    case AddProductScreen.route:
+    case AddProductScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const AddProductScreen(),
       );
-    case TasksScreen.route:
+    case TasksScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const TasksScreen(),
       );
-    case AddTaskScreen.route:
+    case AddTaskScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const AddTaskScreen(),
       );
-    case PostsScreen.route:
+    case PostsScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const PostsScreen(),
@@ -84,7 +84,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     //     settings: routeSettings,
     //     builder: (_) => AddressScreen(totalAmount: totalAmount),
     //   );
-    case OrderDetailScreen.route:
+    case OrderDetailScreen.routeName:
       var order = routeSettings.arguments as Order;
       return MaterialPageRoute(
         settings: routeSettings,
@@ -92,10 +92,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           order: order,
         ),
       );
-    case OrdersScreen.route:
+    case OrdersScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => OrdersScreen(),
+        builder: (_) => const OrdersScreen(),
       );
     default:
       return MaterialPageRoute(

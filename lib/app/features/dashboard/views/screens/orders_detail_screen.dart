@@ -8,7 +8,7 @@ import 'package:project_management/app/utils/services/admin_services.dart';
 import 'package:provider/provider.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  static const String route = '/order-details';
+  static const String routeName = '/order-details';
   final Order order;
   const OrderDetailScreen({
     Key? key,

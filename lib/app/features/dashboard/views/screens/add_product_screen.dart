@@ -11,7 +11,7 @@ import 'package:project_management/app/constans/utils.dart';
 import 'package:project_management/app/utils/services/admin_services.dart';
 
 class AddProductScreen extends StatefulWidget {
-  static const String route = '/add-product';
+  static const String routeName = '/add-product';
   const AddProductScreen({Key? key}) : super(key: key);
 
   @override

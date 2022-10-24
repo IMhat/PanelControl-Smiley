@@ -45,7 +45,7 @@ class SidebarHomeTask extends StatelessWidget {
         const SizedBox(height: 10),
         TextButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(TasksScreen.route);
+              Navigator.of(context).pushNamed(TasksScreen.routeName);
             },
             child: Container(
               decoration: decoration,
@@ -83,7 +83,7 @@ class SidebarHomeTask extends StatelessWidget {
         const SizedBox(height: 10),
         TextButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(OrdersScreen.route);
+              Navigator.of(context).pushNamed(OrdersScreen.routeName);
             },
             child: Container(
               decoration: decoration,
@@ -110,7 +110,7 @@ class SidebarHomeTask extends StatelessWidget {
         const SizedBox(height: 10),
         TextButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(PostsScreen.route);
+              Navigator.of(context).pushNamed(PostsScreen.routeName);
             },
             child: Container(
               decoration: decoration,

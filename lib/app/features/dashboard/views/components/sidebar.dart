@@ -62,7 +62,7 @@ class _Sidebar extends StatelessWidget {
                   style: TextStyle(color: Color(0xffA81BCC))),
               onPressed: () {
                 // Navigate to the overview page using a named route.
-                Navigator.of(context).pushNamed(TasksScreen.route);
+                Navigator.of(context).pushNamed(TasksScreen.routeName);
               },
               style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -77,7 +77,7 @@ class _Sidebar extends StatelessWidget {
                   style: TextStyle(color: Color(0xffA81BCC))),
               onPressed: () {
                 // Navigate to the overview page using a named route.
-                Navigator.of(context).pushNamed(TasksScreen.route);
+                Navigator.of(context).pushNamed(TasksScreen.routeName);
               },
               style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -91,7 +91,7 @@ class _Sidebar extends StatelessWidget {
                   style: TextStyle(color: Color(0xffA81BCC))),
               onPressed: () {
                 // Navigate to the overview page using a named route.
-                Navigator.of(context).pushNamed(TasksScreen.route);
+                Navigator.of(context).pushNamed(TasksScreen.routeName);
               },
               style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -108,7 +108,7 @@ class _Sidebar extends StatelessWidget {
                   style: TextStyle(color: Color(0xffA81BCC))),
               onPressed: () {
                 // Navigate to the overview page using a named route.
-                Navigator.of(context).pushNamed(TasksScreen.route);
+                Navigator.of(context).pushNamed(TasksScreen.routeName);
               },
               style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -123,7 +123,7 @@ class _Sidebar extends StatelessWidget {
                   style: TextStyle(color: Color(0xffA81BCC))),
               onPressed: () {
                 // Navigate to the overview page using a named route.
-                Navigator.of(context).pushNamed(TasksScreen.route);
+                Navigator.of(context).pushNamed(TasksScreen.routeName);
               },
               style: OutlinedButton.styleFrom(
                   backgroundColor: Colors.white,

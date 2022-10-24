@@ -1,6 +1,7 @@
 import 'package:project_management/app/common/widgets/loader.dart';
 import 'package:project_management/app/features/dashboard/models/tasks.dart';
 import 'package:project_management/app/features/dashboard/views/screens/add_task_screen.dart';
+import 'package:project_management/app/features/dashboard/views/screens/task_detail_screen.dart';
 import 'package:project_management/app/utils/services/admin_services.dart';
 import 'package:project_management/app/utils/widgets/single_task.dart';
 
@@ -77,11 +78,11 @@ class _TasksState extends State<Tasks> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          // Navigator.pushNamed(
-                          //   context,
-                          //   TaskDetailsScreen.routeName,
-                          //   arguments: tasks![index],
-                          // );
+                          Navigator.pushNamed(
+                            context,
+                            TaskDetailsScreen.routeName,
+                            arguments: tasks![index],
+                          );
                         },
                         child: SingleTask(
                           task: tasks![index],
@@ -99,7 +100,7 @@ class _TasksState extends State<Tasks> {
                   ),
                   onPressed: () {
                     // Navigate to the overview page using a named route.
-                    Navigator.pushNamed(context, AddTaskScreen.route);
+                    Navigator.pushNamed(context, AddTaskScreen.routeName);
                   },
                   style: OutlinedButton.styleFrom(
                     backgroundColor: (const Color(0xff48409E)),
