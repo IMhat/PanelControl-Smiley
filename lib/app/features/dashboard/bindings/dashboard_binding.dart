@@ -1,8 +1,8 @@
-part of dashboard;
+// part of dashboard;
 
-class DashboardBinding extends Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut(() => DashboardController());
-  }
-}
+// class DashboardBinding extends Bindings {
+//   @override
+//   void dependencies() {
+//     Get.lazyPut(() => DashboardController());
+//   }
+// }

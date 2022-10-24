@@ -2,13 +2,14 @@
 
 library dashboard;
 
+import 'package:project_management/app/features/dashboard/models/tasks.dart';
 import 'package:project_management/app/features/dashboard/views/screens/transaction_post.dart';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 //import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:project_management/app/constans/app_constants.dart';
-import 'package:project_management/app/features/dashboard/models/task.dart';
+
 import 'package:project_management/app/features/dashboard/views/screens/task_post.dart';
 import 'package:project_management/app/features/dashboard/views/screens/tasks_screen.dart';
 import 'package:project_management/app/shared_components/chatting_card.dart';
@@ -24,10 +25,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-import 'package:project_management/app/utils/services/ToDo_task_service.dart';
-
-import 'package:project_management/app/utils/services/task_services.dart';
 import 'package:project_management/app/utils/widgets/sidebar_home_task.dart';
+import 'package:project_management/app/utils/widgets/single_task.dart';
 import 'package:project_management/app/utils/widgets/task_card.dart';
 import 'package:project_management/app/utils/widgets/task_todo_card.dart';
 import 'package:provider/provider.dart';
@@ -35,10 +34,10 @@ import 'package:provider/provider.dart';
 import '../../providers/task_form_provider.dart';
 
 // binding
-part '../../bindings/dashboard_binding.dart';
+// part '../../bindings/dashboard_binding.dart';
 
 // controller
-part '../../controllers/dashboard_controller.dart';
+// part '../../controllers/dashboard_controller.dart';
 
 // models
 part '../../models/profile.dart';
@@ -52,20 +51,20 @@ part '../components/recent_messages.dart';
 part '../components/sidebar.dart';
 part '../components/team_member.dart';
 
-class DashboardScreen extends GetView<DashboardController> {
-  static const String route = '/dashboard';
+class DashboardScreen extends GetView<StatefulWidget> {
+  static const String routeName = '/dashboard';
   const DashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: controller.scaffoldKey,
+      // key: controller.scaffoldKey,
       drawer: (ResponsiveBuilder.isDesktop(context))
           ? null
           : Drawer(
               child: Padding(
                 padding: const EdgeInsets.only(top: kSpacing),
-                child: _Sidebar(data: controller.getSelectedProject()),
+                // child: _Sidebar(data: controller.getSelectedProject()),
               ),
             ),
       body: SingleChildScrollView(
@@ -73,14 +72,14 @@ class DashboardScreen extends GetView<DashboardController> {
         mobileBuilder: (context, constraints) {
           return Column(children: [
             const SizedBox(height: kSpacing * (kIsWeb ? 1 : 2)),
-            _buildHeader(onPressedMenu: () => controller.openDrawer()),
+            // _buildHeader(onPressedMenu: () => controller.openDrawer()),
             const SizedBox(height: kSpacing / 2),
             const Divider(),
-            _buildProfile(data: controller.getProfil()),
+            // _buildProfile(data: controller.getProfil()),
             const SizedBox(height: kSpacing),
             _buildProgress(axis: Axis.vertical),
             const SizedBox(height: kSpacing),
-            _buildTeamMember(data: controller.getMember()),
+            // _buildTeamMember(data: controller.getMember()),
             const SizedBox(height: kSpacing),
             // Padding(
             //   padding: const EdgeInsets.symmetric(horizontal: kSpacing),
@@ -102,13 +101,13 @@ class DashboardScreen extends GetView<DashboardController> {
             //const getAllTask(),
 
             const SizedBox(height: kSpacing * 2),
-            _buildActiveProject(
-              data: controller.getActiveProject(),
-              crossAxisCount: 6,
-              crossAxisCellCount: 6,
-            ),
+            // _buildActiveProject(
+            //   // data: controller.getActiveProject(),
+            //   crossAxisCount: 6,
+            //   crossAxisCellCount: 6,
+            // ),
             const SizedBox(height: kSpacing),
-            _buildRecentMessages(data: controller.getChatting()),
+            // _buildRecentMessages(data: controller.getChatting()),
           ]);
         },
         tabletBuilder: (context, constraints) {
@@ -120,7 +119,7 @@ class DashboardScreen extends GetView<DashboardController> {
                 child: Column(
                   children: [
                     const SizedBox(height: kSpacing * (kIsWeb ? 1 : 2)),
-                    _buildHeader(onPressedMenu: () => controller.openDrawer()),
+                    // _buildHeader(onPressedMenu: () => controller.openDrawer()),
                     const SizedBox(height: kSpacing * 2),
                     _buildProgress(
                       axis: (constraints.maxWidth < 950)
@@ -142,16 +141,16 @@ class DashboardScreen extends GetView<DashboardController> {
                     // ),
                     //const getAllTask(),
                     const SizedBox(height: kSpacing * 2),
-                    _buildActiveProject(
-                      data: controller.getActiveProject(),
-                      crossAxisCount: 6,
-                      crossAxisCellCount: (constraints.maxWidth < 950)
-                          ? 6
-                          : (constraints.maxWidth < 1100)
-                              ? 3
-                              : 2,
-                    ),
-                    const SizedBox(height: kSpacing),
+                    // _buildActiveProject(
+                    //   data: controller.getActiveProject(),
+                    //   crossAxisCount: 6,
+                    //   crossAxisCellCount: (constraints.maxWidth < 950)
+                    //       ? 6
+                    //       : (constraints.maxWidth < 1100)
+                    //           ? 3
+                    //           : 2,
+                    // ),
+                    // const SizedBox(height: kSpacing),
                   ],
                 ),
               ),
@@ -160,10 +159,10 @@ class DashboardScreen extends GetView<DashboardController> {
                 child: Column(
                   children: [
                     const SizedBox(height: kSpacing * (kIsWeb ? 0.5 : 1.5)),
-                    _buildProfile(data: controller.getProfil()),
+                    // _buildProfile(data: controller.getProfil()),
                     const Divider(thickness: 1),
                     const SizedBox(height: kSpacing),
-                    _buildTeamMember(data: controller.getMember()),
+                    // _buildTeamMember(data: controller.getMember()),
                     const SizedBox(height: kSpacing),
                     // Padding(
                     //   padding: const EdgeInsets.symmetric(horizontal: kSpacing),
@@ -172,7 +171,7 @@ class DashboardScreen extends GetView<DashboardController> {
                     const SizedBox(height: kSpacing),
                     const Divider(thickness: 1),
                     const SizedBox(height: kSpacing),
-                    _buildRecentMessages(data: controller.getChatting()),
+                    // _buildRecentMessages(data: controller.getChatting()),
                   ],
                 ),
               )
@@ -209,11 +208,11 @@ class DashboardScreen extends GetView<DashboardController> {
                     // ),
                     //const getAllTask(),
                     const SizedBox(height: kSpacing * 2),
-                    _buildActiveProject(
-                      data: controller.getActiveProject(),
-                      crossAxisCount: 6,
-                      crossAxisCellCount: (constraints.maxWidth < 1360) ? 3 : 2,
-                    ),
+                    // _buildActiveProject(
+                    //   data: controller.getActiveProject(),
+                    //   crossAxisCount: 6,
+                    //   crossAxisCellCount: (constraints.maxWidth < 1360) ? 3 : 2,
+                    // ),
                     const SizedBox(height: kSpacing),
                   ],
                 ),
@@ -223,10 +222,10 @@ class DashboardScreen extends GetView<DashboardController> {
                 child: Column(
                   children: [
                     const SizedBox(height: kSpacing / 2),
-                    _buildProfile(data: controller.getProfil()),
+                    // _buildProfile(data: controller.getProfil()),
                     const Divider(thickness: 1),
                     const SizedBox(height: kSpacing),
-                    _buildTeamMember(data: controller.getMember()),
+                    // _buildTeamMember(data: controller.getMember()),
                     const SizedBox(height: kSpacing),
                     // Padding(
                     //   padding: const EdgeInsets.symmetric(horizontal: kSpacing),
@@ -235,7 +234,7 @@ class DashboardScreen extends GetView<DashboardController> {
                     const SizedBox(height: kSpacing),
                     const Divider(thickness: 1),
                     const SizedBox(height: kSpacing),
-                    _buildRecentMessages(data: controller.getChatting()),
+                    // _buildRecentMessages(data: controller.getChatting()),
                   ],
                 ),
               )
@@ -344,7 +343,7 @@ class DashboardScreen extends GetView<DashboardController> {
                 ),
               )
             // ignore: prefer_const_constructors
-            : TaskCard(
+            : SingleTask(
                 task: data[index],
                 // onPressedMore: () {},
                 // onPressedTask: () {},

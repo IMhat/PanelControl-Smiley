@@ -60,177 +60,184 @@ class _AuthScreenState extends State<AuthScreen> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 150, left: 800),
-              child: Text(
-                "Admin",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10, left: 800),
-              width: 350,
-              height: 500,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: Color(0xff48409E),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color.fromARGB(134, 196, 195, 195),
-                        blurRadius: 10.0,
-                        offset: Offset(0, 5)),
-                    BoxShadow(
-                      color: Color.fromARGB(255, 233, 232, 232),
-                    ),
-                  ]),
-              child: SafeArea(
-                  child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // ListTile(
-                    //   tileColor: _auth == Auth.signup
-                    //       ? GlobalVariables.authBackgroundColor
-                    //       : GlobalVariables.greyBackgroundCOlor,
-                    //   title: const Text(
-                    //     'Crear una cuenta',
-                    //     style: TextStyle(fontWeight: FontWeight.bold),
-                    //   ),
-                    //   leading: Radio(
-                    //     activeColor: GlobalVariables.secondaryColor,
-                    //     value: Auth.signup,
-                    //     groupValue: _auth,
-                    //     onChanged: (Auth? val) {
-                    //       setState(() {
-                    //         _auth = val!;
-                    //       });
-                    //     },
-                    //   ),
-                    // ),
-                    if (_auth == Auth.signup)
-                      Container(
-                        margin: EdgeInsets.only(top: 30),
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color.fromARGB(255, 39, 38, 38),
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Color.fromARGB(134, 196, 195, 195),
-                                  blurRadius: 10.0,
-                                  offset: Offset(0, 5)),
-                              BoxShadow(
-                                color: Color.fromARGB(255, 233, 232, 232),
-                              ),
-                            ]),
-                        child: Form(
-                          key: _signUpFormKey,
-                          child: Column(
-                            children: [
-                              // CustomTextField(
-                              //   controller: _nameController,
-                              //   hintText: 'Name',
-                              // ),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                              CustomTextField(
-                                controller: _emailController,
-                                hintText: 'Email',
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              CustomTextField(
-                                controller: _passwordController,
-                                hintText: 'Password',
-                              ),
-                              const SizedBox(
-                                height: 80,
-                              ),
-                              CustomButton(
-                                text: 'Sign Up',
-                                onTap: () {
-                                  if (_signUpFormKey.currentState!.validate()) {
-                                    signUpUser();
-                                  }
-                                },
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ListTile(
-                      tileColor: _auth == Auth.signin
-                          ? GlobalVariables.authBackgroundColor
-                          : GlobalVariables.greyBackgroundCOlor,
-                      title: const Text(
-                        'Iniciar Sesion',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      leading: Radio(
-                        activeColor: GlobalVariables.secondaryColor,
-                        value: Auth.signin,
-                        groupValue: _auth,
-                        onChanged: (Auth? val) {
-                          setState(() {
-                            _auth = val!;
-                          });
-                        },
-                      ),
-                    ),
-                    if (_auth == Auth.signin)
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        color: Color.fromARGB(255, 39, 38, 38),
-                        child: Form(
-                          key: _signInFormKey,
-                          child: Column(
-                            children: [
-                              CustomTextField(
-                                controller: _emailController,
-                                hintText: 'Email',
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              CustomTextField(
-                                controller: _passwordController,
-                                hintText: 'Password',
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(left: 90),
-                                child: TextButton(
-                                    onPressed: () {},
-                                    child:
-                                        const Text("olvidaste la contraseña?")),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              CustomButton(
-                                  text: 'Sign In',
-                                  onTap: () {
-                                    if (_signInFormKey.currentState!
-                                        .validate()) {
-                                      signInUser();
-                                    }
-                                  })
-                            ],
-                          ),
-                        ),
-                      ),
-                  ],
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(
+                  top: 150,
                 ),
-              )),
-            ),
-          ],
+                child: Text(
+                  "Admin",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                  top: 10,
+                ),
+                width: 350,
+                height: 500,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Color(0xff48409E),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Color.fromARGB(134, 196, 195, 195),
+                          blurRadius: 10.0,
+                          offset: Offset(0, 5)),
+                      BoxShadow(
+                        color: Color.fromARGB(255, 233, 232, 232),
+                      ),
+                    ]),
+                child: SafeArea(
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // ListTile(
+                      //   tileColor: _auth == Auth.signup
+                      //       ? GlobalVariables.authBackgroundColor
+                      //       : GlobalVariables.greyBackgroundCOlor,
+                      //   title: const Text(
+                      //     'Crear una cuenta',
+                      //     style: TextStyle(fontWeight: FontWeight.bold),
+                      //   ),
+                      //   leading: Radio(
+                      //     activeColor: GlobalVariables.secondaryColor,
+                      //     value: Auth.signup,
+                      //     groupValue: _auth,
+                      //     onChanged: (Auth? val) {
+                      //       setState(() {
+                      //         _auth = val!;
+                      //       });
+                      //     },
+                      //   ),
+                      // ),
+                      if (_auth == Auth.signup)
+                        Container(
+                          margin: EdgeInsets.only(top: 30),
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color.fromARGB(255, 39, 38, 38),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Color.fromARGB(134, 196, 195, 195),
+                                    blurRadius: 10.0,
+                                    offset: Offset(0, 5)),
+                                BoxShadow(
+                                  color: Color.fromARGB(255, 233, 232, 232),
+                                ),
+                              ]),
+                          child: Form(
+                            key: _signUpFormKey,
+                            child: Column(
+                              children: [
+                                // CustomTextField(
+                                //   controller: _nameController,
+                                //   hintText: 'Name',
+                                // ),
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                                CustomTextField(
+                                  controller: _emailController,
+                                  hintText: 'Email',
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                CustomTextField(
+                                  controller: _passwordController,
+                                  hintText: 'Password',
+                                ),
+                                const SizedBox(
+                                  height: 80,
+                                ),
+                                CustomButton(
+                                  text: 'Sign Up',
+                                  onTap: () {
+                                    if (_signUpFormKey.currentState!
+                                        .validate()) {
+                                      signUpUser();
+                                    }
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ListTile(
+                        tileColor: _auth == Auth.signin
+                            ? GlobalVariables.authBackgroundColor
+                            : GlobalVariables.greyBackgroundCOlor,
+                        title: const Text(
+                          'Iniciar Sesion',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        leading: Radio(
+                          activeColor: GlobalVariables.secondaryColor,
+                          value: Auth.signin,
+                          groupValue: _auth,
+                          onChanged: (Auth? val) {
+                            setState(() {
+                              _auth = val!;
+                            });
+                          },
+                        ),
+                      ),
+                      if (_auth == Auth.signin)
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          color: Color.fromARGB(255, 39, 38, 38),
+                          child: Form(
+                            key: _signInFormKey,
+                            child: Column(
+                              children: [
+                                CustomTextField(
+                                  controller: _emailController,
+                                  hintText: 'Email',
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                CustomTextField(
+                                  controller: _passwordController,
+                                  hintText: 'Password',
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(left: 90),
+                                  child: TextButton(
+                                      onPressed: () {},
+                                      child: const Text(
+                                          "olvidaste la contraseña?")),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                CustomButton(
+                                    text: 'Sign In',
+                                    onTap: () {
+                                      if (_signInFormKey.currentState!
+                                          .validate()) {
+                                        signInUser();
+                                      }
+                                    })
+                              ],
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                )),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -6,20 +6,42 @@ import 'package:project_management/app/shared_components/today_text.dart';
 import 'package:project_management/app/utils/widgets/task_bar.dart';
 import 'package:project_management/app/utils/widgets/task_bar2.dart';
 
+import '../../controllers/task.dart';
+import '../../controllers/task_approved.dart';
 import '../../controllers/task_approved_controller.dart';
+import '../../controllers/task_done.dart';
 import '../../controllers/task_done_controller.dart';
+import '../../controllers/task_inprogress.dart';
 import '../../controllers/task_inprogress_controller.dart';
+import '../../controllers/task_todo.dart';
 import '../../controllers/task_todo_controller.dart';
 
 class TasksScreen extends StatefulWidget {
-  static const String route = '/tasks';
+  static const String routeName = '/tasks';
   const TasksScreen({Key? key}) : super(key: key);
 
   @override
   State<TasksScreen> createState() => _TasksScreenState();
 }
 
-class _TasksScreenState extends State<TasksScreen> {
+class _TasksScreenState extends State<TasksScreen>
+    with SingleTickerProviderStateMixin {
+  int selectedPage = 0;
+  TabController? controller;
+  @override
+  void initState() {
+    super.initState();
+    controller =
+        TabController(length: 3, initialIndex: selectedPage, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller!.dispose();
+  }
+
+  final textStyle = const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
   // final LinearGradient _gradient = const LinearGradient(
   //     begin: Alignment.topCenter,
   //     end: Alignment.bottomCenter,
@@ -284,8 +306,8 @@ class _TasksScreenState extends State<TasksScreen> {
                           ),
                           onPressed: () {
                             // Navigate to the overview page using a named route.
-                            Navigator.of(context)
-                                .pushNamed(TaskPostScreen.route);
+                            // Navigator.of(context)
+                            //     .pushNamed(TaskPostScreen.route);
                           },
                           style: OutlinedButton.styleFrom(
                             backgroundColor: (const Color(0xff48409E)),
@@ -334,7 +356,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                   ))
                             ],
                           ),
-                          const getBacklogTask(),
+                          const Tasks(),
                         ],
                       ),
                       Column(children: [
@@ -349,7 +371,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                 ))
                           ],
                         ),
-                        const getToDoTask()
+                        const TasksToDo()
                       ]),
                       Column(children: [
                         Row(
@@ -363,7 +385,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                 ))
                           ],
                         ),
-                        const getInProgressTask()
+                        const TasksInprogress()
                       ]),
                       Column(children: [
                         Row(
@@ -377,7 +399,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                 ))
                           ],
                         ),
-                        const getDoneTask()
+                        const TasksDone()
                       ]),
                       const SizedBox(width: 10),
                       Column(children: [
@@ -392,7 +414,7 @@ class _TasksScreenState extends State<TasksScreen> {
                                 ))
                           ],
                         ),
-                        const getApprovedTask()
+                        const TasksApproved()
                       ]),
                     ],
                   ),

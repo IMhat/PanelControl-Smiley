@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:project_management/app/constans/app_constants.dart';
 
@@ -35,10 +35,10 @@ class UpgradePremiumCard extends StatelessWidget {
                 padding: const EdgeInsets.only(
                   top: 80,
                 ),
-                child: SvgPicture.asset(
-                  ImageVectorPath.happy,
-                  fit: BoxFit.contain,
-                ),
+                // child: SvgPicture.asset(
+                //   ImageVectorPath.happy,
+                //   fit: BoxFit.contain,
+                // ),
               ),
               const Padding(
                 padding: EdgeInsets.all(10),

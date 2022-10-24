@@ -15,50 +15,53 @@ class InitialScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-          child: Column(
-        children: [
-          Container(
-              margin: const EdgeInsets.only(top: 100),
-              width: 200,
-              height: 100,
+          child: Center(
+        child: Column(
+          children: [
+            Container(
+                margin: const EdgeInsets.only(top: 100),
+                width: 200,
+                height: 100,
+                color: Colors.white,
+                child: Image.asset("assets/images/raster/logouteam.png")),
+            Container(
+              margin: const EdgeInsets.only(top: 70),
+              width: 250,
+              height: 80,
               color: Colors.white,
-              child: Image.asset("assets/images/raster/logouteam.png")),
-          Container(
-            margin: const EdgeInsets.only(top: 70),
-            width: 250,
-            height: 80,
-            color: Colors.white,
-            child: const Text(
-              "Bienvenido administrador",
-              style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff5D4FB1)),
-              textAlign: TextAlign.center,
+              child: const Text(
+                "Bienvenido administrador",
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff5D4FB1)),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 0),
-            width: 250,
-            height: 80,
-            color: Colors.white,
-            child: const Text(
-              "Inicia sesión para administrar",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff5D4FB1)),
-              textAlign: TextAlign.center,
+            Container(
+              margin: const EdgeInsets.only(top: 0),
+              width: 250,
+              height: 80,
+              color: Colors.white,
+              child: const Text(
+                "Inicia sesión para administrar",
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff5D4FB1)),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          Column(children: [
-            ChangeNotifierProvider(
-                create: (_) => LoginFormProvider(), child: _InitialScreenForm())
-          ]),
-        ],
+            const SizedBox(
+              height: 50,
+            ),
+            Column(children: [
+              ChangeNotifierProvider(
+                  create: (_) => LoginFormProvider(),
+                  child: _InitialScreenForm())
+            ]),
+          ],
+        ),
       )),
     );
   }
@@ -71,10 +74,8 @@ class _InitialScreenForm extends StatelessWidget {
     return Form(
         key: loginForm.formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        child: Container(
-          margin: EdgeInsets.only(right: 200),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Center(
+          child: Column(
             children: [
               const SizedBox(
                 height: 50,

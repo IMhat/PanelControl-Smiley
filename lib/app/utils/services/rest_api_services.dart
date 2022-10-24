@@ -1,5 +1,3 @@
-
-
 import 'package:http/http.dart' as http;
 
 /// contains all service to get data from Server

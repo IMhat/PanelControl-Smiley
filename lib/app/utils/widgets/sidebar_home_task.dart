@@ -4,6 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project_management/app/features/auth/services/auth_service.dart';
 import 'package:project_management/app/features/auth/widgets/account_button.dart';
+import 'package:project_management/app/features/dashboard/views/screens/get_orders.dart';
+import 'package:project_management/app/features/dashboard/views/screens/products_screen.dart';
 
 import '../../features/dashboard/views/screens/tasks_screen.dart';
 import '../../shared_components/today_text.dart';
@@ -43,7 +45,7 @@ class SidebarHomeTask extends StatelessWidget {
         const SizedBox(height: 10),
         TextButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(TasksScreen.route);
+              Navigator.of(context).pushNamed(TasksScreen.routeName);
             },
             child: Container(
               decoration: decoration,
@@ -80,7 +82,9 @@ class SidebarHomeTask extends StatelessWidget {
         // ),
         const SizedBox(height: 10),
         TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(OrdersScreen.routeName);
+            },
             child: Container(
               decoration: decoration,
               width: 200,
@@ -93,7 +97,7 @@ class SidebarHomeTask extends StatelessWidget {
                   ),
                   SizedBox(width: 15),
                   Text(
-                    "List",
+                    "List Orders",
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 25,
@@ -105,7 +109,9 @@ class SidebarHomeTask extends StatelessWidget {
 
         const SizedBox(height: 10),
         TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(PostsScreen.routeName);
+            },
             child: Container(
               decoration: decoration,
               width: 200,

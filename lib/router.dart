@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:project_management/app/features/auth/screens/auth_screen.dart';
+import 'package:project_management/app/features/dashboard/models/order.dart';
+import 'package:project_management/app/features/dashboard/views/screens/add_product_screen.dart';
+import 'package:project_management/app/features/dashboard/views/screens/add_task_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/dashboard_screen.dart';
+import 'package:project_management/app/features/dashboard/views/screens/orders_detail_screen.dart';
+import 'package:project_management/app/features/dashboard/views/screens/products_screen.dart';
+import 'package:project_management/app/features/dashboard/views/screens/tasks_screen.dart';
+
+import 'app/features/dashboard/views/screens/get_orders.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -9,21 +17,31 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const AuthScreen(),
       );
-    case DashboardScreen.route:
+    case DashboardScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const DashboardScreen(),
       );
-    // case BottomBar.routeName:
-    //   return MaterialPageRoute(
-    //     settings: routeSettings,
-    //     builder: (_) => const BottomBar(),
-    //   );
-    // case AddProductScreen.routeName:
-    //   return MaterialPageRoute(
-    //     settings: routeSettings,
-    //     builder: (_) => const AddProductScreen(),
-    //   );
+    case AddProductScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AddProductScreen(),
+      );
+    case TasksScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const TasksScreen(),
+      );
+    case AddTaskScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AddTaskScreen(),
+      );
+    case PostsScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const PostsScreen(),
+      );
     // case CategoryDealsScreen.routeName:
     //   var category = routeSettings.arguments as String;
     //   return MaterialPageRoute(
@@ -66,14 +84,19 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     //     settings: routeSettings,
     //     builder: (_) => AddressScreen(totalAmount: totalAmount),
     //   );
-    // case OrderDetailScreen.routeName:
-    //   var order = routeSettings.arguments as Order;
-    //   return MaterialPageRoute(
-    //     settings: routeSettings,
-    //     builder: (_) => OrderDetailScreen(
-    //       order: order,
-    //     ),
-    //   );
+    case OrderDetailScreen.routeName:
+      var order = routeSettings.arguments as Order;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => OrderDetailScreen(
+          order: order,
+        ),
+      );
+    case OrdersScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const OrdersScreen(),
+      );
     default:
       return MaterialPageRoute(
         settings: routeSettings,

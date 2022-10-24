@@ -1,0 +1,461 @@
+import 'dart:io';
+
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/material.dart';
+import 'package:project_management/app/common/widgets/custom_button.dart';
+import 'package:project_management/app/common/widgets/custom_textField.dart';
+import 'package:project_management/app/constans/global_variables.dart';
+import 'package:project_management/app/constans/utils.dart';
+import 'package:project_management/app/utils/services/admin_services.dart';
+import 'package:project_management/app/utils/widgets/bar_post_task.dart';
+
+class AddTaskScreen extends StatefulWidget {
+  static const String routeName = '/add-task';
+  const AddTaskScreen({Key? key}) : super(key: key);
+
+  @override
+  State<AddTaskScreen> createState() => _AddProductScreenState();
+}
+
+class _AddProductScreenState extends State<AddTaskScreen> {
+  final TextEditingController _tituloController = TextEditingController();
+
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _assignmentUserController =
+      TextEditingController();
+  final TextEditingController _pointsController = TextEditingController();
+
+  final AdminServices adminServices = AdminServices();
+
+  String status = 'backlog';
+  String category = 'Development';
+  String createdBy = 'admin';
+  String priority = 'Medium';
+  String label = 'Staff augmentation';
+
+  List<File> images = [];
+  final _addProductFormKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tituloController.dispose();
+
+    _descriptionController.dispose();
+    _assignmentUserController.dispose();
+    _pointsController.dispose();
+  }
+
+  List<String> taskCategories = [
+    'Development',
+    'Marketing',
+    'Desing',
+  ];
+  List<String> priorityCategories = [
+    'Medium',
+    'Hight',
+    'Low',
+  ];
+  List<String> statusCategories = [
+    'backlog',
+    'ToDo',
+    'inprogress',
+    'done',
+    'approved',
+  ];
+  List<String> labelCategories = [
+    'Staff augmentation',
+    'Review',
+    'Documentacion',
+    'En Desarrollo',
+    'Maquetado',
+  ];
+  List<String> createdByCategories = [
+    'admin',
+  ];
+
+  void addTask() {
+    if (_addProductFormKey.currentState!.validate()) {
+      adminServices.createTask(
+        context: context,
+        title: _tituloController.text,
+        priority: priority,
+        description: _descriptionController.text,
+        assignmentUser: _assignmentUserController.text,
+        points: double.parse(_pointsController.text),
+        category: category,
+        images: images,
+        status: status,
+        createdBy: createdBy,
+        label: label,
+      );
+    }
+  }
+
+  void selectImages() async {
+    var res = await pickImages();
+    setState(() {
+      images = res;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: GlobalVariables.appBarGradient,
+            ),
+          ),
+          title: const Text(
+            'Add Task',
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Wrap(children: [
+            Container(
+              width: 600,
+              height: 1200,
+              child: Form(
+                key: _addProductFormKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      Container(
+                        margin: const EdgeInsets.only(right: 100),
+                        width: 300,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                                controller: _tituloController,
+                                style: const TextStyle(color: Colors.black),
+                                decoration: const InputDecoration(
+                                    hintText: "Titulo de la tarea",
+                                    hintStyle: TextStyle(
+                                        color: Colors.black, fontSize: 25))),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: Wrap(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(5.0),
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  color: const Color.fromARGB(255, 237, 236, 236),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: DropdownButton(
+                                style: const TextStyle(color: Colors.black),
+                                value: createdBy,
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                items: createdByCategories.map((String item) {
+                                  return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newVal) {
+                                  setState(() {
+                                    createdBy = newVal!;
+                                  });
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(5.0),
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  color: const Color.fromARGB(255, 237, 236, 236),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: DropdownButton(
+                                style: const TextStyle(color: Colors.black),
+                                value: status,
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                items: statusCategories.map((String item) {
+                                  return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newVal) {
+                                  setState(() {
+                                    status = newVal!;
+                                  });
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            Container(
+                              padding: const EdgeInsets.all(5.0),
+                              width: 120,
+                              decoration: BoxDecoration(
+                                  color: const Color.fromARGB(255, 237, 236, 236),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: DropdownButton(
+                                style: const TextStyle(color: Colors.black),
+                                value: category,
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                items: taskCategories.map((String item) {
+                                  return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newVal) {
+                                  setState(() {
+                                    category = newVal!;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Container(
+                        width: 500,
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(right: 150),
+                              height: 100,
+                              child: Wrap(children: [
+                                Container(
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 239, 239, 239),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: TextFormField(
+                                      controller: _assignmentUserController,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                      decoration: const InputDecoration(
+                                          hintText: "Colaborador",
+                                          hintStyle: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20))),
+                                ),
+                                const SizedBox(width: 5),
+                                Container(
+                                  child: const CircleAvatar(
+                                    radius: 25.0,
+                                    backgroundColor:
+                                        Color.fromARGB(255, 211, 211, 211),
+                                    backgroundImage: AssetImage(
+                                        'assets/images/raster/avatar-1.png'),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 3,
+                                ),
+                                Container(
+                                  width: 50,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 228, 226, 226),
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: IconButton(
+                                    onPressed: (() {}),
+                                    icon: const Icon(Icons.add),
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ]),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 20),
+                              child: Wrap(children: [
+                                SizedBox(
+                                  width: 200,
+                                  child: DropdownButton(
+                                    style: const TextStyle(color: Colors.black),
+                                    value: priority,
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                    items:
+                                        priorityCategories.map((String item) {
+                                      return DropdownMenuItem(
+                                        value: item,
+                                        child: Text(item),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newVal) {
+                                      setState(() {
+                                        priority = newVal!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(2.0),
+                                  width: 150,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(255, 244, 146, 146),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: DropdownButton(
+                                    style: const TextStyle(color: Colors.black),
+                                    value: label,
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                    items: labelCategories.map((String item) {
+                                      return DropdownMenuItem(
+                                        value: item,
+                                        child: Text(item),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newVal) {
+                                      setState(() {
+                                        label = newVal!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 3,
+                                ),
+                              ]),
+                            ),
+                            const SizedBox(height: 20),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Wrap(children: [
+                        Container(
+                          margin: const EdgeInsets.only(right: 10),
+                          width: 200,
+                          height: 100,
+                          child: images.isNotEmpty
+                              ? CarouselSlider(
+                                  items: images.map(
+                                    (i) {
+                                      return Builder(
+                                        builder: (BuildContext context) =>
+                                            Image.file(
+                                          i,
+                                          fit: BoxFit.cover,
+                                          height: 200,
+                                        ),
+                                      );
+                                    },
+                                  ).toList(),
+                                  options: CarouselOptions(
+                                    viewportFraction: 1,
+                                    height: 200,
+                                  ),
+                                )
+                              : GestureDetector(
+                                  onTap: selectImages,
+                                  child: DottedBorder(
+                                    borderType: BorderType.RRect,
+                                    radius: const Radius.circular(10),
+                                    dashPattern: const [10, 4],
+                                    strokeCap: StrokeCap.round,
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(
+                                            Icons.folder_open,
+                                            size: 40,
+                                          ),
+                                          const SizedBox(height: 15),
+                                          Text(
+                                            'Select Tasks Images',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.grey.shade400,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                        ),
+                      ]),
+                      const SizedBox(height: 10),
+                      Flex(direction: Axis.vertical, children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 40),
+                          width: 400,
+                          height: 60,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 239, 239, 239),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: TextFormField(
+                            controller: _descriptionController,
+                            style: const TextStyle(color: Colors.black),
+                            decoration: const InputDecoration(
+                                hintText: "Descripción",
+                                hintStyle: TextStyle(
+                                    color: Colors.black, fontSize: 15)),
+                            maxLines: 7,
+                          ),
+                        ),
+                      ]),
+                      const SizedBox(height: 10),
+                      Container(
+                        width: 150,
+                        height: 40,
+                        child: CustomButton(
+                          text: 'add',
+                          onTap: addTask,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Column(
+              children: [
+                const SizedBox(height: 60),
+                Container(
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 239, 239, 239),
+                      borderRadius: BorderRadius.circular(10)),
+                  width: 200,
+                  child: TextFormField(
+                    controller: _pointsController,
+                    decoration: const InputDecoration(
+                        hintText: "    Puntos",
+                        hintStyle:
+                            const TextStyle(color: Colors.black, fontSize: 25)),
+                    // hintText: 'Points',
+                  ),
+                ),
+                const BarPost()
+              ],
+            )
+          ]),
+        ),
+      ),
+    );
+  }
+}

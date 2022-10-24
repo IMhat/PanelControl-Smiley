@@ -1,86 +1,73 @@
 import 'dart:convert';
-import 'package:project_management/app/shared_components/list_profil_image.dart';
 
 class TaskToDo {
-  late dynamic title;
-  late dynamic type;
-  late dynamic priority;
-  late dynamic description;
-  late dynamic user;
-  late String? points;
-  // late dynamic done;
-  late dynamic due;
-  late dynamic createdBy;
-  // late List profilContributors;
-  // //<ImageProvider>
-  // late int totalComments;
-  // late int totalContributors;
-  late dynamic id;
-
+  late String title;
+  late String priority;
+  late String description;
+  // late List<String> images;
+  late int points;
+  late String category;
+  late String assignmentUser;
+  late String status;
+  late String createdBy;
+  // late String id;
   TaskToDo(
     this.title,
-    this.type,
     this.priority,
     this.description,
-    this.user,
+    // this.images,
     this.points,
-    // this.done,
-    this.due,
+    this.category,
+    this.assignmentUser,
+    this.status,
     this.createdBy,
-    // this.profilContributors,
-    // this.totalComments,
-    // this.totalContributors,
-    this.id,
+    // this.id,
   );
-  factory TaskToDo.fromJson(dynamic str) => TaskToDo.fromMap(json.decode(str));
+  factory TaskToDo.fromJson(String str) => TaskToDo.fromMap(json.decode(str));
 
-  dynamic toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap());
+
   TaskToDo.fromMap(Map<String, dynamic> map) {
     title = map['title'];
-    type = map['type'];
     priority = map['priority'];
     description = map['description'];
-    user = map['user'];
+    // points =
+    // map['quantity']?.toDouble() ?? 0.0;
+    // images  =
+    // List<String>.from(map['images']);
+    // images = map['images'];
     points = map['points'];
-    // done = map['done'];
-    due = map['due'];
+    category = map['category'];
+    assignmentUser = map['assignmentUser'];
+    status = map['status'];
     createdBy = map['createdBy'];
-    // profilContributors = map['profilContributors'];
-    // totalComments = map['totalComments'];
-    // totalContributors = map['totalContributors'];
-    id = map['id'];
+    // id = map['id'];
   }
 
   Map<String, dynamic> toMap() => {
         "title": title,
-        "type": type,
         "priority": priority,
         "description": description,
-        "user": user,
+        // "images": images,
         "points": points,
-        // "done": done,
-        "due": due,
+        "category": category,
+        "assignmentUser": assignmentUser,
+        "status": status,
         "createdBy": createdBy,
-        // "profilContributors": profilContributors,
-        // "totalComments": totalComments,
-        // "totalContributors": totalContributors,
-        "id": id,
+        // "id": id,
       };
 
   TaskToDo copy() => TaskToDo(
         title,
-        type,
         priority,
         description,
-        user,
+        // images,
         points,
-        // done,
-        due,
+        category,
+        assignmentUser,
+        status,
         createdBy,
-        // profilContributors,
-        // totalComments,
-        // totalContributors,
-        id,
+        // id,
       );
 
   then(Null Function(dynamic value) param0) {}

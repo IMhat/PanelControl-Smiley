@@ -128,7 +128,7 @@ class _FilterDialog extends StatelessWidget {
           children: [
             const Text(
               "Filtrar",
-              style: const TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.black),
               textAlign: TextAlign.start,
             ),
             const Divider(indent: 2, color: Colors.grey),
@@ -151,7 +151,7 @@ class _FilterDialog extends StatelessWidget {
             ),
             const Text(
               "Miembros",
-              style: const TextStyle(color: Colors.black),
+              style:  TextStyle(color: Colors.black),
               textAlign: TextAlign.start,
             ),
             Container(
