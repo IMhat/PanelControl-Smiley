@@ -1,27 +1,25 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:project_management/app/features/dashboard/models/task_done.dart';
+
 import 'package:project_management/app/features/dashboard/views/screens/search_screen.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../utils/services/admin_services.dart';
-import '../../models/tasks.dart';
 
-class TaskDetailsScreen extends StatefulWidget {
-  static const String routeName = '/task-details';
+class TaskDoneDetailsScreen extends StatefulWidget {
+  static const String routeName = '/task-done-details';
 
-  final Task task;
+  final TaskDone task;
 
-  const TaskDetailsScreen({
+  const TaskDoneDetailsScreen({
     Key? key,
     required this.task,
   }) : super(key: key);
 
   @override
-  State<TaskDetailsScreen> createState() => _TaskDetailsScreenState();
+  State<TaskDoneDetailsScreen> createState() => _TaskDoneDetailsScreenState();
 }
 
-class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
+class _TaskDoneDetailsScreenState extends State<TaskDoneDetailsScreen> {
   final AdminServices productDetailsServices = AdminServices();
 
   // void acept() {

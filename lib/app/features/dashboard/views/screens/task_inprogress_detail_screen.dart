@@ -1,27 +1,30 @@
-import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+import 'package:project_management/app/features/dashboard/models/task_inprogress.dart';
 import 'package:project_management/app/features/dashboard/views/screens/search_screen.dart';
-import 'package:provider/provider.dart';
+
 
 import '../../../../utils/services/admin_services.dart';
-import '../../models/tasks.dart';
 
-class TaskDetailsScreen extends StatefulWidget {
-  static const String routeName = '/task-details';
 
-  final Task task;
+class TaskInprogressDetailsScreen extends StatefulWidget {
+  static const String routeName = '/task-inprogress-details';
 
-  const TaskDetailsScreen({
+  final TaskInprogress task;
+
+  const TaskInprogressDetailsScreen({
     Key? key,
     required this.task,
   }) : super(key: key);
 
   @override
-  State<TaskDetailsScreen> createState() => _TaskDetailsScreenState();
+  State<TaskInprogressDetailsScreen> createState() =>
+      _TaskInprogressDetailsScreenState();
 }
 
-class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
+class _TaskInprogressDetailsScreenState
+    extends State<TaskInprogressDetailsScreen> {
   final AdminServices productDetailsServices = AdminServices();
 
   // void acept() {

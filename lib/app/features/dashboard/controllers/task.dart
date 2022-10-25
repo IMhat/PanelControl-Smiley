@@ -37,61 +37,62 @@ class _TasksState extends State<Tasks> {
   Widget build(BuildContext context) {
     return tasks == null
         ? const Loader()
-        : SingleChildScrollView(
-            child: Column(
-              children: [
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Container(
-                //       padding: const EdgeInsets.only(left: 15),
-                //       child: const Text(
-                //         'Your Wallet',
-                //         style: TextStyle(
-                //           fontSize: 18,
-                //           fontWeight: FontWeight.w600,
-                //         ),
-                //       ),
-                //     ),
-                //     // Container(
-                //     //   padding: const EdgeInsets.only(right: 15),
-                //     //   child: Text(
-                //     //     'See all',
-                //     //     style: TextStyle(
-                //     //       color: GlobalVariables.selectedNavBarColor,
-                //     //     ),
-                //     //   ),
-                //     // ),
-                //   ],
-                // ),
+        : Column(
+            children: [
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Container(
+              //       padding: const EdgeInsets.only(left: 15),
+              //       child: const Text(
+              //         'Your Wallet',
+              //         style: TextStyle(
+              //           fontSize: 18,
+              //           fontWeight: FontWeight.w600,
+              //         ),
+              //       ),
+              //     ),
+              //     // Container(
+              //     //   padding: const EdgeInsets.only(right: 15),
+              //     //   child: Text(
+              //     //     'See all',
+              //     //     style: TextStyle(
+              //     //       color: GlobalVariables.selectedNavBarColor,
+              //     //     ),
+              //     //   ),
+              //     // ),
+              //   ],
+              // ),
 
-                // DISPLAY ORDERS
-                Container(
-                  margin: EdgeInsets.only(right: 20),
-                  width: 330,
-                  padding: const EdgeInsets.only(left: 10, top: 20, right: 0),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: tasks!.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            TaskDetailsScreen.routeName,
-                            arguments: tasks![index],
-                          );
-                        },
-                        child: SingleTask(
-                          task: tasks![index],
-                        ),
-                      );
-                    },
-                  ),
+              // DISPLAY ORDERS
+              Container(
+                margin: EdgeInsets.only(right: 20),
+                width: 330,
+                height: 710,
+                padding: const EdgeInsets.only(left: 10, top: 20, right: 0),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: tasks!.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          TaskDetailsScreen.routeName,
+                          arguments: tasks![index],
+                        );
+                      },
+                      child: SingleTask(
+                        task: tasks![index],
+                      ),
+                    );
+                  },
                 ),
-                OutlinedButton.icon(
+              ),
+              Container(
+                margin: EdgeInsets.only(right: 40),
+                child: OutlinedButton.icon(
                   icon: const Icon(Icons.add,
                       color: Color.fromARGB(255, 255, 255, 255)),
                   label: const Text(
@@ -107,8 +108,8 @@ class _TasksState extends State<Tasks> {
                     elevation: 10,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           );
   }
 }

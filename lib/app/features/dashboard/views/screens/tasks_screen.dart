@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_management/app/features/dashboard/views/screens/add_task_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/task_post.dart';
 
@@ -24,7 +25,24 @@ class TasksScreen extends StatefulWidget {
   State<TasksScreen> createState() => _TasksScreenState();
 }
 
-class _TasksScreenState extends State<TasksScreen> {
+class _TasksScreenState extends State<TasksScreen>
+    with SingleTickerProviderStateMixin {
+  int selectedPage = 0;
+  TabController? controller;
+  @override
+  void initState() {
+    super.initState();
+    controller =
+        TabController(length: 3, initialIndex: selectedPage, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller!.dispose();
+  }
+
+  final textStyle = const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
   // final LinearGradient _gradient = const LinearGradient(
   //     begin: Alignment.topCenter,
   //     end: Alignment.bottomCenter,
@@ -275,9 +293,9 @@ class _TasksScreenState extends State<TasksScreen> {
                               ],
                             ),
                           )),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
                       Container(
                         margin: EdgeInsets.only(right: 40),
                         child: OutlinedButton.icon(
@@ -289,8 +307,8 @@ class _TasksScreenState extends State<TasksScreen> {
                           ),
                           onPressed: () {
                             // Navigate to the overview page using a named route.
-                            // Navigator.of(context)
-                            //     .pushNamed(TaskPostScreen.route);
+                            Navigator.pushNamed(
+                                context, AddTaskScreen.routeName);
                           },
                           style: OutlinedButton.styleFrom(
                             backgroundColor: (const Color(0xff48409E)),

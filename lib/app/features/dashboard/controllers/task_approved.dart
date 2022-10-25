@@ -8,6 +8,9 @@ import 'package:project_management/app/utils/services/admin_services.dart';
 import 'package:flutter/material.dart';
 import 'package:project_management/app/utils/widgets/single_approved_task.dart';
 
+import '../views/screens/task_approved_details_screen.dart';
+import '../views/screens/task_detail_screen.dart';
+
 class TasksApproved extends StatefulWidget {
   const TasksApproved({Key? key}) : super(key: key);
 
@@ -36,61 +39,30 @@ class _TasksApprovedState extends State<TasksApproved> {
   Widget build(BuildContext context) {
     return tasks == null
         ? const Loader()
-        : SingleChildScrollView(
-            child: Column(
-              children: [
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Container(
-                //       padding: const EdgeInsets.only(left: 15),
-                //       child: const Text(
-                //         'Your Wallet',
-                //         style: TextStyle(
-                //           fontSize: 18,
-                //           fontWeight: FontWeight.w600,
-                //         ),
-                //       ),
-                //     ),
-                //     // Container(
-                //     //   padding: const EdgeInsets.only(right: 15),
-                //     //   child: Text(
-                //     //     'See all',
-                //     //     style: TextStyle(
-                //     //       color: GlobalVariables.selectedNavBarColor,
-                //     //     ),
-                //     //   ),
-                //     // ),
-                //   ],
-                // ),
-
-                // DISPLAY ORDERS
-                Container(
-                  margin: EdgeInsets.only(right: 20),
-                  width: 330,
-                  padding: const EdgeInsets.only(left: 10, top: 20, right: 0),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: tasks!.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          // Navigator.pushNamed(
-                          //   context,
-                          //   TaskDetailsScreen.routeName,
-                          //   arguments: tasks![index],
-                          // );
-                        },
-                        child: SingleApprovedTask(
-                          task: tasks![index],
-                        ),
-                      );
-                    },
+        : Container(
+            margin: EdgeInsets.only(right: 20),
+            width: 330,
+            height: 710,
+            padding: const EdgeInsets.only(left: 10, top: 20, right: 0),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              itemCount: tasks!.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      TaskApprovedDetailsScreen.routeName,
+                      arguments: tasks![index],
+                    );
+                  },
+                  child: SingleApprovedTask(
+                    task: tasks![index],
                   ),
-                ),
-              ],
+                );
+              },
             ),
           );
   }

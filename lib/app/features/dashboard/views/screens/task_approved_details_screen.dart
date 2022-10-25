@@ -1,27 +1,27 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:project_management/app/features/dashboard/models/task_approved.dart';
+import 'package:project_management/app/features/dashboard/models/task_done.dart';
+
 import 'package:project_management/app/features/dashboard/views/screens/search_screen.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../utils/services/admin_services.dart';
-import '../../models/tasks.dart';
 
-class TaskDetailsScreen extends StatefulWidget {
-  static const String routeName = '/task-details';
+class TaskApprovedDetailsScreen extends StatefulWidget {
+  static const String routeName = '/task-approved-details';
 
-  final Task task;
+  final TaskApproved task;
 
-  const TaskDetailsScreen({
+  const TaskApprovedDetailsScreen({
     Key? key,
     required this.task,
   }) : super(key: key);
 
   @override
-  State<TaskDetailsScreen> createState() => _TaskDetailsScreenState();
+  State<TaskApprovedDetailsScreen> createState() =>
+      _TaskApprovedDetailsScreenState();
 }
 
-class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
+class _TaskApprovedDetailsScreenState extends State<TaskApprovedDetailsScreen> {
   final AdminServices productDetailsServices = AdminServices();
 
   // void acept() {
