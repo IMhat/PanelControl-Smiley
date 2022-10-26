@@ -67,9 +67,13 @@ class _TasksState extends State<Tasks> {
               // DISPLAY ORDERS
               Container(
                 margin: EdgeInsets.only(right: 20),
-                width: 330,
-                height: 710,
-                padding: const EdgeInsets.only(left: 10, top: 20, right: 0),
+                width: 275,
+                height: 680,
+                decoration: const BoxDecoration(
+                  color: Color(0xffBFB9FF),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                padding: const EdgeInsets.all(8.0),
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
@@ -88,25 +92,6 @@ class _TasksState extends State<Tasks> {
                       ),
                     );
                   },
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(right: 40),
-                child: OutlinedButton.icon(
-                  icon: const Icon(Icons.add,
-                      color: Color.fromARGB(255, 255, 255, 255)),
-                  label: const Text(
-                    "Add New Task",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    // Navigate to the overview page using a named route.
-                    Navigator.pushNamed(context, AddTaskScreen.routeName);
-                  },
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: (const Color(0xff48409E)),
-                    elevation: 10,
-                  ),
                 ),
               ),
             ],

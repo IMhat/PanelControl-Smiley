@@ -12,7 +12,7 @@ import 'app/features/auth/screens/initial_screen.dart';
 import 'app/features/dashboard/providers/user_provider.dart';
 import 'app/features/dashboard/views/components/theme.dart';
 import 'app/features/dashboard/views/screens/noAdmin.dart';
-import 'app/utils/services/transaction_services.dart';
+
 // import 'package:get/get.dart';
 
 // void main() {
@@ -29,7 +29,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
-        ChangeNotifierProvider(create: (_) => TransactionService()),
+
         // ChangeNotifierProvider(create: (_) => ProductService()),
         // ChangeNotifierProvider(create: (_) => PointService()),
         // ChangeNotifierProvider(create: (_) => TaskListProvider()),

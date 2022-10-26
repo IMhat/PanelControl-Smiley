@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project_management/app/features/dashboard/views/components/theme.dart';
 
-class MyButton extends StatelessWidget {
+class MyButtonEditTask extends StatelessWidget {
   final Function onTap;
   final String label;
 
-  MyButton({
+   MyButtonEditTask({
     required this.onTap,
     required this.label,
   });

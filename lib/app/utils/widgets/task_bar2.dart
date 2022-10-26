@@ -13,7 +13,8 @@ class TaskBar2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return 
+    Container(
       margin: const EdgeInsets.only(right: 40),
       width: 1450,
       height: 80,
@@ -44,7 +45,7 @@ class TaskBar2 extends StatelessWidget {
                 ]),
                 const Text(
                   "Tenes 2 tareas finalizadas",
-                  style: TextStyle(fontSize: 10),
+                  style: TextStyle(fontSize: 10, color: Colors.white),
                 ),
               ],
             ),
@@ -52,8 +53,10 @@ class TaskBar2 extends StatelessWidget {
           const SizedBox(width: 20),
           Container(
             margin: const EdgeInsets.only(top: 30),
-            child: const Text("Puntos por entregar: 20",
-                style: TextStyle(fontSize: 10)),
+            child: const Text(
+              "Puntos por entregar: 20",
+              style: TextStyle(fontSize: 10, color: Colors.white),
+            ),
           ),
           // Container(
           //   width: 100,
@@ -151,7 +154,7 @@ class _FilterDialog extends StatelessWidget {
             ),
             const Text(
               "Miembros",
-              style:  TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.black),
               textAlign: TextAlign.start,
             ),
             Container(

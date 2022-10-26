@@ -41,9 +41,13 @@ class _TasksApprovedState extends State<TasksApproved> {
         ? const Loader()
         : Container(
             margin: EdgeInsets.only(right: 20),
-            width: 330,
+            width: 275,
             height: 710,
-            padding: const EdgeInsets.only(left: 10, top: 20, right: 0),
+            decoration: const BoxDecoration(
+              color: Color(0xffBFB9FF),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            padding: const EdgeInsets.all(8.0),
             child: ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

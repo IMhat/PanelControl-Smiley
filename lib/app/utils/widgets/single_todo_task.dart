@@ -14,7 +14,7 @@ class SingleToDoTask extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(2.0),
       margin: const EdgeInsets.only(top: 2),
-      width: 400, height: 200,
+      width: 400, height: 180,
       //decoration: _cardBorders(),
       child: Stack(
         alignment: Alignment.bottomLeft,
@@ -63,8 +63,8 @@ class _TaskDetailsState extends State<_TaskDetails> {
       child: Container(
         margin: const EdgeInsets.only(top: 2, left: 3),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        width: 260,
-        height: 200,
+        width: 250,
+        height: 180,
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -96,7 +96,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
             ),
 
             SizedBox(
-              height: 50,
+              height: 30,
               child: Text(
                 widget.priority.toString(),
                 style: const TextStyle(
@@ -109,7 +109,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: const EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.all(3.0),
                   width: 100,
                   height: 30,
                   decoration: BoxDecoration(
