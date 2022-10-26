@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project_management/app/features/dashboard/views/screens/add_task_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/dashboard_screen.dart';
+import 'package:project_management/app/features/dashboard/views/screens/products_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/task_post.dart';
 
 import 'package:project_management/app/shared_components/today_text.dart';
@@ -15,6 +17,8 @@ import '../../controllers/task_inprogress.dart';
 import '../../controllers/task_inprogress_controller.dart';
 import '../../controllers/task_todo.dart';
 import '../../controllers/task_todo_controller.dart';
+import 'analytics_screen.dart';
+import 'get_orders.dart';
 
 class TasksScreen extends StatefulWidget {
   static const String routeName = '/tasks';
@@ -68,14 +72,14 @@ class _TasksScreenState extends State<TasksScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor: const Color(0xff48409E)),
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Wrap(
           children: [
             Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 const Text(
@@ -133,7 +137,9 @@ class _TasksScreenState extends State<TasksScreen>
                 // ),
                 const SizedBox(height: 10),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(OrdersScreen.routeName);
+                    },
                     child: Container(
                       decoration: decoration,
                       width: 200,
@@ -146,7 +152,7 @@ class _TasksScreenState extends State<TasksScreen>
                           ),
                           SizedBox(width: 15),
                           Text(
-                            "List",
+                            "List Orders",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 25,
@@ -158,7 +164,9 @@ class _TasksScreenState extends State<TasksScreen>
 
                 const SizedBox(height: 10),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(PostsScreen.routeName);
+                    },
                     child: Container(
                       decoration: decoration,
                       width: 200,
@@ -207,7 +215,9 @@ class _TasksScreenState extends State<TasksScreen>
                     )),
                 const SizedBox(height: 10),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AnalyticsScreen.routeName);
+                    },
                     child: Container(
                       decoration: decoration,
                       width: 200,
@@ -220,7 +230,7 @@ class _TasksScreenState extends State<TasksScreen>
                           ),
                           SizedBox(width: 15),
                           Text(
-                            "Progres",
+                            "Analitycs",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 25,
@@ -292,9 +302,9 @@ class _TasksScreenState extends State<TasksScreen>
                               ],
                             ),
                           )),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
                       Container(
                         margin: EdgeInsets.only(right: 40),
                         child: OutlinedButton.icon(
@@ -306,8 +316,8 @@ class _TasksScreenState extends State<TasksScreen>
                           ),
                           onPressed: () {
                             // Navigate to the overview page using a named route.
-                            // Navigator.of(context)
-                            //     .pushNamed(TaskPostScreen.route);
+                            Navigator.pushNamed(
+                                context, AddTaskScreen.routeName);
                           },
                           style: OutlinedButton.styleFrom(
                             backgroundColor: (const Color(0xff48409E)),
@@ -357,6 +367,26 @@ class _TasksScreenState extends State<TasksScreen>
                             ],
                           ),
                           const Tasks(),
+                          Container(
+                            margin: EdgeInsets.only(right: 40),
+                            child: OutlinedButton.icon(
+                              icon: const Icon(Icons.add,
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                              label: const Text(
+                                "Add New Task",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              onPressed: () {
+                                // Navigate to the overview page using a named route.
+                                Navigator.pushNamed(
+                                    context, AddTaskScreen.routeName);
+                              },
+                              style: OutlinedButton.styleFrom(
+                                backgroundColor: (const Color(0xff48409E)),
+                                elevation: 10,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       Column(children: [

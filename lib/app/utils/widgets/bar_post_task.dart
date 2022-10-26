@@ -153,7 +153,7 @@ class BarPost extends StatelessWidget {
                 ),
               )),
           const SizedBox(
-            height: 100,
+            height: 120,
           ),
           TextButton(
               onPressed: () {},

@@ -8,6 +8,9 @@ import 'package:project_management/app/utils/services/admin_services.dart';
 import 'package:flutter/material.dart';
 import 'package:project_management/app/utils/widgets/single_todo_task.dart';
 
+import '../views/screens/task_ToDo_details_screen.dart';
+import '../views/screens/task_detail_screen.dart';
+
 class TasksToDo extends StatefulWidget {
   const TasksToDo({Key? key}) : super(key: key);
 
@@ -38,9 +41,13 @@ class _TasksToDoState extends State<TasksToDo> {
         ? const Loader()
         : Container(
             margin: EdgeInsets.only(right: 20),
-            width: 330,
-            height: 710,
-            padding: const EdgeInsets.only(left: 10, top: 20, right: 0),
+                width: 275,
+                height: 710,
+                decoration: const BoxDecoration(
+                  color: Color(0xffBFB9FF),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                padding: const EdgeInsets.all(8.0),
             child: ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -49,11 +56,11 @@ class _TasksToDoState extends State<TasksToDo> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(
-                    //   context,
-                    //   TaskDetailsScreen.routeName,
-                    //   arguments: tasks![index],
-                    // );
+                    Navigator.pushNamed(
+                      context,
+                      TaskToDoDetailsScreen.routeName,
+                      arguments: tasks![index],
+                    );
                   },
                   child: SingleToDoTask(
                     task: tasks![index],

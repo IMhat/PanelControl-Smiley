@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'app/features/auth/screens/initial_screen.dart';
 
 import 'app/features/dashboard/providers/user_provider.dart';
+import 'app/features/dashboard/views/components/theme.dart';
 import 'app/features/dashboard/views/screens/noAdmin.dart';
 import 'app/utils/services/transaction_services.dart';
 // import 'package:get/get.dart';
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Project Management',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.basic,
+      theme: Themes.light,
       // initialRoute: AppPages.initial,
       onGenerateRoute: (settings) => generateRoute(settings),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty

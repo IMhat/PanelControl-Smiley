@@ -8,6 +8,9 @@ import 'package:project_management/app/utils/services/admin_services.dart';
 import 'package:flutter/material.dart';
 import 'package:project_management/app/utils/widgets/single_inprogress_task.dart';
 
+import '../views/screens/task_detail_screen.dart';
+import '../views/screens/task_inprogress_detail_screen.dart';
+
 class TasksInprogress extends StatefulWidget {
   const TasksInprogress({Key? key}) : super(key: key);
 
@@ -38,9 +41,13 @@ class _TasksInprogressState extends State<TasksInprogress> {
         ? const Loader()
         : Container(
             margin: EdgeInsets.only(right: 20),
-            width: 330,
+            width: 275,
             height: 710,
-            padding: const EdgeInsets.only(left: 10, top: 20, right: 0),
+            decoration: const BoxDecoration(
+              color: Color(0xffBFB9FF),
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            ),
+            padding: const EdgeInsets.all(8.0),
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
@@ -48,11 +55,11 @@ class _TasksInprogressState extends State<TasksInprogress> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(
-                    //   context,
-                    //   TaskDetailsScreen.routeName,
-                    //   arguments: tasks![index],
-                    // );
+                    Navigator.pushNamed(
+                      context,
+                      TaskInprogressDetailsScreen.routeName,
+                      arguments: tasks![index],
+                    );
                   },
                   child: SingleInprogressTask(
                     task: tasks![index],

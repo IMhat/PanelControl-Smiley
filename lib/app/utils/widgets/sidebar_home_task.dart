@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project_management/app/features/auth/services/auth_service.dart';
 import 'package:project_management/app/features/auth/widgets/account_button.dart';
+import 'package:project_management/app/features/dashboard/views/screens/analytics_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/get_orders.dart';
 import 'package:project_management/app/features/dashboard/views/screens/products_screen.dart';
 
@@ -160,7 +161,9 @@ class SidebarHomeTask extends StatelessWidget {
             )),
         const SizedBox(height: 10),
         TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, AnalyticsScreen.routeName);
+            },
             child: Container(
               decoration: decoration,
               width: 200,
@@ -173,7 +176,7 @@ class SidebarHomeTask extends StatelessWidget {
                   ),
                   SizedBox(width: 15),
                   Text(
-                    "Progres",
+                    "Analitycs",
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 25,

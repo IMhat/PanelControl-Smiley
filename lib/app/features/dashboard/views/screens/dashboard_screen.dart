@@ -61,9 +61,9 @@ class DashboardScreen extends GetView<StatefulWidget> {
       // key: controller.scaffoldKey,
       drawer: (ResponsiveBuilder.isDesktop(context))
           ? null
-          : Drawer(
+          : const Drawer(
               child: Padding(
-                padding: const EdgeInsets.only(top: kSpacing),
+                padding: EdgeInsets.only(top: kSpacing),
                 // child: _Sidebar(data: controller.getSelectedProject()),
               ),
             ),
@@ -157,20 +157,20 @@ class DashboardScreen extends GetView<StatefulWidget> {
               Flexible(
                 flex: 4,
                 child: Column(
-                  children: [
-                    const SizedBox(height: kSpacing * (kIsWeb ? 0.5 : 1.5)),
+                  children: const [
+                     SizedBox(height: kSpacing * (kIsWeb ? 0.5 : 1.5)),
                     // _buildProfile(data: controller.getProfil()),
-                    const Divider(thickness: 1),
-                    const SizedBox(height: kSpacing),
+                     Divider(thickness: 1),
+                     SizedBox(height: kSpacing),
                     // _buildTeamMember(data: controller.getMember()),
-                    const SizedBox(height: kSpacing),
+                    SizedBox(height: kSpacing),
                     // Padding(
                     //   padding: const EdgeInsets.symmetric(horizontal: kSpacing),
                     //   child: GetPremiumCard(onPressed: () {}),
                     // ),
-                    const SizedBox(height: kSpacing),
-                    const Divider(thickness: 1),
-                    const SizedBox(height: kSpacing),
+                     SizedBox(height: kSpacing),
+                     Divider(thickness: 1),
+                     SizedBox(height: kSpacing),
                     // _buildRecentMessages(data: controller.getChatting()),
                   ],
                 ),
@@ -182,7 +182,7 @@ class DashboardScreen extends GetView<StatefulWidget> {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SidebarHomeTask(),
+              const SidebarHomeTask(),
               // Flexible(
               //   flex: (constraints.maxWidth < 1360) ? 4 : 3,
               //   child: ClipRRect(
@@ -220,20 +220,20 @@ class DashboardScreen extends GetView<StatefulWidget> {
               Flexible(
                 flex: 4,
                 child: Column(
-                  children: [
-                    const SizedBox(height: kSpacing / 2),
+                  children: const [
+                     SizedBox(height: kSpacing / 2),
                     // _buildProfile(data: controller.getProfil()),
-                    const Divider(thickness: 1),
-                    const SizedBox(height: kSpacing),
+                     Divider(thickness: 1),
+                     SizedBox(height: kSpacing),
                     // _buildTeamMember(data: controller.getMember()),
-                    const SizedBox(height: kSpacing),
+                     SizedBox(height: kSpacing),
                     // Padding(
                     //   padding: const EdgeInsets.symmetric(horizontal: kSpacing),
                     //   child: GetPremiumCard(onPressed: () {}),
                     // ),
-                    const SizedBox(height: kSpacing),
-                    const Divider(thickness: 1),
-                    const SizedBox(height: kSpacing),
+                     SizedBox(height: kSpacing),
+                     Divider(thickness: 1),
+                     SizedBox(height: kSpacing),
                     // _buildRecentMessages(data: controller.getChatting()),
                   ],
                 ),
