@@ -87,7 +87,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 ],
                               ),
                             ),
-                            const SizedBox(width: 20),
+                            const SizedBox(width: 200),
                             Container(
                               child: const CircleAvatar(
                                 radius: 25.0,

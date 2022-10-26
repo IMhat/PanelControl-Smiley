@@ -45,7 +45,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   DateTime _selectedDate = DateTime.now();
 
   DateTime _startDate = DateTime.now();
-  DateTime _endDate = DateTime.now().add(Duration(minutes: 5));
+  DateTime _endDate = DateTime.now().add(const Duration(minutes: 5));
 
   late String _startTime = DateFormat('hh:mm a').format(_startDate).toString();
   late String _endTime = DateFormat('hh:mm a').format(_endDate).toString();
@@ -97,30 +97,44 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
     'admin',
   ];
 
-  // void addTask() {
-  //   if (_addProductFormKey.currentState!.validate()) {
-  //     DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
-  //         .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
-  //     DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
-  //         .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
-  //     adminServices.createTask(
-  //       context: context,
-  //       title: _tituloController.text,
-  //       priority: priority,
-  //       description: _descriptionController.text,
-  //       assignmentUser: _assignmentUserController.text,
-  //       points: double.parse(_pointsController.text),
-  //       category: category,
-  //       images: images,
-  //       status: status,
-  //       createdBy: createdBy,
-  //       label: label,
-  //       startDate: startDate.toString(),
-  //       endDate: endDate.toString(),
-  //     );
-  //   }
-  // }
+  void updateTask() {
+    DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
+    DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
 
+    adminServices.update(
+        context: context,
+        title: _tituloController.text,
+        priority: priority,
+        description: _descriptionController.text,
+        assignmentUser: _assignmentUserController.text,
+        points: double.parse(_pointsController.text),
+        category: category,
+        //images: images,
+        status: 'approved',
+        createdBy: createdBy,
+        label: label,
+        startDate: startDate.toString(),
+        endDate: endDate.toString(),
+        id: widget.task.id.toString());
+  }
+
+  void sendPoints() {
+    adminServices.sendPoints(
+        context: context,
+        fromUsername: 'admin@gmail.com'.toString(),
+        toUsername: widget.task.assignmentUser,
+        //amount: double.parse(_pointsController.text),
+        amount: widget.task.points,
+        summary: 'Complete a daily task'.toString());
+
+    adminServices.changeTaskStatus(
+      context: context,
+      status: 'approved',
+      task: widget.task,
+    );
+  }
   // void selectImages() async {
   //   var res = await pickImages();
   //   setState(() {
@@ -146,7 +160,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
           //   ),
           // ),
           title: const Text(
-            'Add Task',
+            'Edit Task',
             style: TextStyle(
               color: Color.fromARGB(255, 255, 255, 255),
             ),
@@ -155,9 +169,9 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
       ),
       body: SingleChildScrollView(
         child: Wrap(children: [
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           const SidebarTask(),
-          SizedBox(width: 200),
+          const SizedBox(width: 200),
           Container(
             width: 1000,
             height: 1200,
@@ -215,7 +229,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                           width: 3,
                         ),
                         Container(
-                          margin: EdgeInsets.only(right: 10),
+                          margin: const EdgeInsets.only(right: 10),
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
@@ -332,7 +346,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                               width: 20,
                             ),
                             Container(
-                              margin: EdgeInsets.only(right: 400),
+                              margin: const EdgeInsets.only(right: 400),
                               padding: const EdgeInsets.all(2.0),
                               width: 150,
                               height: 50,
@@ -372,7 +386,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                       children: [
                         Flex(direction: Axis.vertical, children: [
                           Container(
-                            padding: EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.all(5.0),
                             width: 500,
                             height: 80,
                             decoration: BoxDecoration(
@@ -537,12 +551,47 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 50,
                     ),
-                    MyButtonEditTask(onTap: () {}, label: "Edit Task"),
-                    const SizedBox(
-                      height: 18.0,
+                    Flex(direction: Axis.vertical, children: [
+                      Container(
+                        padding: const EdgeInsets.all(5.0),
+                        width: 500,
+                        height: 80,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 239, 239, 239),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: TextFormField(
+                          //initialValue: widget.task.description,
+                          //controller: _descriptionController,
+                          style: const TextStyle(color: Colors.black),
+                          decoration: const InputDecoration(
+                              hintText: "Comentarios",
+                              hintStyle:
+                                  TextStyle(color: Colors.black, fontSize: 15)),
+                          maxLines: 7,
+                        ),
+                      ),
+                    ]),
+                    const SizedBox(height: 50),
+                    Wrap(
+                      children: [
+                        MyButtonEditTask(
+                            onTap: () {
+                              updateTask;
+                            },
+                            label: "Edit Task"),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        MyButtonEditTask(
+                            onTap:
+                                // approvedTask;
+                                sendPoints,
+                            label: "Approved task"),
+                      ],
                     ),
+
                     // const SizedBox(height: 10),
                     // Container(
                     //   width: 150,
@@ -552,10 +601,6 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                     //     onTap: addTask,
                     //   ),
                     // ),
-
-                    const SizedBox(
-                      height: 30.0,
-                    ),
                   ],
                 ),
               ),
@@ -573,7 +618,8 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   padding: const EdgeInsets.all(20.0),
                   child: TextFormField(
                     initialValue: widget.task.points.toString(),
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.w600),
                     // controller: _pointsController,
                     decoration: const InputDecoration(
                         hintText: "    Puntos",
@@ -583,7 +629,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   ),
                 ),
               ),
-              SizedBox(width: 250),
+              const SizedBox(width: 250),
               const BarPost()
             ],
           )

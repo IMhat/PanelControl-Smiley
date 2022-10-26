@@ -90,27 +90,25 @@ class _AddProductScreenState extends State<AddTaskScreen> {
   ];
 
   void addTask() {
-    if (_addProductFormKey.currentState!.validate()) {
-      DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
-          .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
-      DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
-          .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
-      adminServices.createTask(
-        context: context,
-        title: _tituloController.text,
-        priority: priority,
-        description: _descriptionController.text,
-        assignmentUser: _assignmentUserController.text,
-        points: double.parse(_pointsController.text),
-        category: category,
-        images: images,
-        status: status,
-        createdBy: createdBy,
-        label: label,
-        startDate: startDate.toString(),
-        endDate: endDate.toString(),
-      );
-    }
+    DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
+    DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
+    adminServices.createTask(
+      context: context,
+      title: _tituloController.text,
+      priority: priority,
+      description: _descriptionController.text,
+      assignmentUser: _assignmentUserController.text,
+      points: double.parse(_pointsController.text),
+      category: category,
+      images: images,
+      status: status,
+      createdBy: createdBy,
+      label: label,
+      startDate: startDate.toString(),
+      endDate: endDate.toString(),
+    );
   }
 
   void selectImages() async {
@@ -537,9 +535,17 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                     //     onTap: addTask,
                     //   ),
                     // ),
-                    MyButton(
-                      label: "Create Task",
-                      onTap: addTask,
+                    // MyButton(
+                    //   label: "Create Task",
+                    //   onTap: addTask,
+                    // ),
+                    Container(
+                      width: 120,
+                      height: 50,
+                      child: CustomButton(
+                        text: 'Sell',
+                        onTap: addTask,
+                      ),
                     ),
                     const SizedBox(
                       height: 30.0,
@@ -565,7 +571,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                   // hintText: 'Points',
                 ),
               ),
-              SizedBox(width: 250),
+              const SizedBox(width: 250),
               const BarPost()
             ],
           )

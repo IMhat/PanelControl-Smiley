@@ -305,26 +305,6 @@ class _TasksScreenState extends State<TasksScreen>
                       // SizedBox(
                       //   height: 20,
                       // ),
-                      Container(
-                        margin: EdgeInsets.only(right: 40),
-                        child: OutlinedButton.icon(
-                          icon: const Icon(Icons.add,
-                              color: Color.fromARGB(255, 255, 255, 255)),
-                          label: const Text(
-                            "Add New Task",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          onPressed: () {
-                            // Navigate to the overview page using a named route.
-                            Navigator.pushNamed(
-                                context, AddTaskScreen.routeName);
-                          },
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: (const Color(0xff48409E)),
-                            elevation: 10,
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 )

@@ -1,46 +1,38 @@
 import 'dart:convert';
 
-class Transaction {
-  late String fromUsername;
-  late String toUsername;
-  late String? amount;
-  late String summary;
-  late String id;
+class TaskTransaction {
+  final String fromUsername;
+  final String toUsername;
+  final double amount;
+  final String summary;
 
-  Transaction(
-    this.fromUsername,
-    this.toUsername,
-    this.amount,
-    this.summary,
-    this.id,
-  );
-  factory Transaction.fromJson(String str) =>
-      Transaction.fromMap(json.decode(str));
+  TaskTransaction({
+    required this.fromUsername,
+    required this.toUsername,
+    required this.amount,
+    required this.summary,
+  });
 
-  String toJson() => json.encode(toMap());
-  Transaction.fromMap(Map<String, dynamic> map) {
-    fromUsername = map['fromUsername'];
-    toUsername = map['toUsername'];
-    amount = map['amount'];
-    summary = map['summary'];
-    id = map['id'];
+  Map<String, dynamic> toMap() {
+    return {
+      'fromUsername': fromUsername,
+      'toUsername': toUsername,
+      'amount': amount,
+      'summary': summary,
+    };
   }
 
-  Map<String, dynamic> toMap() => {
-        "fromUsername": fromUsername,
-        "toUsername": toUsername,
-        "amount": amount,
-        "summary": summary,
-        "id": id,
-      };
+  factory TaskTransaction.fromMap(Map<String, dynamic> map) {
+    return TaskTransaction(
+      fromUsername: map['fromUsername'] ?? '',
+      toUsername: map['toUsername'] ?? '',
+      amount: map['amount']?.toDouble() ?? 0.0,
+      summary: map['summary'] ?? '',
+    );
+  }
 
-  Transaction copy() => Transaction(
-        fromUsername,
-        toUsername,
-        amount,
-        summary,
-        id,
-      );
+  String toJson() => json.encode(toMap());
 
-  then(Null Function(dynamic value) param0) {}
+  factory TaskTransaction.fromJson(String source) =>
+      TaskTransaction.fromMap(json.decode(source));
 }

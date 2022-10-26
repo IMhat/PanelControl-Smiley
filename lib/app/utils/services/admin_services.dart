@@ -16,6 +16,7 @@ import 'package:project_management/app/features/dashboard/models/task_inprogress
 import 'package:project_management/app/features/dashboard/models/task_post.dart';
 import 'package:project_management/app/features/dashboard/models/task_todo.dart';
 import 'package:project_management/app/features/dashboard/models/tasks.dart';
+import 'package:project_management/app/features/dashboard/models/transaction.dart';
 import 'package:project_management/app/features/dashboard/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -439,16 +440,18 @@ class AdminServices {
       }
 
       TaskPost product = TaskPost(
-        title: title,
-        priority: priority,
-        description: description,
-        images: imageUrls,
-        points: points,
-        category: category,
-        assignmentUser: assignmentUser,
-        status: status,
-        createdBy: createdBy,
-      );
+          title: title,
+          priority: priority,
+          description: description,
+          images: imageUrls,
+          points: points,
+          category: category,
+          assignmentUser: assignmentUser,
+          status: status,
+          createdBy: createdBy,
+          label: label,
+          startDate: startDate,
+          endDate: endDate);
 
       http.Response res = await http.post(
         Uri.parse('$uri/admin/add-task'),
@@ -464,6 +467,277 @@ class AdminServices {
         context: context,
         onSuccess: () {
           showSnackBar(context, 'Task Added Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+// update task!
+  void update({
+    required BuildContext context,
+    required String status,
+    required String title,
+    required String priority,
+    required String category,
+    required String assignmentUser,
+    required String createdBy,
+    required String description,
+    required String label,
+    required String startDate,
+    required String endDate,
+    required String id,
+    required double points,
+    //required List<File> images,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      Task task = Task(
+          title: title,
+          priority: priority,
+          description: description,
+          //images: imageUrls,
+          points: points,
+          category: category,
+          assignmentUser: assignmentUser,
+          status: status,
+          createdBy: createdBy,
+          label: label,
+          startDate: startDate,
+          endDate: endDate);
+
+      http.Response res = await http.put(
+        Uri.parse('$uri/api/tasks/${task.id}'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: task.toJson(),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  //change task status ( approved)
+
+  void changeTaskStatus({
+    required BuildContext context,
+    required String status,
+    required Task task,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-task-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': task.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Task approved Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+//change taskToDo status ( approved)
+
+  void changeTaskToDoStatus({
+    required BuildContext context,
+    required String status,
+    required TaskToDo task,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-task-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': task.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Task approved Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  //change taskInprogress status ( approved)
+
+  void changeTaskInprogressStatus({
+    required BuildContext context,
+    required String status,
+    required TaskInprogress task,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-task-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': task.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Task approved Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+//change taskDone status ( approved)
+
+  void changeTaskDoneStatus({
+    required BuildContext context,
+    required String status,
+    required TaskDone task,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-task-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': task.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Task approved Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+//change taskApproved status ( approved)
+
+  void changeTaskApprovedStatus({
+    required BuildContext context,
+    required String status,
+    required TaskApproved task,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-task-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': task.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Task approved Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  //approved task send points
+  void sendPoints({
+    required BuildContext context,
+    required String fromUsername,
+    required String toUsername,
+    required double amount,
+    required String summary,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      TaskTransaction transaction = TaskTransaction(
+        fromUsername: fromUsername,
+        toUsername: toUsername,
+        amount: amount,
+        summary: summary,
+      );
+
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/transaction/transfer'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: transaction.toJson(),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Points Transfer Successfully!');
           Navigator.pop(context);
         },
       );

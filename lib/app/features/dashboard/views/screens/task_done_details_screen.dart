@@ -1,9 +1,16 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:project_management/app/features/dashboard/models/task_done.dart';
 
 import 'package:project_management/app/features/dashboard/views/screens/search_screen.dart';
 
 import '../../../../utils/services/admin_services.dart';
+import '../../../../utils/widgets/bar_post_task.dart';
+import '../../../../utils/widgets/sidebar/sidebar_task.dart';
+import '../components/button_edit_task.dart';
+import '../components/input_field.dart';
 
 class TaskDoneDetailsScreen extends StatefulWidget {
   static const String routeName = '/task-done-details';
@@ -21,6 +28,106 @@ class TaskDoneDetailsScreen extends StatefulWidget {
 
 class _TaskDoneDetailsScreenState extends State<TaskDoneDetailsScreen> {
   final AdminServices productDetailsServices = AdminServices();
+  final AdminServices adminServices = AdminServices();
+  final TextEditingController _tituloController = TextEditingController();
+
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _assignmentUserController =
+      TextEditingController();
+  final TextEditingController _pointsController = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
+
+  DateTime _startDate = DateTime.now();
+  DateTime _endDate = DateTime.now().add(const Duration(minutes: 5));
+
+  late String _startTime = DateFormat('hh:mm a').format(_startDate).toString();
+  late String _endTime = DateFormat('hh:mm a').format(_endDate).toString();
+
+  String status = 'backlog';
+  String category = 'Development';
+  String createdBy = 'admin';
+  String priority = 'Medium';
+  String label = 'Staff augmentation';
+
+  List<File> images = [];
+  final _addProductFormKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tituloController.dispose();
+
+    _descriptionController.dispose();
+    _assignmentUserController.dispose();
+    _pointsController.dispose();
+  }
+
+  List<String> taskCategories = [
+    'Development',
+    'Marketing',
+    'Desing',
+  ];
+  List<String> priorityCategories = [
+    'Medium',
+    'Hight',
+    'Low',
+  ];
+  List<String> statusCategories = [
+    'backlog',
+    'ToDo',
+    'inprogress',
+    'done',
+    'approved',
+  ];
+  List<String> labelCategories = [
+    'Staff augmentation',
+    'Review',
+    'Documentacion',
+    'En Desarrollo',
+    'Maquetado',
+  ];
+  List<String> createdByCategories = [
+    'admin',
+  ];
+
+  void updateTask() {
+    DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
+    DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
+
+    adminServices.update(
+        context: context,
+        title: _tituloController.text,
+        priority: priority,
+        description: _descriptionController.text,
+        assignmentUser: _assignmentUserController.text,
+        points: double.parse(_pointsController.text),
+        category: category,
+        //images: images,
+        status: 'approved',
+        createdBy: createdBy,
+        label: label,
+        startDate: startDate.toString(),
+        endDate: endDate.toString(),
+        id: widget.task.id.toString());
+  }
+
+  void sendPoints() {
+    adminServices.sendPoints(
+        context: context,
+        fromUsername: 'admin@gmail.com'.toString(),
+        toUsername: widget.task.assignmentUser,
+        //amount: double.parse(_pointsController.text),
+        amount: widget.task.points,
+        summary: 'Complete a daily task'.toString());
+
+    adminServices.changeTaskDoneStatus(
+      context: context,
+      status: 'approved',
+      task: widget.task,
+    );
+  }
 
   // void acept() {
   //   productDetailsServices.accept(
@@ -76,276 +183,561 @@ class _TaskDoneDetailsScreenState extends State<TaskDoneDetailsScreen> {
   //     product: widget.product,
   //   );
   // }
-  final elevatedButtonStyle = ElevatedButton.styleFrom(
-      shadowColor: const Color.fromARGB(255, 54, 57, 244),
-      elevation: 10,
-      primary: Colors.deepPurple,
-      onPrimary: Colors.white);
-
-  final buttonStyleDowload = ElevatedButton.styleFrom(
-      elevation: 0,
-      primary: const Color.fromARGB(255, 205, 203, 203),
-      onPrimary: const Color.fromARGB(255, 0, 34, 255));
-  final textStyleTitle = const TextStyle(
-      fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black);
-
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
+    final dt = DateTime(
+        now.year, now.month, now.day, now.hour, now.minute, now.second);
+    final format = DateFormat.jm();
+
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 205, 203, 203),
-      appBar: AppBar(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          backgroundColor: const Color(0xff48409E),
+          // flexibleSpace: Container(
+          //   decoration: const BoxDecoration(
+          //     gradient: GlobalVariables.appBarGradient,
+          //   ),
+          // ),
+          title: const Text(
+            'Edit Task',
+            style: TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+            ),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            Container(
-              padding: const EdgeInsets.all(15.0),
-              child: Flex(direction: Axis.vertical, children: [
-                Text(
-                  widget.task.title,
-                  style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 0, 0, 0)),
-                  textAlign: TextAlign.center,
-                ),
-              ]),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-                padding: const EdgeInsets.only(right: 20),
-                width: 400,
-                height: 70,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Wrap(children: [
+          const SizedBox(width: 20),
+          const SidebarTask(),
+          const SizedBox(width: 200),
+          Container(
+            width: 1000,
+            height: 1200,
+            child: Form(
+              key: _addProductFormKey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Column(
                   children: [
-                    Text(
-                      "Para",
-                      style: textStyleTitle,
-                    ),
+                    const SizedBox(height: 20),
                     Container(
-                      width: 250,
-                      height: 45,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Stack(
+                      //margin: const EdgeInsets.only(right: 100),
+                      width: 850,
+                      child: Column(
                         children: [
-                          LayoutBuilder(
-                              builder: (context, constraints) => Container(
-                                    width: constraints.maxWidth * 10,
-                                    decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 199, 197, 198),
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                  )),
-                          Positioned.fill(
-                              child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              children: [
-                                const CircleAvatar(
-                                  radius: 25.0,
-                                  backgroundImage:
-                                      AssetImage('assets/user.png'),
-                                ),
-                                Flex(direction: Axis.horizontal, children: [
-                                  Text(
-                                    widget.task.assignmentUser,
-                                    style: const TextStyle(fontSize: 10),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ]),
-                              ],
-                            ),
-                          ))
+                          TextFormField(
+                              initialValue: widget.task.title,
+                              // controller: _tituloController,
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 30),
+                              decoration: const InputDecoration(
+                                  hintText: "Titulo de la tarea",
+                                  hintStyle: TextStyle(
+                                      color: Colors.black, fontSize: 25))),
                         ],
                       ),
                     ),
-                  ],
-                )),
-            Container(
-              margin: const EdgeInsets.only(left: 200),
-              padding: const EdgeInsets.all(10.0),
-              width: 120,
-              height: 45,
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 240, 98, 98),
-                  border: Border.all(
-                      color: const Color.fromARGB(255, 255, 251, 251)),
-                  borderRadius: BorderRadius.circular(50)),
-              child: Text(
-                widget.task.status,
-                style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 0, 0, 0)),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Container(
-                margin: const EdgeInsets.only(right: 200),
-                child: Text(
-                  "Descripción",
-                  style: textStyleTitle,
-                )),
-            const Divider(
-              indent: 5,
-              color: Colors.deepPurple,
-            ),
-            const SizedBox(height: 10),
-            Container(
-              padding: const EdgeInsets.all(15.0),
-
-              // decoration: BoxDecoration(
-              //     border:
-              //         Border.all(color: const Color.fromARGB(255, 0, 21, 255)),
-              //     borderRadius: BorderRadius.circular(10)),
-              child: Flex(direction: Axis.vertical, children: [
-                Text(
-                  widget.task.description,
-                  style: const TextStyle(
-                      fontSize: 15, color: Color.fromARGB(255, 9, 0, 0)),
-                  textAlign: TextAlign.justify,
-                ),
-              ]),
-            ),
-            const SizedBox(height: 10),
-            Container(
-                padding: const EdgeInsets.only(left: 0),
-                width: 500,
-                height: 70,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Icon(Icons.file_copy),
-                    //Image(image: AssetImage("assets/tareaasignada.jpg")),
-                    const Text("34 MB"),
-                    ElevatedButton(
-                      style: buttonStyleDowload,
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          '',
-                        );
-                      },
-                      child: const Text("Download"),
+                    const SizedBox(height: 30),
+                    Wrap(
+                      children: [
+                        Container(
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 239, 239, 239),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: TextFormField(
+                              initialValue: widget.task.assignmentUser,
+                              //controller: _assignmentUserController,
+                              style: const TextStyle(color: Colors.black),
+                              decoration: const InputDecoration(
+                                  hintText: "Colaborador",
+                                  hintStyle: TextStyle(
+                                      color: Colors.black, fontSize: 20))),
+                        ),
+                        const SizedBox(width: 25),
+                        Container(
+                          child: const CircleAvatar(
+                            radius: 25.0,
+                            backgroundColor: Color.fromARGB(255, 211, 211, 211),
+                            backgroundImage:
+                                AssetImage('assets/images/raster/avatar-1.png'),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 3,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(right: 10),
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 228, 226, 226),
+                              borderRadius: BorderRadius.circular(50)),
+                          child: IconButton(
+                            onPressed: (() {}),
+                            icon: const Icon(Icons.add),
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Container(
+                          padding: const EdgeInsets.all(5.0),
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 237, 236, 236),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: DropdownButton(
+                            style: const TextStyle(color: Colors.black),
+                            value: createdBy,
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            items: createdByCategories.map((String item) {
+                              return DropdownMenuItem(
+                                value: item,
+                                child: Text(item),
+                              );
+                            }).toList(),
+                            onChanged: (String? newVal) {
+                              setState(() {
+                                createdBy = newVal!;
+                              });
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(5.0),
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 237, 236, 236),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: DropdownButton(
+                            style: const TextStyle(color: Colors.black),
+                            value: status,
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            items: statusCategories.map((String item) {
+                              return DropdownMenuItem(
+                                value: item,
+                                child: Text(item),
+                              );
+                            }).toList(),
+                            onChanged: (String? newVal) {
+                              setState(() {
+                                status = newVal!;
+                              });
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        Container(
+                          padding: const EdgeInsets.all(5.0),
+                          width: 120,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 237, 236, 236),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: DropdownButton(
+                            style: const TextStyle(color: Colors.black),
+                            value: category,
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            items: taskCategories.map((String item) {
+                              return DropdownMenuItem(
+                                value: item,
+                                child: Text(item),
+                              );
+                            }).toList(),
+                            onChanged: (String? newVal) {
+                              setState(() {
+                                category = newVal!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                )),
-            Container(
-                padding: const EdgeInsets.only(left: 0),
-                width: 500,
-                height: 70,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
-                    Text("Aa",
-                        style: TextStyle(fontSize: 20, color: Colors.grey)),
-                    Icon(Icons.emoji_emotions_outlined),
-                    Icon(Icons.attach_file),
-                    Icon(Icons.today_outlined),
-                    Text(
-                      "vence 10/10/22",
-                      style: TextStyle(color: Colors.red),
-                    ),
-                    Icon(Icons.person_add)
-                  ],
-                )),
-            Container(
-              margin: const EdgeInsets.only(left: 100),
-              child: Row(
-                children: [
-                  Text(
-                    ' ${widget.task.points}',
-                    style: const TextStyle(
-                      fontSize: 30,
-                      color: Color.fromARGB(255, 27, 112, 248),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const Text(
-                    " Puntos",
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 27, 112, 248)),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 10),
-            Container(
-              margin: const EdgeInsets.only(left: 80),
-              child: Row(
-                children: [
-                  Container(
-                    width: 100,
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                          begin: AlignmentDirectional.topEnd,
-                          colors: [
-                            Color.fromARGB(255, 242, 133, 157),
-                            Color.fromARGB(255, 167, 79, 211),
+                    const SizedBox(height: 30),
+                    Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(right: 50),
+                          child: Wrap(children: [
+                            SizedBox(
+                              width: 100,
+                              child: DropdownButton(
+                                style: const TextStyle(color: Colors.black),
+                                value: priority,
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                items: priorityCategories.map((String item) {
+                                  return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newVal) {
+                                  setState(() {
+                                    priority = newVal!;
+                                  });
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(right: 400),
+                              padding: const EdgeInsets.all(2.0),
+                              width: 150,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 244, 146, 146),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: DropdownButton(
+                                style: const TextStyle(color: Colors.black),
+                                value: label,
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                items: labelCategories.map((String item) {
+                                  return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newVal) {
+                                  setState(() {
+                                    label = newVal!;
+                                  });
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 3,
+                            ),
                           ]),
-                      borderRadius: BorderRadius.circular(3.0),
+                        ),
+                        const SizedBox(height: 20),
+                      ],
                     ),
-                    child: TextButton(
-                      onPressed: () {
-                        // widget.task.assignmentUser;
-                        // widget.task.category;
-                        // widget.task.createdBy;
-                        // widget.task.description;
-                        // widget.task.points;
-                        // widget.task.priority;
-                        // widget.task.id;
-                        // widget.task.title;
-                        // widget.task.status = "inprogress";
-                        // productDetailsServices.updateTask(widget.task,
-                        //     context: context);
-                        // acept();
-                      },
-                      child: const Text(
-                        "Guardar",
-                        style: TextStyle(color: Colors.white),
+                    const SizedBox(height: 10),
+
+                    const SizedBox(height: 10),
+                    Wrap(
+                      children: [
+                        Flex(direction: Axis.vertical, children: [
+                          Container(
+                            padding: const EdgeInsets.all(5.0),
+                            width: 500,
+                            height: 80,
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 239, 239, 239),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextFormField(
+                              initialValue: widget.task.description,
+                              //controller: _descriptionController,
+                              style: const TextStyle(color: Colors.black),
+                              decoration: const InputDecoration(
+                                  hintText: "Descripción",
+                                  hintStyle: TextStyle(
+                                      color: Colors.black, fontSize: 15)),
+                              maxLines: 7,
+                            ),
+                          ),
+                        ]),
+                        const SizedBox(width: 20),
+                        // Container(
+                        //   margin: const EdgeInsets.only(right: 10),
+                        //   width: 200,
+                        //   height: 100,
+                        //   child: images.isNotEmpty
+                        //       ? CarouselSlider(
+                        //           items: images.map(
+                        //             (i) {
+                        //               return Builder(
+                        //                 builder: (BuildContext context) =>
+                        //                     Image.file(
+                        //                   i,
+                        //                   fit: BoxFit.cover,
+                        //                   height: 200,
+                        //                 ),
+                        //               );
+                        //             },
+                        //           ).toList(),
+                        //           options: CarouselOptions(
+                        //             viewportFraction: 1,
+                        //             height: 200,
+                        //           ),
+                        //         )
+                        //       : GestureDetector(
+                        //           onTap: selectImages,
+                        //           child: DottedBorder(
+                        //             borderType: BorderType.RRect,
+                        //             radius: const Radius.circular(10),
+                        //             dashPattern: const [10, 4],
+                        //             strokeCap: StrokeCap.round,
+                        //             child: Container(
+                        //               width: double.infinity,
+                        //               height: 150,
+                        //               decoration: BoxDecoration(
+                        //                 borderRadius: BorderRadius.circular(10),
+                        //               ),
+                        //               child: Column(
+                        //                 mainAxisAlignment:
+                        //                     MainAxisAlignment.center,
+                        //                 children: [
+                        //                   const Icon(
+                        //                     Icons.folder_open,
+                        //                     size: 40,
+                        //                   ),
+                        //                   const SizedBox(height: 15),
+                        //                   Text(
+                        //                     'Select Tasks Images',
+                        //                     style: TextStyle(
+                        //                       fontSize: 15,
+                        //                       color: Colors.grey.shade400,
+                        //                     ),
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        // ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      width: 800,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InputField(
+                              title: "Start Date",
+                              hint: DateFormat('dd/MM/yyyy').format(_startDate),
+                              widget: IconButton(
+                                icon: (const Icon(
+                                  Icons.calendar_month,
+                                  color: Colors.grey,
+                                )),
+                                onPressed: () {
+                                  _getDateFromUser(isStartTime: true);
+                                },
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          Expanded(
+                            child: InputField(
+                              title: "Start Time",
+                              hint: _startTime,
+                              widget: IconButton(
+                                icon: (const Icon(
+                                  //FlutterIcons.clock_faw5,
+                                  Icons.lock_clock_rounded,
+                                  color: Colors.grey,
+                                )),
+                                onPressed: () {
+                                  _getTimeFromUser(isStartTime: true);
+                                  setState(() {});
+                                },
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 2),
-                  // Container(
-                  //   width: 100,
-                  //   decoration: BoxDecoration(
-                  //     gradient: const LinearGradient(
-                  //         begin: AlignmentDirectional.topEnd,
-                  //         colors: [
-                  //           Color.fromARGB(255, 242, 164, 133),
-                  //           Color.fromARGB(255, 255, 0, 0),
-                  //         ]),
-                  //     borderRadius: BorderRadius.circular(3.0),
-                  //   ),
-                  //   child: TextButton(
-                  //     onPressed: () {
-                  //       Navigator.pushNamed(
-                  //         context,
-                  //         'ChallengeAcepted',
-                  //       );
-                  //     },
-                  //     child: const Text(
-                  //       "Rechazar",
-                  //       style: TextStyle(color: Colors.white),
-                  //     ),
-                  //   ),
-                  // ),
-                ],
+                    Container(
+                      width: 800,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: InputField(
+                              title: "End Date",
+                              hint: DateFormat('dd/MM/yyyy').format(_endDate),
+                              widget: IconButton(
+                                icon: (const Icon(
+                                  //FlutterIcons.calendar_ant,
+                                  Icons.calendar_month,
+                                  color: Colors.grey,
+                                )),
+                                onPressed: () {
+                                  _getDateFromUser(isStartTime: false);
+                                },
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          Expanded(
+                            child: InputField(
+                              title: "End Time",
+                              hint: _endTime,
+                              widget: IconButton(
+                                icon: (const Icon(
+                                  //FlutterIcons.clock_faw5,
+                                  Icons.lock_clock_rounded,
+                                  color: Colors.grey,
+                                )),
+                                onPressed: () {
+                                  _getTimeFromUser(isStartTime: false);
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Flex(direction: Axis.vertical, children: [
+                      Container(
+                        padding: const EdgeInsets.all(5.0),
+                        width: 500,
+                        height: 80,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 239, 239, 239),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: TextFormField(
+                          //initialValue: widget.task.description,
+                          //controller: _descriptionController,
+                          style: const TextStyle(color: Colors.black),
+                          decoration: const InputDecoration(
+                              hintText: "Comentarios",
+                              hintStyle:
+                                  TextStyle(color: Colors.black, fontSize: 15)),
+                          maxLines: 7,
+                        ),
+                      ),
+                    ]),
+                    const SizedBox(height: 50),
+                    Wrap(
+                      children: [
+                        MyButtonEditTask(
+                            onTap: () {
+                              updateTask;
+                            },
+                            label: "Edit Task"),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        MyButtonEditTask(
+                            onTap:
+                                // approvedTask;
+                                sendPoints,
+                            label: "Approved task"),
+                      ],
+                    ),
+
+                    // const SizedBox(height: 10),
+                    // Container(
+                    //   width: 150,
+                    //   height: 40,
+                    //   child: CustomButton(
+                    //     text: 'add',
+                    //     onTap: addTask,
+                    //   ),
+                    // ),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 50),
-          ],
-        ),
+          ),
+          Column(
+            children: [
+              const SizedBox(height: 60),
+              Container(
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 239, 239, 239),
+                    borderRadius: BorderRadius.circular(10)),
+                width: 200,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: TextFormField(
+                    initialValue: widget.task.points.toString(),
+                    style: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.w600),
+                    // controller: _pointsController,
+                    decoration: const InputDecoration(
+                        hintText: "    Puntos",
+                        hintStyle:
+                            TextStyle(color: Colors.black, fontSize: 25)),
+                    // hintText: 'Points',
+                  ),
+                ),
+              ),
+              const SizedBox(width: 250),
+              const BarPost()
+            ],
+          )
+        ]),
       ),
     );
+  }
+
+  // DateTime _now = new DateTime.now();
+
+  // DateTime start = DateFormat('dd/MM/yyyy HH:mm aa')
+  //     .parse('${task.date} ${task.startTime}');
+  // DateTime end =
+  //     DateFormat('dd/MM/yyyy HH:mm aa').parse('${task.date} ${task.endTime}');
+
+  // tz.TZDateTime tzStart = tz.TZDateTime(
+  //     tz.local, _now.year, _now.month, _now.day, start.hour, start.minute);
+
+  // tz.TZDateTime tzEnd = tz.TZDateTime(
+  //     tz.local, _now.year, _now.month, _now.day, end.hour, end.minute);
+
+  // tz.TZDateTime tzNow = tz.TZDateTime(tz.local, _now.year, )
+
+  double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute / 60.0;
+
+  _getTimeFromUser({required bool isStartTime}) async {
+    var _pickedTime = await _showTimePicker(isStartTime: isStartTime);
+    String _formatedTime = _pickedTime.format(context);
+    if (isStartTime) {
+      setState(() {
+        _startTime = _formatedTime;
+      });
+    } else if (!isStartTime) {
+      setState(() {
+        _endTime = _formatedTime;
+      });
+    }
+  }
+
+  _showTimePicker({required bool isStartTime}) async {
+    return showTimePicker(
+      initialTime: TimeOfDay(
+          hour: isStartTime ? _startDate.hour : _endDate.hour,
+          minute: isStartTime ? _startDate.minute : _endDate.minute),
+      initialEntryMode: TimePickerEntryMode.input,
+      context: context,
+    );
+  }
+
+  _getDateFromUser({required bool isStartTime}) async {
+    final DateTime? _pickedDate = await showDatePicker(
+        context: context,
+        initialDate: isStartTime ? _startDate : _endDate,
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2101));
+
+    if (_pickedDate == null) return;
+
+    if (isStartTime == true) {
+      setState(() {
+        _startDate = _pickedDate;
+      });
+    } else {
+      setState(() {
+        _endDate = _pickedDate;
+      });
+    }
   }
 }

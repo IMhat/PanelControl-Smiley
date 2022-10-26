@@ -10,6 +10,9 @@ class TaskPost {
   final String assignmentUser;
   final String status;
   final String createdBy;
+  final String label;
+  final String startDate;
+  final String endDate;
   final String? id;
 
   TaskPost({
@@ -22,6 +25,9 @@ class TaskPost {
     required this.assignmentUser,
     required this.status,
     required this.createdBy,
+    required this.label,
+    required this.startDate,
+    required this.endDate,
     this.id,
   });
 
@@ -36,6 +42,9 @@ class TaskPost {
       'assignmentUser': assignmentUser,
       'status': status,
       'createdBy': createdBy,
+      'label': label,
+      'endDate': endDate,
+      'startDate': startDate,
       'id': id,
     };
   }
@@ -51,6 +60,9 @@ class TaskPost {
       assignmentUser: map['assignmentUser'] ?? '',
       status: map['status'] ?? '',
       createdBy: map['createdBy'] ?? '',
+      label: map['label'] ?? '',
+      startDate: map['startDate'] ?? '',
+      endDate: map['endDate'] ?? '',
       id: map['_id'],
     );
   }
