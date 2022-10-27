@@ -55,19 +55,19 @@ class SingleOrder extends StatelessWidget {
                 ),
               ],
             ),
-            Column(
-              children: [
-                Text(
-                  "Id",
-                  style: textStyleTitle,
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  userId,
-                  style: textStyle,
-                ),
-              ],
-            ),
+            // Column(
+            //   children: [
+            //     Text(
+            //       "Id",
+            //       style: textStyleTitle,
+            //     ),
+            //     const SizedBox(height: 10),
+            //     Text(
+            //       userId,
+            //       style: textStyle,
+            //     ),
+            //   ],
+            // ),
             Column(
               children: [
                 Text("Puntos", style: textStyleTitle),

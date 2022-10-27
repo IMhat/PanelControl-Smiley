@@ -64,9 +64,10 @@ class DashboardScreen extends GetView<StatefulWidget> {
           : const Drawer(
               child: Padding(
                 padding: EdgeInsets.only(top: kSpacing),
-                // child: _Sidebar(data: controller.getSelectedProject()),
+                child: SidebarHomeTask(),
               ),
             ),
+      appBar: AppBar(backgroundColor: const Color(0xff48409E)),
       body: SingleChildScrollView(
           child: ResponsiveBuilder(
         mobileBuilder: (context, constraints) {
@@ -158,19 +159,19 @@ class DashboardScreen extends GetView<StatefulWidget> {
                 flex: 4,
                 child: Column(
                   children: const [
-                     SizedBox(height: kSpacing * (kIsWeb ? 0.5 : 1.5)),
+                    SizedBox(height: kSpacing * (kIsWeb ? 0.5 : 1.5)),
                     // _buildProfile(data: controller.getProfil()),
-                     Divider(thickness: 1),
-                     SizedBox(height: kSpacing),
+                    Divider(thickness: 1),
+                    SizedBox(height: kSpacing),
                     // _buildTeamMember(data: controller.getMember()),
                     SizedBox(height: kSpacing),
                     // Padding(
                     //   padding: const EdgeInsets.symmetric(horizontal: kSpacing),
                     //   child: GetPremiumCard(onPressed: () {}),
                     // ),
-                     SizedBox(height: kSpacing),
-                     Divider(thickness: 1),
-                     SizedBox(height: kSpacing),
+                    SizedBox(height: kSpacing),
+                    Divider(thickness: 1),
+                    SizedBox(height: kSpacing),
                     // _buildRecentMessages(data: controller.getChatting()),
                   ],
                 ),
@@ -182,16 +183,16 @@ class DashboardScreen extends GetView<StatefulWidget> {
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SidebarHomeTask(),
-              // Flexible(
-              //   flex: (constraints.maxWidth < 1360) ? 4 : 3,
-              //   child: ClipRRect(
-              //       borderRadius: const BorderRadius.only(
-              //         topRight: Radius.circular(kBorderRadius),
-              //         bottomRight: Radius.circular(kBorderRadius),
-              //       ),
-              //       child: _Sidebar(data: controller.getSelectedProject())),
-              // ),
+              // const SidebarHomeTask(),
+              Flexible(
+                flex: (constraints.maxWidth < 1360) ? 4 : 3,
+                child: const ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(kBorderRadius),
+                      bottomRight: Radius.circular(kBorderRadius),
+                    ),
+                    child: SidebarHomeTask()),
+              ),
               Flexible(
                 flex: 9,
                 child: Column(
@@ -221,19 +222,19 @@ class DashboardScreen extends GetView<StatefulWidget> {
                 flex: 4,
                 child: Column(
                   children: const [
-                     SizedBox(height: kSpacing / 2),
+                    SizedBox(height: kSpacing / 2),
                     // _buildProfile(data: controller.getProfil()),
-                     Divider(thickness: 1),
-                     SizedBox(height: kSpacing),
+                    Divider(thickness: 1),
+                    SizedBox(height: kSpacing),
                     // _buildTeamMember(data: controller.getMember()),
-                     SizedBox(height: kSpacing),
+                    SizedBox(height: kSpacing),
                     // Padding(
                     //   padding: const EdgeInsets.symmetric(horizontal: kSpacing),
                     //   child: GetPremiumCard(onPressed: () {}),
                     // ),
-                     SizedBox(height: kSpacing),
-                     Divider(thickness: 1),
-                     SizedBox(height: kSpacing),
+                    SizedBox(height: kSpacing),
+                    Divider(thickness: 1),
+                    SizedBox(height: kSpacing),
                     // _buildRecentMessages(data: controller.getChatting()),
                   ],
                 ),
