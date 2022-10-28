@@ -40,7 +40,7 @@ class _TasksApprovedState extends State<TasksApproved> {
     return tasks == null
         ? const Loader()
         : Container(
-            margin: EdgeInsets.only(right: 20),
+            margin: const EdgeInsets.only(right: 20),
             width: 275,
             height: 710,
             decoration: const BoxDecoration(
@@ -50,7 +50,7 @@ class _TasksApprovedState extends State<TasksApproved> {
             padding: const EdgeInsets.all(8.0),
             child: ListView.builder(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+              //physics: const NeverScrollableScrollPhysics(),
               scrollDirection: Axis.vertical,
               itemCount: tasks!.length,
               itemBuilder: (context, index) {

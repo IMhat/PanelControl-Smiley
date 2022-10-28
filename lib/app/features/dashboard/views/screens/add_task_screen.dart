@@ -10,6 +10,7 @@ import 'package:project_management/app/constans/global_variables.dart';
 import 'package:project_management/app/constans/utils.dart';
 import 'package:project_management/app/features/dashboard/views/components/button.dart';
 import 'package:project_management/app/utils/services/admin_services.dart';
+import 'package:project_management/app/utils/widgets/Buttons/button_selected_user.dart';
 import 'package:project_management/app/utils/widgets/bar_post_task.dart';
 import 'package:intl/intl.dart';
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_task.dart';
@@ -202,19 +203,20 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                         const SizedBox(
                           width: 3,
                         ),
-                        Container(
-                          margin: EdgeInsets.only(right: 10),
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 228, 226, 226),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: IconButton(
-                            onPressed: (() {}),
-                            icon: const Icon(Icons.add),
-                            color: Colors.black,
-                          ),
-                        ),
+                        const ButtonSelectedUser(),
+                        // Container(
+                        //   margin: EdgeInsets.only(right: 10),
+                        //   width: 50,
+                        //   height: 50,
+                        //   decoration: BoxDecoration(
+                        //       color: const Color.fromARGB(255, 228, 226, 226),
+                        //       borderRadius: BorderRadius.circular(50)),
+                        //   child: IconButton(
+                        //     onPressed: (() {}),
+                        //     icon: const Icon(Icons.add),
+                        //     color: Colors.black,
+                        //   ),
+                        // ),
                         const SizedBox(width: 20),
                         Container(
                           padding: const EdgeInsets.all(5.0),

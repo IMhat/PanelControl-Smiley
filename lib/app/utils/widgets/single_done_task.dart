@@ -113,7 +113,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
                   width: 100,
                   height: 30,
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 123, 181, 136),
+                      color: const Color.fromARGB(255, 123, 181, 136),
                       border: Border.all(
                           color: const Color.fromARGB(255, 255, 251, 251)),
                       borderRadius: BorderRadius.circular(50)),
@@ -136,7 +136,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
             //   style: const TextStyle(
             //       fontSize: 15, color: Color.fromARGB(255, 9, 0, 0)),
             // ),
-            TodayText(),
+            const TodayText(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             ),

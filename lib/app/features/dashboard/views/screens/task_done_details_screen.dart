@@ -90,28 +90,28 @@ class _TaskDoneDetailsScreenState extends State<TaskDoneDetailsScreen> {
     'admin',
   ];
 
-  void updateTask() {
-    DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
-        .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
-    DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
-        .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
+  // void updateTask() {
+  //   DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
+  //       .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
+  //   DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
+  //       .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
 
-    adminServices.update(
-        context: context,
-        title: _tituloController.text,
-        priority: priority,
-        description: _descriptionController.text,
-        assignmentUser: _assignmentUserController.text,
-        points: double.parse(_pointsController.text),
-        category: category,
-        //images: images,
-        status: 'approved',
-        createdBy: createdBy,
-        label: label,
-        startDate: startDate.toString(),
-        endDate: endDate.toString(),
-        id: widget.task.id.toString());
-  }
+  //   adminServices.update(
+  //       context: context,
+  //       title: _tituloController.text,
+  //       priority: priority,
+  //       description: _descriptionController.text,
+  //       assignmentUser: _assignmentUserController.text,
+  //       points: double.parse(_pointsController.text),
+  //       category: category,
+  //       //images: images,
+  //       status: 'approved',
+  //       createdBy: createdBy,
+  //       label: label,
+  //       startDate: startDate.toString(),
+  //       endDate: endDate.toString(),
+  //       id: widget.task.id.toString());
+  // }
 
   void sendPoints() {
     adminServices.sendPoints(
@@ -617,11 +617,11 @@ class _TaskDoneDetailsScreenState extends State<TaskDoneDetailsScreen> {
                     const SizedBox(height: 50),
                     Wrap(
                       children: [
-                        MyButtonEditTask(
-                            onTap: () {
-                              updateTask;
-                            },
-                            label: "Edit Task"),
+                        // MyButtonEditTask(
+                        //     onTap: () {
+                        //       updateTask;
+                        //     },
+                        //     label: "Edit Task"),
                         const SizedBox(
                           width: 20,
                         ),

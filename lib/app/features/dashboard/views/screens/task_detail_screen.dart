@@ -7,6 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:project_management/app/features/dashboard/views/components/button_edit_task.dart';
 import 'package:project_management/app/features/dashboard/views/screens/search_screen.dart';
+import 'package:project_management/app/utils/widgets/Buttons/button_selected_user.dart';
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_task.dart';
 import 'package:provider/provider.dart';
 
@@ -97,28 +98,28 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
     'admin',
   ];
 
-  void updateTask() {
-    DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
-        .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
-    DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
-        .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
+  // void updateTask() {
+  //   DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
+  //       .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
+  //   DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
+  //       .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
 
-    adminServices.update(
-        context: context,
-        title: _tituloController.text,
-        priority: priority,
-        description: _descriptionController.text,
-        assignmentUser: _assignmentUserController.text,
-        points: double.parse(_pointsController.text),
-        category: category,
-        //images: images,
-        status: 'approved',
-        createdBy: createdBy,
-        label: label,
-        startDate: startDate.toString(),
-        endDate: endDate.toString(),
-        id: widget.task.id.toString());
-  }
+  //   adminServices.update(
+  //       context: context,
+  //       title: _tituloController.text,
+  //       priority: priority,
+  //       description: _descriptionController.text,
+  //       assignmentUser: _assignmentUserController.text,
+  //       points: double.parse(_pointsController.text),
+  //       category: category,
+  //       //images: images,
+  //       status: 'approved',
+  //       createdBy: createdBy,
+  //       label: label,
+  //       startDate: startDate.toString(),
+  //       endDate: endDate.toString(),
+  //       id: widget.task.id.toString());
+  // }
 
   void sendPoints() {
     adminServices.sendPoints(
@@ -228,19 +229,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                         const SizedBox(
                           width: 3,
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(right: 10),
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 228, 226, 226),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: IconButton(
-                            onPressed: (() {}),
-                            icon: const Icon(Icons.add),
-                            color: Colors.black,
-                          ),
-                        ),
+                        const ButtonSelectedUser(),
                         const SizedBox(width: 20),
                         Container(
                           padding: const EdgeInsets.all(5.0),
@@ -576,11 +565,11 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                     const SizedBox(height: 50),
                     Wrap(
                       children: [
-                        MyButtonEditTask(
-                            onTap: () {
-                              updateTask;
-                            },
-                            label: "Edit Task"),
+                        // MyButtonEditTask(
+                        //     onTap: () {
+                        //       updateTask;
+                        //     },
+                        //     label: "Edit Task"),
                         const SizedBox(
                           width: 20,
                         ),

@@ -64,7 +64,7 @@ class TaskResponsive extends StatelessWidget {
                   ),
                   const Tasks(),
                   Container(
-                    margin: EdgeInsets.only(right: 40),
+                    margin: const EdgeInsets.only(right: 40),
                     child: OutlinedButton.icon(
                       icon: const Icon(Icons.add,
                           color: Color.fromARGB(255, 255, 255, 255)),
