@@ -36,6 +36,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../shared_components/get_premium_card.dart';
 import '../../providers/task_form_provider.dart';
+import 'calendar/calendart_widget.dart';
 
 // binding
 // part '../../bindings/dashboard_binding.dart';
@@ -112,7 +113,7 @@ class DashboardScreen extends GetView<StatefulWidget> {
             //   crossAxisCellCount: 6,
             // ),
             const SizedBox(height: kSpacing),
-            RecentMessages(onPressedMore: (() {})),
+            // RecentMessages(onPressedMore: (() {})),
             // _buildRecentMessages(data: controller.getChatting()),
           ]);
         },
@@ -168,6 +169,7 @@ class DashboardScreen extends GetView<StatefulWidget> {
                     const Profile(),
                     const Divider(thickness: 1),
                     const SizedBox(height: kSpacing),
+
                     const TeamMember(),
                     TeamMemberCard(totalMember: 8, onPressedAdd: (() {})),
                     const SizedBox(height: kSpacing),
@@ -178,7 +180,7 @@ class DashboardScreen extends GetView<StatefulWidget> {
                     const SizedBox(height: kSpacing),
                     const Divider(thickness: 1),
                     const SizedBox(height: kSpacing),
-                    RecentMessages(onPressedMore: (() {})),
+                    // RecentMessages(onPressedMore: (() {})),
                     // _buildRecentMessages(data: controller.getChatting()),
                   ],
                 ),
@@ -206,9 +208,31 @@ class DashboardScreen extends GetView<StatefulWidget> {
                   children: [
                     const SizedBox(height: kSpacing),
                     _buildHeader(),
+
                     const SizedBox(height: kSpacing * 2),
                     _buildProgress(),
+
                     const SizedBox(height: kSpacing * 2),
+                    Container(
+                      width: 900,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                            // begin: AlignmentDirectional.,
+                            // end: Alignment.bottomCenter,
+                            // stops: [
+                            //   0.2,
+                            //   0.4,
+                            //   0.8
+                            // ],
+                            colors: [
+                              (Color(0xffC5CAE9)),
+                              Color(0xff9FA8DA),
+                              Color(0xff7986CB)
+                            ]),
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      child: CalendarWidget(),
+                    ),
                     // _buildTaskOverview(
                     //   data: controller.getAllTask(),
                     //   crossAxisCount: 6,
@@ -243,7 +267,7 @@ class DashboardScreen extends GetView<StatefulWidget> {
                     const SizedBox(height: kSpacing),
                     const Divider(thickness: 1),
                     const SizedBox(height: kSpacing),
-                    RecentMessages(onPressedMore: (() {})),
+                    //RecentMessages(onPressedMore: (() {})),
                     // _buildRecentMessages(data: controller.getChatting()),
                   ],
                 ),

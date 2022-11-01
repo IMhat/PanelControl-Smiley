@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:project_management/app/common/widgets/loader.dart';
 import 'package:project_management/app/features/dashboard/models/order.dart';
+import 'package:project_management/app/features/dashboard/views/screens/calendar/calendart_widget.dart';
 import 'package:project_management/app/features/dashboard/views/screens/orders_detail_screen.dart';
 import 'package:project_management/app/utils/services/admin_services.dart';
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_orders.dart';
@@ -28,7 +29,6 @@ class _OrdersScreenState extends State<OrdersScreen> {
   List<Order>? orders;
   final AdminServices adminServices = AdminServices();
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -199,6 +199,7 @@ class _MyOrdersState extends State<MyOrders> {
                                     totalPrice: orderData.totalPrice.toString(),
                                     quantity: orderData.quantity.toString(),
                                     userId: orderData.userId.toString(),
+                                    status: orderData.status,
                                   ),
                                 );
                               },
@@ -209,6 +210,7 @@ class _MyOrdersState extends State<MyOrders> {
                     ),
                   ],
                 ),
+               
               ],
             ),
           );

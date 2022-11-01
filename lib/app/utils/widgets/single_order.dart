@@ -6,15 +6,17 @@ class SingleOrder extends StatelessWidget {
   final String name;
   final String totalPrice;
   final String quantity;
-
   final String userId;
+  final int status;
+
   const SingleOrder(
       {Key? key,
       required this.image,
       required this.name,
       required this.totalPrice,
       required this.quantity,
-      required this.userId})
+      required this.userId,
+      required this.status})
       : super(key: key);
   final textStyleTitle = const TextStyle(
       fontSize: 15, fontWeight: FontWeight.w400, color: Colors.grey);
@@ -26,7 +28,7 @@ class SingleOrder extends StatelessWidget {
       padding: const EdgeInsets.only(top: 1),
       child: Container(
         width: 300,
-        height: 100,
+        height: 80,
         color: Colors.white,
         // decoration: BoxDecoration(
         //     color: Color.fromARGB(255, 186, 185, 186),
@@ -45,7 +47,7 @@ class SingleOrder extends StatelessWidget {
             Image.network(
               image,
               fit: BoxFit.fitHeight,
-              width: 60,
+              width: 50,
             ),
             Column(
               children: [
@@ -74,6 +76,16 @@ class SingleOrder extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   totalPrice,
+                  style: textStyle,
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Text("Status", style: textStyleTitle),
+                const SizedBox(height: 10),
+                Text(
+                  status.toString(),
                   style: textStyle,
                 ),
               ],

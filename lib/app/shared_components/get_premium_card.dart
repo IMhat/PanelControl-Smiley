@@ -62,7 +62,7 @@ class _Info extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Get\nPremium\nAccount",
+          "Fly\nWhit\nYour Team",
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),

@@ -7,6 +7,7 @@ class TeamMember extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: const [
         CircleAvatar(
           radius: 25.0,

@@ -26,13 +26,18 @@ class SidebarHomeTask extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-              width: 300,
-              height: 100,
-              child: Image.asset("assets/images/raster/smileylogo.png")),
+          Stack(children: [
+            Container(
+                margin: EdgeInsets.only(left: 40, top: 5),
+                width: 90,
+                height: 90,
+                color: Color(0xff48409E)),
+            Container(
+                margin: EdgeInsets.only(top: 10),
+                width: 300,
+                height: 80,
+                child: Image.asset("assets/images/raster/smileylogo.png")),
+          ]),
           const TodayText(),
           Container(
             margin: const EdgeInsets.only(right: 150, top: 25),
