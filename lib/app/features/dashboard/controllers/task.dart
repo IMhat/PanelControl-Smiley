@@ -66,7 +66,7 @@ class _TasksState extends State<Tasks> {
 
               // DISPLAY ORDERS
               Container(
-                margin: EdgeInsets.only(right: 20),
+                margin: const EdgeInsets.only(right: 20),
                 width: 275,
                 height: 680,
                 decoration: const BoxDecoration(

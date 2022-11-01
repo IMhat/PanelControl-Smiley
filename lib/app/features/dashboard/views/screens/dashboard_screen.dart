@@ -3,6 +3,7 @@
 library dashboard;
 
 import 'package:project_management/app/features/dashboard/models/tasks.dart';
+import 'package:project_management/app/features/dashboard/views/components/team_member.dart';
 import 'package:project_management/app/features/dashboard/views/screens/transaction_post.dart';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -24,6 +25,8 @@ import 'package:project_management/app/utils/helpers/app_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:project_management/app/utils/widgets/Widgets/Home/Profile.dart';
+import 'package:project_management/app/utils/widgets/Widgets/Home/team_member.dart';
 
 import 'package:project_management/app/utils/widgets/sidebar_home_task.dart';
 import 'package:project_management/app/utils/widgets/single_task.dart';
@@ -31,6 +34,7 @@ import 'package:project_management/app/utils/widgets/task_card.dart';
 import 'package:project_management/app/utils/widgets/task_todo_card.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../shared_components/get_premium_card.dart';
 import '../../providers/task_form_provider.dart';
 
 // binding
@@ -49,7 +53,6 @@ part '../components/overview_header.dart';
 part '../components/profile_tile.dart';
 part '../components/recent_messages.dart';
 part '../components/sidebar.dart';
-part '../components/team_member.dart';
 
 class DashboardScreen extends GetView<StatefulWidget> {
   static const String routeName = '/dashboard';
@@ -76,11 +79,12 @@ class DashboardScreen extends GetView<StatefulWidget> {
             // _buildHeader(onPressedMenu: () => controller.openDrawer()),
             const SizedBox(height: kSpacing / 2),
             const Divider(),
-            // _buildProfile(data: controller.getProfil()),
+            const Profile(),
             const SizedBox(height: kSpacing),
             _buildProgress(axis: Axis.vertical),
             const SizedBox(height: kSpacing),
-            // _buildTeamMember(data: controller.getMember()),
+            const TeamMember(),
+            TeamMemberCard(totalMember: 8, onPressedAdd: (() {})),
             const SizedBox(height: kSpacing),
             // Padding(
             //   padding: const EdgeInsets.symmetric(horizontal: kSpacing),
@@ -108,6 +112,7 @@ class DashboardScreen extends GetView<StatefulWidget> {
             //   crossAxisCellCount: 6,
             // ),
             const SizedBox(height: kSpacing),
+            RecentMessages(onPressedMore: (() {})),
             // _buildRecentMessages(data: controller.getChatting()),
           ]);
         },
@@ -158,20 +163,22 @@ class DashboardScreen extends GetView<StatefulWidget> {
               Flexible(
                 flex: 4,
                 child: Column(
-                  children: const [
-                    SizedBox(height: kSpacing * (kIsWeb ? 0.5 : 1.5)),
-                    // _buildProfile(data: controller.getProfil()),
-                    Divider(thickness: 1),
-                    SizedBox(height: kSpacing),
-                    // _buildTeamMember(data: controller.getMember()),
-                    SizedBox(height: kSpacing),
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: kSpacing),
-                    //   child: GetPremiumCard(onPressed: () {}),
-                    // ),
-                    SizedBox(height: kSpacing),
-                    Divider(thickness: 1),
-                    SizedBox(height: kSpacing),
+                  children: [
+                    const SizedBox(height: kSpacing * (kIsWeb ? 0.5 : 1.5)),
+                    const Profile(),
+                    const Divider(thickness: 1),
+                    const SizedBox(height: kSpacing),
+                    const TeamMember(),
+                    TeamMemberCard(totalMember: 8, onPressedAdd: (() {})),
+                    const SizedBox(height: kSpacing),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: kSpacing),
+                      child: GetPremiumCard(onPressed: () {}),
+                    ),
+                    const SizedBox(height: kSpacing),
+                    const Divider(thickness: 1),
+                    const SizedBox(height: kSpacing),
+                    RecentMessages(onPressedMore: (() {})),
                     // _buildRecentMessages(data: controller.getChatting()),
                   ],
                 ),
@@ -221,20 +228,22 @@ class DashboardScreen extends GetView<StatefulWidget> {
               Flexible(
                 flex: 4,
                 child: Column(
-                  children: const [
-                    SizedBox(height: kSpacing / 2),
-                    // _buildProfile(data: controller.getProfil()),
-                    Divider(thickness: 1),
-                    SizedBox(height: kSpacing),
-                    // _buildTeamMember(data: controller.getMember()),
-                    SizedBox(height: kSpacing),
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: kSpacing),
-                    //   child: GetPremiumCard(onPressed: () {}),
-                    // ),
-                    SizedBox(height: kSpacing),
-                    Divider(thickness: 1),
-                    SizedBox(height: kSpacing),
+                  children: [
+                    const SizedBox(height: kSpacing / 2),
+                    const Profile(),
+                    const Divider(thickness: 1),
+                    const SizedBox(height: kSpacing),
+                    const TeamMember(),
+                    TeamMemberCard(totalMember: 8, onPressedAdd: (() {})),
+                    const SizedBox(height: kSpacing),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: kSpacing),
+                      child: GetPremiumCard(onPressed: () {}),
+                    ),
+                    const SizedBox(height: kSpacing),
+                    const Divider(thickness: 1),
+                    const SizedBox(height: kSpacing),
+                    RecentMessages(onPressedMore: (() {})),
                     // _buildRecentMessages(data: controller.getChatting()),
                   ],
                 ),
@@ -288,9 +297,9 @@ class DashboardScreen extends GetView<StatefulWidget> {
                   child: ProgressReportCard(
                     data: ProgressReportCardData(
                       title: "1st Sprint",
-                      doneTask: 5,
-                      percent: .3,
-                      task: 3,
+                      doneTask: 15,
+                      percent: .2,
+                      task: 10,
                       undoneTask: 2,
                     ),
                   ),
@@ -310,9 +319,9 @@ class DashboardScreen extends GetView<StatefulWidget> {
                 const ProgressReportCard(
                   data: ProgressReportCardData(
                     title: "1st Sprint",
-                    doneTask: 5,
-                    percent: .3,
-                    task: 3,
+                    doneTask: 20,
+                    percent: .5,
+                    task: 10,
                     undoneTask: 2,
                   ),
                 ),
@@ -400,10 +409,10 @@ class DashboardScreen extends GetView<StatefulWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _TeamMember(
-            totalMember: data.length,
-            onPressedAdd: () {},
-          ),
+          // _TeamMember(
+          //   totalMember: data.length,
+          //   onPressedAdd: () {},
+          // ),
           const SizedBox(height: kSpacing / 2),
           ListProfilImage(maxImages: 6, images: data),
         ],
@@ -411,18 +420,18 @@ class DashboardScreen extends GetView<StatefulWidget> {
     );
   }
 
-  Widget _buildRecentMessages({required List<ChattingCardData> data}) {
-    return Column(children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: kSpacing),
-        child: _RecentMessages(onPressedMore: () {}),
-      ),
-      const SizedBox(height: kSpacing / 2),
-      ...data
-          .map(
-            (e) => ChattingCard(data: e, onPressed: () {}),
-          )
-          .toList(),
-    ]);
-  }
+  // Widget _buildRecentMessages({required List<ChattingCardData> data}) {
+  //   return Column(children: [
+  //     Padding(
+  //       padding: const EdgeInsets.symmetric(horizontal: kSpacing),
+  //       child: _RecentMessages(onPressedMore: () {}),
+  //     ),
+  //     const SizedBox(height: kSpacing / 2),
+  //     ...data
+  //         .map(
+  //           (e) => ChattingCard(data: e, onPressed: () {}),
+  //         )
+  //         .toList(),
+  //   ]);
+  // }
 }

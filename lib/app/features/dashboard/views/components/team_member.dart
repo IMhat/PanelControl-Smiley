@@ -1,7 +1,11 @@
-part of dashboard;
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class _TeamMember extends StatelessWidget {
-  const _TeamMember({
+import '../../../../constans/app_constants.dart';
+
+class TeamMemberCard extends StatelessWidget {
+  const TeamMemberCard({
     required this.totalMember,
     required this.onPressedAdd,
     Key? key,
@@ -24,7 +28,7 @@ class _TeamMember extends StatelessWidget {
               const TextSpan(text: "Team Member "),
               TextSpan(
                 text: "($totalMember)",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w400,
                   color: Colors.black,
                 ),

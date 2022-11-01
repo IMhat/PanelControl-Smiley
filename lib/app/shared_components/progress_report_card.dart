@@ -51,7 +51,8 @@ class ProgressReportCard extends StatelessWidget {
             children: [
               Text(
                 data.title,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(height: 15),
               _RichText(value1: "${data.task} ", value2: "Task"),
@@ -83,8 +84,8 @@ class _RichText extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        style: TextStyle(
-          color: kFontColorPallets[0],
+        style: const TextStyle(
+          color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 12,
         ),
@@ -92,8 +93,8 @@ class _RichText extends StatelessWidget {
           TextSpan(text: value1),
           TextSpan(
             text: value2,
-            style: TextStyle(
-              color: kFontColorPallets[0],
+            style: const TextStyle(
+              color: Colors.white,
               fontWeight: FontWeight.w100,
             ),
           ),
@@ -120,11 +121,13 @@ class _Indicator extends StatelessWidget {
         children: [
           Text(
             (percent * 100).toString() + " %",
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white),
           ),
           const Text(
             "Completed",
-            style: TextStyle(fontWeight: FontWeight.w300, fontSize: 12),
+            style: TextStyle(
+                fontWeight: FontWeight.w300, fontSize: 12, color: Colors.white),
           ),
         ],
       ),

@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:project_management/app/features/auth/services/auth_service.dart';
 import 'package:project_management/app/features/auth/widgets/account_button.dart';
 import 'package:project_management/app/features/dashboard/views/screens/analytics_screen.dart';
+import 'package:project_management/app/features/dashboard/views/screens/dashboard_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/get_orders.dart';
 import 'package:project_management/app/features/dashboard/views/screens/products_screen.dart';
 
@@ -25,17 +26,13 @@ class SidebarHomeTask extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
+          const SizedBox(
+            height: 10,
+          ),
           SizedBox(
-            height: 40,
-          ),
-          const Text(
-            "SMILEY",
-            style: TextStyle(
-                fontSize: 30,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600,
-                color: Color(0xff48409E)),
-          ),
+              width: 300,
+              height: 100,
+              child: Image.asset("assets/images/raster/smileylogo.png")),
           const TodayText(),
           Container(
             margin: const EdgeInsets.only(right: 150, top: 25),
@@ -45,6 +42,33 @@ class SidebarHomeTask extends StatelessWidget {
                   TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
             ),
           ),
+          const SizedBox(height: 10),
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(DashboardScreen.routeName);
+              },
+              child: Container(
+                decoration: decoration,
+                width: 200,
+                height: 50,
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.home,
+                      color: Color(0xff48409E),
+                    ),
+                    SizedBox(width: 15),
+                    Text(
+                      "Home",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 25,
+                          color: Color(0xff48409E)),
+                    ),
+                  ],
+                ),
+              )),
+
           const SizedBox(height: 10),
           TextButton(
               onPressed: () {

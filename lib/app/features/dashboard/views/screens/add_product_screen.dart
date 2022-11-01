@@ -232,7 +232,7 @@ class _AddProductResponsiveScreenState
                       SizedBox(
                         width: double.infinity,
                         child: DropdownButton(
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                           value: category,
                           icon: const Icon(Icons.keyboard_arrow_down),
                           items: productCategories.map((String item) {

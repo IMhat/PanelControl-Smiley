@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../features/dashboard/views/screens/analytics_screen.dart';
+import '../../../features/dashboard/views/screens/dashboard_screen.dart';
 import '../../../features/dashboard/views/screens/get_orders.dart';
 import '../../../features/dashboard/views/screens/products_screen.dart';
 import '../../../features/dashboard/views/screens/tasks_screen.dart';
@@ -42,6 +43,33 @@ class SidebarOrders extends StatelessWidget {
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
           ),
         ),
+        const SizedBox(height: 10),
+        TextButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(DashboardScreen.routeName);
+            },
+            child: Container(
+              decoration: decoration,
+              width: 200,
+              height: 50,
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.home,
+                    color: Color(0xffC4C4C4),
+                  ),
+                  SizedBox(width: 15),
+                  Text(
+                    "Home",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 25,
+                        color: Color(0xffC4C4C4)),
+                  ),
+                ],
+              ),
+            )),
+
         const SizedBox(height: 10),
         TextButton(
             onPressed: () {

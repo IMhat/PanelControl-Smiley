@@ -12,7 +12,7 @@ class ProductModalPrueba extends StatelessWidget {
       height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(60),
-        color: Color.fromARGB(255, 199, 197, 197),
+        color: const Color.fromARGB(255, 199, 197, 197),
       ),
       padding: const EdgeInsets.all(10),
       child: CircleAvatar(

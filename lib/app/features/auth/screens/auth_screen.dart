@@ -58,16 +58,16 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   top: 150,
                 ),
-                child: Text(
+                child: const Text(
                   "Admin",
                   style: TextStyle(
                       color: Colors.black,
@@ -76,14 +76,14 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   top: 10,
                 ),
                 width: 350,
                 height: 500,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: Color(0xff48409E),
+                    color: const Color(0xff48409E),
                     boxShadow: const [
                       BoxShadow(
                           color: Color.fromARGB(134, 196, 195, 195),
@@ -120,11 +120,11 @@ class _AuthScreenState extends State<AuthScreen> {
                       // ),
                       if (_auth == Auth.signup)
                         Container(
-                          margin: EdgeInsets.only(top: 30),
+                          margin: const EdgeInsets.only(top: 30),
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              color: Color.fromARGB(255, 39, 38, 38),
+                              color: const Color.fromARGB(255, 39, 38, 38),
                               boxShadow: const [
                                 BoxShadow(
                                     color: Color.fromARGB(134, 196, 195, 195),
@@ -194,7 +194,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       if (_auth == Auth.signin)
                         Container(
                           padding: const EdgeInsets.all(8),
-                          color: Color.fromARGB(255, 39, 38, 38),
+                          color: const Color.fromARGB(255, 39, 38, 38),
                           child: Form(
                             key: _signInFormKey,
                             child: Column(

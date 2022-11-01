@@ -38,7 +38,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
   DateTime _selectedDate = DateTime.now();
 
   DateTime _startDate = DateTime.now();
-  DateTime _endDate = DateTime.now().add(Duration(minutes: 5));
+  DateTime _endDate = DateTime.now().add(const Duration(minutes: 5));
 
   late String _startTime = DateFormat('hh:mm a').format(_startDate).toString();
   late String _endTime = DateFormat('hh:mm a').format(_endDate).toString();
@@ -146,9 +146,9 @@ class _AddProductScreenState extends State<AddTaskScreen> {
       ),
       body: SingleChildScrollView(
         child: Wrap(children: [
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           const SidebarTask(),
-          SizedBox(width: 200),
+          const SizedBox(width: 200),
           Container(
             width: 1000,
             height: 1200,
@@ -322,7 +322,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                               width: 20,
                             ),
                             Container(
-                              margin: EdgeInsets.only(right: 400),
+                              margin: const EdgeInsets.only(right: 400),
                               padding: const EdgeInsets.all(2.0),
                               width: 150,
                               height: 50,
@@ -362,7 +362,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                       children: [
                         Flex(direction: Axis.vertical, children: [
                           Container(
-                            padding: EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.all(5.0),
                             width: 500,
                             height: 80,
                             decoration: BoxDecoration(

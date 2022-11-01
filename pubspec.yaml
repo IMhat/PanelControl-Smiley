@@ -52,7 +52,8 @@ dependencies:
   date_picker_timeline:   
   flutter_native_timezone: 
   intl: ^0.17.0
-  google_fonts: 
+  google_fonts:
+  flutter_svg: ^1.1.6 
   #flutter_icons:
   
   

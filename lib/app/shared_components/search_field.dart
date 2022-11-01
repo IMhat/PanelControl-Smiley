@@ -18,8 +18,12 @@ class SearchField extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
         ),
-        prefixIcon: const Icon(EvaIcons.search),
+        prefixIcon: const Icon(
+          EvaIcons.search,
+          color: Colors.white,
+        ),
         hintText: "search..",
+        hintStyle: const TextStyle(color: Colors.white),
         isDense: true,
         fillColor: (const Color(0xff48409E)),
       ),
@@ -28,7 +32,7 @@ class SearchField extends StatelessWidget {
         if (onSearch != null) onSearch!(controller.text);
       },
       textInputAction: TextInputAction.search,
-      style: TextStyle(color: kFontColorPallets[1]),
+      style: const TextStyle(color: Colors.white),
     );
   }
 }

@@ -15,12 +15,12 @@ class CustomButton extends StatelessWidget {
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
           minimumSize: const Size(double.infinity, 50),
-          primary: Color(0xff4332F7)),
+          primary: const Color(0xff4332F7)),
       child: Text(
         text,
         style: TextStyle(
           color:
-              color == null ? Colors.white : Color.fromARGB(255, 255, 255, 255),
+              color == null ? Colors.white : const Color.fromARGB(255, 255, 255, 255),
         ),
       ),
     );
