@@ -26,7 +26,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:project_management/app/utils/widgets/Widgets/Home/Profile.dart';
-import 'package:project_management/app/utils/widgets/Widgets/Home/team_member.dart';
+import 'package:project_management/app/utils/widgets/Widgets/Home/analytic_home.dart';
+import 'package:project_management/app/utils/widgets/Widgets/Home/counter_tasks_backlog_home.dart';
+import 'package:project_management/app/utils/widgets/Widgets/Home/counter_tasks_done.dart';
+import 'package:project_management/app/utils/widgets/Widgets/Home/counter_tasks_inprogress.dart';
+import 'package:project_management/app/utils/widgets/Widgets/Home/counter_tasks_todo.dart';
+import 'package:project_management/app/utils/widgets/Widgets/products/team_member.dart';
 
 import 'package:project_management/app/utils/widgets/sidebar_home_task.dart';
 import 'package:project_management/app/utils/widgets/single_task.dart';
@@ -92,6 +97,7 @@ class DashboardScreen extends GetView<StatefulWidget> {
             //   child: GetPremiumCard(onPressed: () {}),
             // ),
             const SizedBox(height: kSpacing * 2),
+            const AnalyticsHome(),
             // _buildTaskOverview(
             //   data: controller.getAllTask(),
             //   headerAxis: Axis.vertical,
@@ -134,6 +140,7 @@ class DashboardScreen extends GetView<StatefulWidget> {
                           : Axis.horizontal,
                     ),
                     const SizedBox(height: kSpacing * 2),
+                    const AnalyticsHome(),
                     // _buildTaskOverview(
                     //   data: controller.getAllTask(),
                     //   headerAxis: (constraints.maxWidth < 850)
@@ -175,7 +182,7 @@ class DashboardScreen extends GetView<StatefulWidget> {
                     const SizedBox(height: kSpacing),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: kSpacing),
-                      child: GetPremiumCard(onPressed: () {}),
+                      //child: GetPremiumCard(onPressed: () {}),
                     ),
                     const SizedBox(height: kSpacing),
                     const Divider(thickness: 1),
@@ -210,29 +217,40 @@ class DashboardScreen extends GetView<StatefulWidget> {
                     _buildHeader(),
 
                     const SizedBox(height: kSpacing * 2),
-                    _buildProgress(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        CounterTasksBacklog(),
+                        CounterTasksDone(),
+                        CounterTasksInprogress(),
+                        CounterTasksToDo(),
+                      ],
+                    ),
+
+                    //_buildProgress(),
 
                     const SizedBox(height: kSpacing * 2),
-                    Container(
-                      width: 900,
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                            // begin: AlignmentDirectional.,
-                            // end: Alignment.bottomCenter,
-                            // stops: [
-                            //   0.2,
-                            //   0.4,
-                            //   0.8
-                            // ],
-                            colors: [
-                              (Color(0xffC5CAE9)),
-                              Color(0xff9FA8DA),
-                              Color(0xff7986CB)
-                            ]),
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      child: CalendarWidget(),
-                    ),
+                    const AnalyticsHome(),
+                    // Container(
+                    //   width: 900,
+                    //   decoration: BoxDecoration(
+                    //     gradient: const LinearGradient(
+                    //         // begin: AlignmentDirectional.,
+                    //         // end: Alignment.bottomCenter,
+                    //         // stops: [
+                    //         //   0.2,
+                    //         //   0.4,
+                    //         //   0.8
+                    //         // ],
+                    //         colors: [
+                    //           (Color(0xffC5CAE9)),
+                    //           Color(0xff9FA8DA),
+                    //           Color(0xff7986CB)
+                    //         ]),
+                    //     borderRadius: BorderRadius.circular(30.0),
+                    //   ),
+                    //   child: CalendarWidget(),
+                    // ),
                     // _buildTaskOverview(
                     //   data: controller.getAllTask(),
                     //   crossAxisCount: 6,
@@ -260,13 +278,14 @@ class DashboardScreen extends GetView<StatefulWidget> {
                     const TeamMember(),
                     TeamMemberCard(totalMember: 8, onPressedAdd: (() {})),
                     const SizedBox(height: kSpacing),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: kSpacing),
-                      child: GetPremiumCard(onPressed: () {}),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: kSpacing),
+                      //child: GetPremiumCard(onPressed: () {}),
                     ),
                     const SizedBox(height: kSpacing),
                     const Divider(thickness: 1),
                     const SizedBox(height: kSpacing),
+                    _buildProgress(),
                     //RecentMessages(onPressedMore: (() {})),
                     // _buildRecentMessages(data: controller.getChatting()),
                   ],
@@ -304,19 +323,20 @@ class DashboardScreen extends GetView<StatefulWidget> {
       padding: const EdgeInsets.symmetric(horizontal: kSpacing),
       child: (axis == Axis.horizontal)
           ? Row(
-              children: [
+              children: const [
+                // Flexible(
+                //   flex: 5,
+                //   child:
+                //    ProgressCard(
+                //     data: const ProgressCardData(
+                //       totalUndone: 10,
+                //       totalTaskInProress: 2,
+                //     ),
+                //     onPressedCheck: () {},
+                //   ),
+                // ),
+                SizedBox(width: kSpacing / 2),
                 Flexible(
-                  flex: 5,
-                  child: ProgressCard(
-                    data: const ProgressCardData(
-                      totalUndone: 10,
-                      totalTaskInProress: 2,
-                    ),
-                    onPressedCheck: () {},
-                  ),
-                ),
-                const SizedBox(width: kSpacing / 2),
-                const Flexible(
                   flex: 4,
                   child: ProgressReportCard(
                     data: ProgressReportCardData(
@@ -331,16 +351,16 @@ class DashboardScreen extends GetView<StatefulWidget> {
               ],
             )
           : Column(
-              children: [
-                ProgressCard(
-                  data: const ProgressCardData(
-                    totalUndone: 10,
-                    totalTaskInProress: 2,
-                  ),
-                  onPressedCheck: () {},
-                ),
-                const SizedBox(height: kSpacing / 2),
-                const ProgressReportCard(
+              children: const [
+                // ProgressCard(
+                //   data: const ProgressCardData(
+                //     totalUndone: 10,
+                //     totalTaskInProress: 2,
+                //   ),
+                //   onPressedCheck: () {},
+                // ),
+                SizedBox(height: kSpacing / 2),
+                ProgressReportCard(
                   data: ProgressReportCardData(
                     title: "1st Sprint",
                     doneTask: 20,

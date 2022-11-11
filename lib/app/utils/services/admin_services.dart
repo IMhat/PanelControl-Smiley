@@ -112,7 +112,7 @@ class AdminServices {
   void deleteProduct({
     required BuildContext context,
     required Product product,
-    required VoidCallback onSuccess,
+    required VoidCallback onSuccess, 
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
@@ -139,6 +139,14 @@ class AdminServices {
       showSnackBar(context, e.toString());
     }
   }
+
+  
+//search orders
+
+
+
+
+
 
   Future<List<Order>> fetchAllOrders(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -200,6 +208,12 @@ class AdminServices {
     } catch (e) {
       showSnackBar(context, e.toString());
     }
+
+
+
+
+
+
   }
 
   Future<Map<String, dynamic>> getEarnings(BuildContext context) async {
@@ -782,3 +796,5 @@ class AdminServices {
     return productList;
   }
 }
+
+

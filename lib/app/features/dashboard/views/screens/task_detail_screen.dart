@@ -1,10 +1,11 @@
 import 'dart:html';
-
+import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:project_management/app/features/dashboard/views/components/button_edit_task.dart';
 import 'package:project_management/app/features/dashboard/views/screens/search_screen.dart';
@@ -108,10 +109,13 @@ class TaskDetails extends StatefulWidget {
   _TaskDetailsState createState() => _TaskDetailsState();
 }
 
+QuillController _controller = QuillController.basic();
+
 class _TaskDetailsState extends State<TaskDetails> {
   final TextEditingController _tituloController = TextEditingController();
 
-  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _descriptionController =
+      TextEditingController();
   final TextEditingController _assignmentUserController =
       TextEditingController();
   final TextEditingController _pointsController = TextEditingController();
@@ -220,6 +224,7 @@ class _TaskDetailsState extends State<TaskDetails> {
 
   @override
   Widget build(BuildContext context) {
+    //Task task = ModalRoute.of(context).settings.arguments;
     final now = DateTime.now();
     final dt = DateTime(
         now.year, now.month, now.day, now.hour, now.minute, now.second);
@@ -651,6 +656,37 @@ class _TaskDetailsState extends State<TaskDetails> {
                               sendPoints,
                           label: "Approved task"),
                     ],
+                  ),
+                  Container(
+                    width: 500,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(30.0),
+                          child: QuillToolbar.basic(controller: _controller),
+                        ),
+                        Flex(direction: Axis.vertical, children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 237, 236, 237),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey[850]!.withOpacity(0.29),
+                                    offset: const Offset(-10, 10),
+                                    blurRadius: 10,
+                                  )
+                                ]),
+                            child: QuillEditor.basic(
+                              controller: _controller,
+                              readOnly: false,
+                              keyboardAppearance: Brightness.light,
+                            ),
+                          ),
+                        ])
+                      ],
+                    ),
                   ),
 
                   // const SizedBox(height: 10),

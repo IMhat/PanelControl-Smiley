@@ -14,7 +14,7 @@ import 'package:project_management/app/features/dashboard/views/screens/tasks_sc
 import 'app/features/dashboard/models/product.dart';
 import 'app/features/dashboard/models/task_inprogress.dart';
 import 'app/features/dashboard/models/tasks.dart';
-import 'app/features/dashboard/views/screens/analytics_screen.dart';
+import 'app/features/dashboard/views/screens/calendar_screen.dart';
 import 'app/features/dashboard/views/screens/get_orders.dart';
 import 'app/features/dashboard/views/screens/product_details_screen.dart';
 import 'app/features/dashboard/views/screens/search_screen.dart';
@@ -23,6 +23,7 @@ import 'app/features/dashboard/views/screens/task_approved_details_screen.dart';
 import 'app/features/dashboard/views/screens/task_detail_screen.dart';
 import 'app/features/dashboard/views/screens/task_done_details_screen.dart';
 import 'app/features/dashboard/views/screens/task_inprogress_detail_screen.dart';
+import 'app/utils/widgets/Widgets/datatable/datatable_prueba.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -50,6 +51,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const AddTaskScreen(),
+      );
+    case PostsScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const PostsScreen(),
       );
     case PostsScreen.routeName:
       return MaterialPageRoute(
@@ -127,12 +133,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case OrdersScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const OrdersScreen(),
+        builder: (_) => OrdersScreen(),
       );
-    case AnalyticsScreen.routeName:
+    case CalendarScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const AnalyticsScreen(),
+        builder: (_) => const CalendarScreen(),
       );
     default:
       return MaterialPageRoute(

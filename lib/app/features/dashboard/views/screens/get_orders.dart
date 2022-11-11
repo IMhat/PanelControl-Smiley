@@ -7,11 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:project_management/app/common/widgets/loader.dart';
 import 'package:project_management/app/features/dashboard/models/order.dart';
 import 'package:project_management/app/features/dashboard/views/screens/calendar/calendart_widget.dart';
+import 'package:project_management/app/features/dashboard/views/screens/calendar/colors_calendar.dart';
 import 'package:project_management/app/features/dashboard/views/screens/orders_detail_screen.dart';
+import 'package:project_management/app/features/dashboard/views/screens/search_screen.dart';
 import 'package:project_management/app/utils/services/admin_services.dart';
+import 'package:project_management/app/utils/widgets/Widgets/dattable_orders.dart';
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_orders.dart';
 import 'package:project_management/app/utils/widgets/single_order.dart';
-import 'package:project_management/app/utils/widgets/single_product.dart';
+import 'package:project_management/app/utils/widgets/Widgets/products/single_product.dart';
 import 'package:project_management/app/utils/widgets/task_bar2.dart';
 
 import '../../../../constans/app_constants.dart';
@@ -104,6 +107,14 @@ class _MyOrdersState extends State<MyOrders> {
     setState(() {});
   }
 
+  void navigateToSearchScreen(String query) {
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
+  final textStyleTitle = const TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      color: Color.fromARGB(255, 0, 0, 0));
   final AdminServices adminServices = AdminServices();
   final textStyle = const TextStyle(
       fontSize: 20,
@@ -111,6 +122,7 @@ class _MyOrdersState extends State<MyOrders> {
       color: Color.fromARGB(255, 255, 255, 255));
   @override
   Widget build(BuildContext context) {
+    final currentWidth = MediaQuery.of(context).size.width;
     // The GestureDetector wraps the button.
     return orders == null
         ? const Loader()
@@ -154,12 +166,82 @@ class _MyOrdersState extends State<MyOrders> {
                           ),
                           const SizedBox(width: 10),
                           Container(
-                            child: const CircleAvatar(
-                              radius: 25.0,
-                              backgroundColor:
-                                  Color.fromARGB(255, 211, 211, 211),
-                              backgroundImage: AssetImage(
-                                  'assets/images/raster/avatar-1.png'),
+                            margin: const EdgeInsets.all(25),
+                            height: 30,
+                            width: 200,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8))),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      height: 42,
+                                      margin: const EdgeInsets.only(left: 15),
+                                      child: Material(
+                                        borderRadius: BorderRadius.circular(7),
+                                        elevation: 1,
+                                        child: TextFormField(
+                                          onFieldSubmitted:
+                                              navigateToSearchScreen,
+                                          decoration: InputDecoration(
+                                            prefixIcon: InkWell(
+                                              onTap: () {},
+                                              child: const Padding(
+                                                padding: EdgeInsets.only(
+                                                  left: 6,
+                                                ),
+                                                child: Icon(
+                                                  Icons.search,
+                                                  color: Colors.black,
+                                                  size: 23,
+                                                ),
+                                              ),
+                                            ),
+                                            filled: true,
+                                            fillColor: Colors.white,
+                                            contentPadding:
+                                                const EdgeInsets.only(top: 10),
+                                            border: const OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(7),
+                                              ),
+                                              borderSide: BorderSide.none,
+                                            ),
+                                            enabledBorder:
+                                                const OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(7),
+                                              ),
+                                              borderSide: BorderSide(
+                                                color: Colors.black38,
+                                                width: 1,
+                                              ),
+                                            ),
+                                            hintText: 'Search Catalog',
+                                            hintStyle: const TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    color: Colors.transparent,
+                                    height: 42,
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: const Icon(Icons.mic,
+                                        color: Colors.black, size: 25),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -168,8 +250,35 @@ class _MyOrdersState extends State<MyOrders> {
                     Wrap(
                       children: [
                         Container(
-                          width: 1000,
+                          width: 1600,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Color.fromARGB(255, 0, 0, 0)),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                "Id",
+                                style: textStyleTitle,
+                              ),
+                              Text("Products", style: textStyleTitle),
+                              Text("Points", style: textStyleTitle),
+                              Text("Status", style: textStyleTitle),
+                              Text("User Id", style: textStyleTitle),
+                              Text("Amount", style: textStyleTitle),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: currentWidth,
                           height: 900,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Color.fromARGB(255, 0, 0, 0)),
+                              borderRadius: BorderRadius.circular(10)),
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: ListView.builder(
@@ -194,7 +303,7 @@ class _MyOrdersState extends State<MyOrders> {
                                   // },
 
                                   child: SingleOrder(
-                                    image: orderData.products[0].images[0],
+                                    id: orderData.id,
                                     name: orderData.products[0].name,
                                     totalPrice: orderData.totalPrice.toString(),
                                     quantity: orderData.quantity.toString(),
@@ -210,7 +319,6 @@ class _MyOrdersState extends State<MyOrders> {
                     ),
                   ],
                 ),
-               
               ],
             ),
           );
