@@ -10,6 +10,7 @@ import 'package:project_management/app/features/dashboard/views/screens/search_s
 import '../../../../constans/app_constants.dart';
 import '../../../../shared_components/responsive_builder.dart';
 import '../../../../utils/services/admin_services.dart';
+import '../../../../utils/widgets/Buttons/button_selected_user.dart';
 import '../../../../utils/widgets/bar_post_task.dart';
 import '../../../../utils/widgets/sidebar/sidebar_task.dart';
 import '../components/button_edit_task.dart';
@@ -370,18 +371,9 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
                       const SizedBox(
                         width: 3,
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(right: 10),
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 228, 226, 226),
-                            borderRadius: BorderRadius.circular(50)),
-                        child: IconButton(
-                          onPressed: (() {}),
-                          icon: const Icon(Icons.add),
-                          color: Colors.black,
-                        ),
+                      const ButtonSelectedUser(),
+                      const SizedBox(
+                        width: 20,
                       ),
                       const SizedBox(width: 20),
                       Container(

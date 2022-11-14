@@ -15,12 +15,13 @@ class SingleProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentWidth = MediaQuery.of(context).size.width;
+    // final currentWidth = MediaQuery.of(context).size.width;
     return Container(
+      margin: const EdgeInsets.only(left: 75),
       color: const Color.fromARGB(255, 213, 213, 213),
       padding: const EdgeInsets.only(top: 1),
       child: Container(
-        width: 600,
+        width: 800,
         height: 60,
         color: Colors.white,
         // decoration: BoxDecoration(
@@ -35,7 +36,7 @@ class SingleProduct extends StatelessWidget {
         //     ]),
         padding: const EdgeInsets.all(10),
         child: Wrap(
-          alignment: WrapAlignment.spaceAround,
+          //alignment: WrapAlignment.spaceAround,
           children: [
             Column(
               children: [
@@ -46,13 +47,25 @@ class SingleProduct extends StatelessWidget {
                 )
               ],
             ),
+            const SizedBox(
+              width: 150,
+            ),
             Column(
               children: [
-                Text(
-                  name,
-                  style: textStyle,
+                SizedBox(
+                  width: 150,
+                  height: 60,
+                  child: Text(
+                    name,
+                    style: textStyle,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
+            ),
+            const SizedBox(
+              width: 150,
             ),
             // Column(
             //   children: [

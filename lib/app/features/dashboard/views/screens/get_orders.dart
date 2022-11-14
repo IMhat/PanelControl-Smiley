@@ -254,20 +254,37 @@ class _MyOrdersState extends State<MyOrders> {
                           height: 50,
                           decoration: BoxDecoration(
                               border: Border.all(
-                                  color: Color.fromARGB(255, 0, 0, 0)),
+                                  color: const Color.fromARGB(255, 0, 0, 0)),
                               borderRadius: BorderRadius.circular(10)),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
+                              const SizedBox(
+                                width: 180,
+                              ),
                               Text(
                                 "Id",
                                 style: textStyleTitle,
                               ),
+                              const SizedBox(
+                                width: 220,
+                              ),
                               Text("Products", style: textStyleTitle),
+                              const SizedBox(
+                                width: 140,
+                              ),
                               Text("Points", style: textStyleTitle),
+                              const SizedBox(
+                                width: 110,
+                              ),
                               Text("Status", style: textStyleTitle),
+                              const SizedBox(
+                                width: 180,
+                              ),
                               Text("User Id", style: textStyleTitle),
+                              const SizedBox(
+                                width: 180,
+                              ),
                               Text("Amount", style: textStyleTitle),
                             ],
                           ),
