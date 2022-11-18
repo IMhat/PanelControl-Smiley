@@ -19,7 +19,6 @@ class SingleProduct extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(left: 75),
       color: const Color.fromARGB(255, 213, 213, 213),
-      padding: const EdgeInsets.only(top: 1),
       child: Container(
         width: 800,
         height: 60,

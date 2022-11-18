@@ -92,6 +92,19 @@ class DashboardScreen extends GetView<StatefulWidget> {
             const TeamMember(),
             TeamMemberCard(totalMember: 8, onPressedAdd: (() {})),
             const SizedBox(height: kSpacing),
+            Column(
+              children: const [
+                CounterTasksBacklog(),
+                SizedBox(
+                  height: 10,
+                ),
+                CounterTasksDone(),
+                SizedBox(height: 10),
+                CounterTasksInprogress(),
+                SizedBox(height: 10),
+                CounterTasksToDo(),
+              ],
+            ),
             // Padding(
             //   padding: const EdgeInsets.symmetric(horizontal: kSpacing),
             //   child: GetPremiumCard(onPressed: () {}),
@@ -217,12 +230,17 @@ class DashboardScreen extends GetView<StatefulWidget> {
                     _buildHeader(),
 
                     const SizedBox(height: kSpacing * 2),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    Wrap(
+                      alignment: WrapAlignment.spaceEvenly,
                       children: const [
                         CounterTasksBacklog(),
+                        SizedBox(
+                          width: 20,
+                        ),
                         CounterTasksDone(),
+                        SizedBox(width: 20),
                         CounterTasksInprogress(),
+                        SizedBox(width: 20),
                         CounterTasksToDo(),
                       ],
                     ),

@@ -147,7 +147,7 @@ class _MyOrdersState extends State<MyOrders> {
                               children: [
                                 Wrap(children: [
                                   Text(
-                                    "Ordenes",
+                                    "Orders",
                                     style: textStyle,
                                   ),
                                   const SizedBox(
@@ -247,54 +247,18 @@ class _MyOrdersState extends State<MyOrders> {
                         ],
                       ),
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Wrap(
                       children: [
-                        Container(
-                          width: 1600,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: const Color.fromARGB(255, 0, 0, 0)),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(
-                                width: 180,
-                              ),
-                              Text(
-                                "Id",
-                                style: textStyleTitle,
-                              ),
-                              const SizedBox(
-                                width: 220,
-                              ),
-                              Text("Products", style: textStyleTitle),
-                              const SizedBox(
-                                width: 140,
-                              ),
-                              Text("Points", style: textStyleTitle),
-                              const SizedBox(
-                                width: 110,
-                              ),
-                              Text("Status", style: textStyleTitle),
-                              const SizedBox(
-                                width: 180,
-                              ),
-                              Text("User Id", style: textStyleTitle),
-                              const SizedBox(
-                                width: 180,
-                              ),
-                              Text("Amount", style: textStyleTitle),
-                            ],
-                          ),
-                        ),
+                        headerOrders(),
                         Container(
                           width: currentWidth,
                           height: 900,
                           decoration: BoxDecoration(
                               border: Border.all(
-                                  color: Color.fromARGB(255, 0, 0, 0)),
+                                  color: Color.fromARGB(255, 90, 90, 90)),
                               borderRadius: BorderRadius.circular(10)),
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -339,6 +303,47 @@ class _MyOrdersState extends State<MyOrders> {
               ],
             ),
           );
+  }
+
+  Container headerOrders() {
+    return Container(
+      width: 1600,
+      height: 50,
+      decoration: BoxDecoration(
+          border: Border.all(color: Color.fromARGB(255, 59, 59, 59)),
+          borderRadius: BorderRadius.circular(10)),
+      child: Wrap(
+        children: [
+          const SizedBox(
+            width: 180,
+          ),
+          Text(
+            "Id",
+            style: textStyleTitle,
+          ),
+          const SizedBox(
+            width: 220,
+          ),
+          Text("Products", style: textStyleTitle),
+          const SizedBox(
+            width: 160,
+          ),
+          Text("Points", style: textStyleTitle),
+          const SizedBox(
+            width: 110,
+          ),
+          Text("Status", style: textStyleTitle),
+          const SizedBox(
+            width: 180,
+          ),
+          Text("User Id", style: textStyleTitle),
+          const SizedBox(
+            width: 180,
+          ),
+          Text("Amount", style: textStyleTitle),
+        ],
+      ),
+    );
   }
 }
 

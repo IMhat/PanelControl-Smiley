@@ -37,7 +37,7 @@ class _SingleOrderState extends State<SingleOrder> {
       padding: const EdgeInsets.only(top: 1),
       child: Container(
         width: currentWidth,
-        height: 60,
+        height: 50,
         color: Colors.white,
         // decoration: BoxDecoration(
         //     color: Color.fromARGB(255, 186, 185, 186),
@@ -84,8 +84,8 @@ class _SingleOrderState extends State<SingleOrder> {
             // ),
             Column(
               children: [
-                Text("Points", style: textStyleTitle),
-                const SizedBox(height: 10),
+                // Text("Points", style: textStyleTitle),
+                // const SizedBox(height: 10),
                 Text(
                   widget.totalPrice,
                   style: textStyle,
@@ -94,8 +94,8 @@ class _SingleOrderState extends State<SingleOrder> {
             ),
             Column(
               children: [
-                Text("Status", style: textStyleTitle),
-                const SizedBox(height: 10),
+                // Text("Status", style: textStyleTitle),
+                // const SizedBox(height: 10),
                 Text(
                   widget.status.toString(),
                   style: textStyle,
@@ -104,8 +104,8 @@ class _SingleOrderState extends State<SingleOrder> {
             ),
             Column(
               children: [
-                Text("User ID", style: textStyleTitle),
-                const SizedBox(height: 10),
+                // Text("User ID", style: textStyleTitle),
+                // const SizedBox(height: 10),
                 Text(
                   widget.userId,
                   style: textStyle,
@@ -114,8 +114,8 @@ class _SingleOrderState extends State<SingleOrder> {
             ),
             Column(
               children: [
-                Text("Amount", style: textStyleTitle),
-                const SizedBox(height: 10),
+                // Text("Amount", style: textStyleTitle),
+                // const SizedBox(height: 10),
                 Text(
                   widget.quantity,
                   style: textStyle,
