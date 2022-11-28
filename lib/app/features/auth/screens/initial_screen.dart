@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_management/app/features/auth/screens/auth_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:project_management/app/features/dashboard/providers/login_form_provider.dart';
-
-import '../widgets/card_cointainer.dart';
 
 class InitialScreen extends StatelessWidget {
   const InitialScreen({Key? key}) : super(key: key);

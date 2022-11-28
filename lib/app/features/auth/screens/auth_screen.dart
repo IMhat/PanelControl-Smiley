@@ -145,16 +145,36 @@ class _AuthScreenState extends State<AuthScreen> {
                                 const SizedBox(
                                   height: 50,
                                 ),
-                                CustomTextField(
-                                  controller: _emailController,
-                                  hintText: 'Email',
+                                Container(
+                                  padding: const EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.white)),
+                                  child: TextFormField(
+                                      controller: _emailController,
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 15),
+                                      decoration: const InputDecoration(
+                                          hintText: "Email",
+                                          hintStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15))),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                CustomTextField(
-                                  controller: _passwordController,
-                                  hintText: 'Password',
+                                Container(
+                                  padding: const EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.white)),
+                                  child: TextFormField(
+                                      controller: _passwordController,
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 15),
+                                      decoration: const InputDecoration(
+                                          hintText: "Password",
+                                          hintStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15))),
                                 ),
                                 const SizedBox(
                                   height: 80,
@@ -201,7 +221,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               children: [
                                 CustomTextField(
                                   controller: _emailController,
-                                  hintText: 'Email', 
+                                  hintText: 'Email',
                                 ),
                                 const SizedBox(
                                   height: 10,

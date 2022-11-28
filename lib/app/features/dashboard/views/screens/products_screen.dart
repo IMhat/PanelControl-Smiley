@@ -9,12 +9,9 @@ import 'package:project_management/app/utils/widgets/Widgets/products/product_gr
 import 'package:project_management/app/utils/widgets/Widgets/products/product_listview.dart';
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_products.dart';
 
-import '../../../../common/widgets/loader.dart';
 import '../../../../constans/app_constants.dart';
-import '../../../../constans/global_variables.dart';
 import '../../../../shared_components/responsive_builder.dart';
 import '../../../../utils/services/admin_services.dart';
-import '../../../../utils/widgets/Widgets/products/single_product.dart';
 
 class PostsScreen extends StatefulWidget {
   static const String routeName = '/get-product';
@@ -281,7 +278,7 @@ class _MyProductsState extends State<MyProducts>
               ),
             ),
           ),
-          Container(
+          SizedBox(
             width: 1000,
             height: 900,
             child: TabBarView(

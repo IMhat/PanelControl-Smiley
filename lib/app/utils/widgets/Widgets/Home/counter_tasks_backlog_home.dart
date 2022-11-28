@@ -1,9 +1,7 @@
 import 'package:project_management/app/common/widgets/loader.dart';
 import 'package:project_management/app/features/dashboard/models/tasks.dart';
-import 'package:project_management/app/features/dashboard/views/screens/add_task_screen.dart';
-import 'package:project_management/app/features/dashboard/views/screens/task_detail_screen.dart';
+
 import 'package:project_management/app/utils/services/admin_services.dart';
-import 'package:project_management/app/utils/widgets/single_task.dart';
 
 // import 'package:amazon_clone/features/order_details/screens/order_details_screen.dart';
 

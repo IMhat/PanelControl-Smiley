@@ -23,7 +23,7 @@ class SearchedProduct extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           margin: const EdgeInsets.symmetric(
             horizontal: 10,
           ),

@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+
 
 class TaskBar extends StatelessWidget {
   final textButtonStyle = TextButton.styleFrom(
@@ -111,12 +111,10 @@ class TaskBar extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 5),
-          Container(
-            child: const CircleAvatar(
-              radius: 25.0,
-              backgroundColor: Color.fromARGB(255, 211, 211, 211),
-              backgroundImage: AssetImage('assets/images/raster/avatar-1.png'),
-            ),
+          const CircleAvatar(
+            radius: 25.0,
+            backgroundColor: Color.fromARGB(255, 211, 211, 211),
+            backgroundImage: AssetImage('assets/images/raster/avatar-1.png'),
           ),
         ],
       ),
@@ -206,30 +204,28 @@ class _FilterDialog extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
+            const Text(
               "Miembros",
               style: TextStyle(color: Colors.black),
               textAlign: TextAlign.start,
             ),
-            Container(
-              child: DropdownButton(
-                items: _lista.map((String a) {
-                  return DropdownMenuItem(
-                      value: a,
-                      child: Text(
-                        a,
-                        style: TextStyle(color: Colors.black),
-                      ));
-                }).toList(),
-                onChanged: (_value) => {
-                  setState(() {
-                    _vista = _value.toString();
-                  })
-                },
-                hint: Text(
-                  _vista,
-                  style: TextStyle(color: Colors.red),
-                ),
+            DropdownButton(
+              items: _lista.map((String a) {
+                return DropdownMenuItem(
+                    value: a,
+                    child: Text(
+                      a,
+                      style: const TextStyle(color: Colors.black),
+                    ));
+              }).toList(),
+              onChanged: (_value) => {
+                setState(() {
+                  _vista = _value.toString();
+                })
+              },
+              hint: Text(
+                _vista,
+                style: const TextStyle(color: Colors.red),
               ),
             ),
           ],

@@ -45,7 +45,7 @@ class InputField extends StatelessWidget {
                       cursorColor:
                           Get.isDarkMode ? Colors.grey[100] : Colors.grey[600],
                       readOnly: widget is Container ? false : true,
-                      controller: this.controller,
+                      controller: controller,
                       style: subTitleTextStle,
                       decoration: InputDecoration(
                         hintText: hint,

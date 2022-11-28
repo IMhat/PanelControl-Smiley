@@ -1,16 +1,13 @@
 import 'package:flutter/foundation.dart';
-import 'package:project_management/app/constans/global_variables.dart';
 import 'package:project_management/app/features/dashboard/models/product.dart';
 import 'package:project_management/app/features/dashboard/providers/user_provider.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:project_management/app/features/dashboard/views/screens/search_screen.dart';
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_products.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../common/widgets/custom_button.dart';
 import '../../../../common/widgets/stars.dart';
 import '../../../../constans/app_constants.dart';
 import '../../../../shared_components/responsive_builder.dart';
@@ -161,7 +158,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     final currentWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Center(
-        child: Container(
+        child: SizedBox(
           width: currentWidth,
           height: 1200,
           child: Column(children: [
@@ -170,7 +167,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 50, left: 200),
+                  margin: const EdgeInsets.only(top: 50, left: 200),
                   width: 300,
                   height: 300,
                   child: CarouselSlider(
@@ -230,7 +227,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                     ),
                     SizedBox(width: 150, child: Stars(rating: avgRating)),
-                    Container(
+                    SizedBox(
                         width: 200,
                         child: Flex(
                           direction: Axis.vertical,

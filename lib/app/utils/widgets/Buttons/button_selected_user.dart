@@ -3,8 +3,7 @@ import 'package:project_management/app/features/dashboard/models/users.dart';
 import 'package:project_management/app/features/dashboard/views/screens/add_task_screen.dart';
 
 import '../../../common/widgets/loader.dart';
-import '../../../features/dashboard/models/product.dart';
-import '../../../features/dashboard/views/screens/add_product_screen.dart';
+
 import '../../services/admin_services.dart';
 
 class ButtonSelectedUser extends StatelessWidget {
@@ -137,10 +136,8 @@ class _ProductPruebaScreenState extends State<ProductPruebaScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Container(
-                                  child: CircleAvatar(
-                                      child: Text(usersData.name[0])),
-                                ),
+                                CircleAvatar(
+                                    child: Text(usersData.name[0])),
                                 Container(
                                   margin: const EdgeInsets.only(top: 30),
                                   width: 250,

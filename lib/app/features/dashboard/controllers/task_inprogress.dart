@@ -8,7 +8,6 @@ import 'package:project_management/app/utils/services/admin_services.dart';
 import 'package:flutter/material.dart';
 import 'package:project_management/app/utils/widgets/single_inprogress_task.dart';
 
-import '../views/screens/task_detail_screen.dart';
 import '../views/screens/task_inprogress_detail_screen.dart';
 
 class TasksInprogress extends StatefulWidget {

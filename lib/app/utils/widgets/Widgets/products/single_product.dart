@@ -39,7 +39,7 @@ class SingleProduct extends StatelessWidget {
           children: [
             Column(
               children: [
-                Container(
+                SizedBox(
                   width: 40,
                   height: 40,
                   child: Image.network(image),

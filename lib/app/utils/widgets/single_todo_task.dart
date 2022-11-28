@@ -113,7 +113,7 @@ class _TaskDetailsState extends State<_TaskDetails> {
                   width: 100,
                   height: 30,
                   decoration: BoxDecoration(
-                      color: (Color.fromARGB(255, 169, 167, 167)),
+                      color: (const Color.fromARGB(255, 169, 167, 167)),
                       border: Border.all(
                           color: const Color.fromARGB(255, 255, 251, 251)),
                       borderRadius: BorderRadius.circular(50)),

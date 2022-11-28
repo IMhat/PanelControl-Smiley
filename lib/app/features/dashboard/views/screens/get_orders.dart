@@ -4,19 +4,14 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:project_management/app/common/widgets/loader.dart';
+
 import 'package:project_management/app/features/dashboard/models/order.dart';
-import 'package:project_management/app/features/dashboard/views/screens/calendar/calendart_widget.dart';
-import 'package:project_management/app/features/dashboard/views/screens/calendar/colors_calendar.dart';
-import 'package:project_management/app/features/dashboard/views/screens/orders_detail_screen.dart';
+
 import 'package:project_management/app/features/dashboard/views/screens/search_screen.dart';
 
 import 'package:project_management/app/utils/services/admin_services.dart';
-import 'package:project_management/app/utils/widgets/Widgets/dattable_orders.dart';
+
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_orders.dart';
-import 'package:project_management/app/features/dashboard/views/screens/widget_orders/new_order_card.dart';
-import 'package:project_management/app/utils/widgets/Widgets/products/single_product.dart';
-import 'package:project_management/app/utils/widgets/task_bar2.dart';
 
 import '../../../../constans/app_constants.dart';
 import '../../../../shared_components/responsive_builder.dart';
@@ -388,7 +383,7 @@ class _MyOrdersState extends State<MyOrders>
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 width: currentWidth,
                 height: 900,
                 child: TabBarView(
@@ -433,7 +428,7 @@ class _MyOrdersState extends State<MyOrders>
       width: 1600,
       height: 50,
       decoration: BoxDecoration(
-          border: Border.all(color: Color.fromARGB(255, 59, 59, 59)),
+          border: Border.all(color: const Color.fromARGB(255, 59, 59, 59)),
           borderRadius: BorderRadius.circular(10)),
       child: Wrap(
         children: [

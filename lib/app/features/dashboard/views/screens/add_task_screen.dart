@@ -20,7 +20,7 @@ import '../components/input_field.dart';
 class AddTaskScreen extends StatefulWidget {
   static const String routeName = '/add-task';
 
-  AddTaskScreen({
+  const AddTaskScreen({
     Key? key,
   }) : super(key: key);
 
@@ -176,7 +176,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
           const SizedBox(width: 20),
           const SidebarTask(),
           const SizedBox(width: 200),
-          Container(
+          SizedBox(
             width: 1000,
             height: 1200,
             child: Form(
@@ -186,7 +186,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    Container(
+                    SizedBox(
                       //margin: const EdgeInsets.only(right: 100),
                       width: 850,
                       child: Column(
@@ -206,13 +206,11 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                     Wrap(
                       children: [
                         const SizedBox(width: 25),
-                        Container(
-                          child: const CircleAvatar(
-                            radius: 25.0,
-                            backgroundColor: Color.fromARGB(255, 211, 211, 211),
-                            backgroundImage:
-                                AssetImage('assets/images/raster/avatar-1.png'),
-                          ),
+                        const CircleAvatar(
+                          radius: 25.0,
+                          backgroundColor: Color.fromARGB(255, 211, 211, 211),
+                          backgroundImage:
+                              AssetImage('assets/images/raster/avatar-1.png'),
                         ),
                         const SizedBox(
                           width: 3,
@@ -228,7 +226,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                           onChanged: (newVal) {
                             setState(() {
                               dropdownvalue = newVal;
-                              print(dropdownvalue);
+                             // print(dropdownvalue);
                             });
                           },
                           value: dropdownvalue,
@@ -457,7 +455,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    Container(
+                    SizedBox(
                       width: 800,
                       child: Row(
                         children: [
@@ -499,7 +497,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                         ],
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: 800,
                       child: Row(
                         children: [
@@ -557,7 +555,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                     //   label: "Create Task",
                     //   onTap: addTask,
                     // ),
-                    Container(
+                    SizedBox(
                       width: 120,
                       height: 50,
                       child: CustomButton(

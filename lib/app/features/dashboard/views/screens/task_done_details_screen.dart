@@ -295,7 +295,7 @@ class _TaskDoneDetailsState extends State<TaskDoneDetails> {
     return SingleChildScrollView(
       child: Wrap(children: [
         const SizedBox(width: 200),
-        Container(
+        SizedBox(
           width: 1000,
           height: 1200,
           child: Form(
@@ -305,7 +305,7 @@ class _TaskDoneDetailsState extends State<TaskDoneDetails> {
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  Container(
+                  SizedBox(
                     //margin: const EdgeInsets.only(right: 100),
                     width: 850,
                     child: Column(
@@ -340,13 +340,11 @@ class _TaskDoneDetailsState extends State<TaskDoneDetails> {
                       //               color: Colors.black, fontSize: 20))),
                       // ),
                       const SizedBox(width: 25),
-                      Container(
-                        child: const CircleAvatar(
-                          radius: 25.0,
-                          backgroundColor: Color.fromARGB(255, 211, 211, 211),
-                          backgroundImage:
-                              AssetImage('assets/images/raster/avatar-1.png'),
-                        ),
+                      const CircleAvatar(
+                        radius: 25.0,
+                        backgroundColor: Color.fromARGB(255, 211, 211, 211),
+                        backgroundImage:
+                            AssetImage('assets/images/raster/avatar-1.png'),
                       ),
                       const SizedBox(
                         width: 3,
@@ -362,7 +360,7 @@ class _TaskDoneDetailsState extends State<TaskDoneDetails> {
                         onChanged: (newVal) {
                           setState(() {
                             dropdownvalue = newVal;
-                            print(dropdownvalue);
+                           // print(dropdownvalue);
                           });
                         },
                         value: dropdownvalue,
@@ -614,7 +612,7 @@ class _TaskDoneDetailsState extends State<TaskDoneDetails> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Container(
+                  SizedBox(
                     width: 800,
                     child: Row(
                       children: [

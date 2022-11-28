@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class TeamMember extends StatelessWidget {
   const TeamMember({Key? key}) : super(key: key);

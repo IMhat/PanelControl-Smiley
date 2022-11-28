@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class NewOrderCard extends StatefulWidget {
   final String id;
@@ -123,7 +122,7 @@ class _NewOrderCardState extends State<NewOrderCard> {
               ],
             ),
 
-            ButtonMenu(),
+            const ButtonMenu(),
           ],
         ),
       ),

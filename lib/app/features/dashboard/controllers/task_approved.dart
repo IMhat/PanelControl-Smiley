@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:project_management/app/utils/widgets/single_approved_task.dart';
 
 import '../views/screens/task_approved_details_screen.dart';
-import '../views/screens/task_detail_screen.dart';
 
 class TasksApproved extends StatefulWidget {
   const TasksApproved({Key? key}) : super(key: key);

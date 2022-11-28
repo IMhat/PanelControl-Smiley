@@ -4,23 +4,20 @@ library dashboard;
 
 import 'package:project_management/app/features/dashboard/models/tasks.dart';
 import 'package:project_management/app/features/dashboard/views/components/team_member.dart';
-import 'package:project_management/app/features/dashboard/views/screens/transaction_post.dart';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 //import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:project_management/app/constans/app_constants.dart';
 
-import 'package:project_management/app/features/dashboard/views/screens/task_post.dart';
 import 'package:project_management/app/features/dashboard/views/screens/tasks_screen.dart';
-import 'package:project_management/app/shared_components/chatting_card.dart';
 import 'package:project_management/app/shared_components/list_profil_image.dart';
-import 'package:project_management/app/shared_components/progress_card.dart';
+
 import 'package:project_management/app/shared_components/progress_report_card.dart';
 import 'package:project_management/app/shared_components/responsive_builder.dart';
 import 'package:project_management/app/shared_components/project_card.dart';
 import 'package:project_management/app/shared_components/search_field.dart';
-import 'package:project_management/app/shared_components/today_text.dart';
+
 import 'package:project_management/app/utils/helpers/app_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,13 +32,7 @@ import 'package:project_management/app/utils/widgets/Widgets/products/team_membe
 
 import 'package:project_management/app/utils/widgets/sidebar_home_task.dart';
 import 'package:project_management/app/utils/widgets/single_task.dart';
-import 'package:project_management/app/utils/widgets/task_card.dart';
-import 'package:project_management/app/utils/widgets/task_todo_card.dart';
-import 'package:provider/provider.dart';
 
-import '../../../../shared_components/get_premium_card.dart';
-import '../../providers/task_form_provider.dart';
-import 'calendar/calendart_widget.dart';
 
 // binding
 // part '../../bindings/dashboard_binding.dart';
@@ -193,8 +184,8 @@ class DashboardScreen extends GetView<StatefulWidget> {
                     const TeamMember(),
                     TeamMemberCard(totalMember: 8, onPressedAdd: (() {})),
                     const SizedBox(height: kSpacing),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: kSpacing),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: kSpacing),
                       //child: GetPremiumCard(onPressed: () {}),
                     ),
                     const SizedBox(height: kSpacing),

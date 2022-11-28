@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../common/widgets/loader.dart';
 import '../../../../../utils/services/admin_services.dart';
-import '../../../models/order.dart';
 import '../../../models/order_complete.dart';
-import '../../../models/order_process.dart';
 import '../orders_detail_screen.dart';
 import '../search_screen.dart';
 import '../widget_orders/new_order_card.dart';
@@ -67,7 +65,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
                           height: 900,
                           decoration: BoxDecoration(
                               border: Border.all(
-                                  color: Color.fromARGB(255, 90, 90, 90)),
+                                  color: const Color.fromARGB(255, 90, 90, 90)),
                               borderRadius: BorderRadius.circular(10)),
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -119,7 +117,7 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
       width: 1600,
       height: 50,
       decoration: BoxDecoration(
-          border: Border.all(color: Color.fromARGB(255, 59, 59, 59)),
+          border: Border.all(color: const Color.fromARGB(255, 59, 59, 59)),
           borderRadius: BorderRadius.circular(10)),
       child: Wrap(
         children: [
@@ -156,14 +154,4 @@ class _OrderCompleteScreenState extends State<OrderCompleteScreen> {
   }
 }
 
-BoxDecoration _buildBoxDecoration1() => const BoxDecoration(
-    color: Color(0xff48409E),
-    gradient: LinearGradient(colors: <Color>[
-      (Color(0xff48409E)),
-      (Color(0xff4332F7)),
-    ]),
-    borderRadius: BorderRadius.only(
-        bottomRight: Radius.circular(15),
-        bottomLeft: Radius.circular(15),
-        topLeft: Radius.circular(15),
-        topRight: Radius.circular(15)));
+

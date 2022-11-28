@@ -30,9 +30,9 @@ class UpgradePremiumCard extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(10),
           child: Stack(
-            children: [
+            children: const [
               Padding(
-                padding: const EdgeInsets.only(
+                padding: EdgeInsets.only(
                   top: 80,
                 ),
                 // child: SvgPicture.asset(
@@ -40,7 +40,7 @@ class UpgradePremiumCard extends StatelessWidget {
                 //   fit: BoxFit.contain,
                 // ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(10),
                 child: _Info(),
               ),

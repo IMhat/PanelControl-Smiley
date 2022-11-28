@@ -15,63 +15,60 @@ class CalendarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //padding: const EdgeInsets.only(bottom: defaultPadding),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TextAvatar(
-                text: calendarItemData.name,
-                size: 50,
-                backgroundColor: Colors.white,
-                textColor: Colors.white,
-                fontSize: 14,
-                upperCase: true,
-                numberLetters: 1,
-                shape: Shape.Rectangle,
-              ),
-              const SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    calendarItemData.name,
-                    style: const TextStyle(
-                      fontSize: 14,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextAvatar(
+              text: calendarItemData.name,
+              size: 50,
+              backgroundColor: Colors.white,
+              textColor: Colors.white,
+              fontSize: 14,
+              upperCase: true,
+              numberLetters: 1,
+              shape: Shape.Rectangle,
+            ),
+            const SizedBox(width: 8),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  calendarItemData.name,
+                  style: const TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: getRoleColor(calendarItemData.position)
+                        .withOpacity(.2),
+                    border: Border.all(
+                      color: getRoleColor(calendarItemData.position),
+                    ),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(4.0),
                     ),
                   ),
-                  const SizedBox(height: 5),
-                  Container(
-                    padding: EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: getRoleColor(calendarItemData.position)
-                          .withOpacity(.2),
-                      border: Border.all(
-                        color: getRoleColor(calendarItemData.position),
-                      ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(4.0),
-                      ),
-                    ),
-                    child: Text(
-                      calendarItemData.position,
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle2!
-                          .copyWith(fontSize: 12),
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-          _Date(date: calendarItemData.getDate())
-        ],
-      ),
+                  child: Text(
+                    calendarItemData.position,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle2!
+                        .copyWith(fontSize: 12),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+        _Date(date: calendarItemData.getDate())
+      ],
     );
   }
 }

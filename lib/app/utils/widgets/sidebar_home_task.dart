@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:project_management/app/features/auth/services/auth_service.dart';
 import 'package:project_management/app/features/auth/widgets/account_button.dart';
 import 'package:project_management/app/features/dashboard/views/screens/calendar_screen.dart';
@@ -11,7 +9,6 @@ import 'package:project_management/app/features/dashboard/views/screens/products
 
 import '../../features/dashboard/views/screens/tasks_screen.dart';
 import '../../shared_components/today_text.dart';
-import 'Widgets/datatable/datatable_prueba.dart';
 
 class SidebarHomeTask extends StatelessWidget {
   const SidebarHomeTask({Key? key}) : super(key: key);
@@ -28,7 +25,7 @@ class SidebarHomeTask extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 10),
-          Container(
+          SizedBox(
               width: 300,
               height: 80,
               child: Image.asset("assets/images/raster/smileylogo.png")),
@@ -248,7 +245,7 @@ class SidebarHomeTask extends StatelessWidget {
                         ],
                       ),
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(

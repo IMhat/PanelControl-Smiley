@@ -5,10 +5,10 @@ class MyButtonEditTask extends StatelessWidget {
   final Function onTap;
   final String label;
 
-  MyButtonEditTask({
+   const MyButtonEditTask({Key? key, 
     required this.onTap,
     required this.label,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

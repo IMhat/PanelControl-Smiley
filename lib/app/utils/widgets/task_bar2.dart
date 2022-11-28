@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 
 class TaskBar2 extends StatelessWidget {
   final textButtonStyle = TextButton.styleFrom(
@@ -71,7 +70,7 @@ class TaskBar2 extends StatelessWidget {
 }
 
 class MyButtonFilter extends StatefulWidget {
-  const MyButtonFilter();
+   const MyButtonFilter({Key? key}) : super(key: key);
 
   @override
   State<MyButtonFilter> createState() => _MyButtonFilterState();
@@ -157,25 +156,23 @@ class _FilterDialog extends StatelessWidget {
               style: TextStyle(color: Colors.black),
               textAlign: TextAlign.start,
             ),
-            Container(
-              child: DropdownButton(
-                items: _lista.map((String a) {
-                  return DropdownMenuItem(
-                      value: a,
-                      child: Text(
-                        a,
-                        style: const TextStyle(color: Colors.black),
-                      ));
-                }).toList(),
-                onChanged: (_value) => {
-                  setState(() {
-                    _vista = _value.toString();
-                  })
-                },
-                hint: Text(
-                  _vista,
-                  style: const TextStyle(color: Colors.red),
-                ),
+            DropdownButton(
+              items: _lista.map((String a) {
+                return DropdownMenuItem(
+                    value: a,
+                    child: Text(
+                      a,
+                      style: const TextStyle(color: Colors.black),
+                    ));
+              }).toList(),
+              onChanged: (_value) => {
+                setState(() {
+                  _vista = _value.toString();
+                })
+              },
+              hint: Text(
+                _vista,
+                style: const TextStyle(color: Colors.red),
               ),
             ),
           ],

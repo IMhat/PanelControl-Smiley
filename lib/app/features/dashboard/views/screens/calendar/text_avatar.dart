@@ -51,10 +51,11 @@ class TextAvatar extends StatelessWidget {
   }
 
   Color _colorTextConfig() {
-    if (textColor == null)
+    if (textColor == null) {
       return Colors.white;
-    else
+    } else {
       return textColor!;
+    }
   }
 
   String _toString({String? value}) {
@@ -72,7 +73,7 @@ class TextAvatar extends StatelessWidget {
       return '${arrayLeeters[0][0].trim()}${arrayLeeters[1][0].trim()}';
     }
 
-    return '${newText[0]}';
+    return newText[0];
   }
 
   Widget _buildText() {
@@ -111,16 +112,14 @@ class TextAvatar extends StatelessWidget {
   }
 
   Widget _textDisplay() {
-    return Container(
-      child: Material(
-        shape: _buildTextType(),
-        color: backgroundColor,
-        child: Container(
-          height: size,
-          width: size,
-          child: Center(
-            child: _buildText(),
-          ),
+    return Material(
+      shape: _buildTextType(),
+      color: backgroundColor,
+      child: SizedBox(
+        height: size,
+        width: size,
+        child: Center(
+          child: _buildText(),
         ),
       ),
     );

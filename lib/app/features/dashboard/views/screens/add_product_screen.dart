@@ -7,7 +7,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:project_management/app/common/widgets/custom_textField.dart';
-import 'package:project_management/app/constans/global_variables.dart';
 import 'package:project_management/app/constans/utils.dart';
 import 'package:project_management/app/utils/services/admin_services.dart';
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_products.dart';
@@ -249,7 +248,7 @@ class _AddProductResponsiveScreenState
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Container(
+                      SizedBox(
                         width: 120,
                         height: 50,
                         child: CustomButton(

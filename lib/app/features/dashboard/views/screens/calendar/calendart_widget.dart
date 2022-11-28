@@ -8,6 +8,8 @@ import '../../../models/data.dart';
 import 'calendar_list_widget.dart';
 
 class CalendarWidget extends StatefulWidget {
+  const CalendarWidget({Key? key}) : super(key: key);
+
   @override
   _CalendarWidgetState createState() => _CalendarWidgetState();
 }
@@ -50,7 +52,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "${DateFormat("MMM, yyyy").format(_focusedDay)}",
+                DateFormat("MMM, yyyy").format(_focusedDay),
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
@@ -71,7 +73,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                   InkWell(
                     onTap: () {
                       setState(() {
-                        print(_focusedDay);
+                       // print(_focusedDay);
                         _focusedDay =
                             DateTime(_focusedDay.year, _focusedDay.month + 1);
                       });

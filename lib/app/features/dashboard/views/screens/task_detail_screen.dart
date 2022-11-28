@@ -141,7 +141,7 @@ class _TaskDetailsState extends State<TaskDetails> {
 
   final AdminServices adminServices = AdminServices();
 
-  DateTime _selectedDate = DateTime.now();
+  final DateTime _selectedDate = DateTime.now();
 
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now().add(const Duration(minutes: 5));
@@ -217,7 +217,7 @@ class _TaskDetailsState extends State<TaskDetails> {
         startDate: startDate.toString(),
         endDate: endDate.toString(),
         id: widget.task.id.toString());
-    print(updateTask);
+   // print(updateTask);
   }
 
   void sendPoints() {
@@ -304,7 +304,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                         onChanged: (newVal) {
                           setState(() {
                             dropdownvalue = newVal;
-                            print(dropdownvalue);
+                            //print(dropdownvalue);
                           });
                         },
                         value: dropdownvalue,
@@ -553,7 +553,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Container(
+                  SizedBox(
                     width: 800,
                     child: Row(
                       children: [
@@ -678,12 +678,12 @@ class _TaskDetailsState extends State<TaskDetails> {
                           label: "Approved task"),
                     ],
                   ),
-                  Container(
+                  SizedBox(
                     width: 500,
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(30.0),
+                          padding: const EdgeInsets.all(30.0),
                           child: QuillToolbar.basic(controller: _controller),
                         ),
                         Flex(direction: Axis.vertical, children: [

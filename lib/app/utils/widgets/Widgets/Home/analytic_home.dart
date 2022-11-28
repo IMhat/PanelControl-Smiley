@@ -1,5 +1,4 @@
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/loader.dart';
@@ -42,7 +41,7 @@ class _AnalyticsHomeState extends State<AnalyticsHome> {
     return earnings == null || totalSales == null
         ? const Loader()
         : SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               width: 1000,
               height: 700,
               child: Padding(

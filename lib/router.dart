@@ -5,7 +5,6 @@ import 'package:project_management/app/features/dashboard/models/order_process.d
 import 'package:project_management/app/features/dashboard/models/task_approved.dart';
 import 'package:project_management/app/features/dashboard/models/task_done.dart';
 import 'package:project_management/app/features/dashboard/models/task_todo.dart';
-import 'package:project_management/app/features/dashboard/models/user.dart';
 import 'package:project_management/app/features/dashboard/views/screens/add_product_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/add_task_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/dashboard_screen.dart';
@@ -26,7 +25,6 @@ import 'app/features/dashboard/views/screens/task_detail_screen.dart';
 import 'app/features/dashboard/views/screens/task_done_details_screen.dart';
 import 'app/features/dashboard/views/screens/task_inprogress_detail_screen.dart';
 import 'app/features/dashboard/views/screens/widget_orders/process_order_detail_screen.dart';
-import 'app/utils/widgets/Widgets/datatable/datatable_prueba.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -55,18 +53,15 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       // var user = routeSettings.arguments as User;
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => AddTaskScreen(),
+        builder: (_) => const AddTaskScreen(),
       );
     case PostsScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const PostsScreen(),
       );
-    case PostsScreen.routeName:
-      return MaterialPageRoute(
-        settings: routeSettings,
-        builder: (_) => const PostsScreen(),
-      );
+    
+      
     // case CategoryDealsScreen.routeName:
     //   var category = routeSettings.arguments as String;
     //   return MaterialPageRoute(
@@ -146,7 +141,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case OrdersScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => OrdersScreen(),
+        builder: (_) => const OrdersScreen(),
       );
     case CalendarScreen.routeName:
       return MaterialPageRoute(

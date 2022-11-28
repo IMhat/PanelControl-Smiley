@@ -3,12 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_analytic.dart';
 
-import '../../../../common/widgets/loader.dart';
 import '../../../../constans/app_constants.dart';
 import '../../../../shared_components/responsive_builder.dart';
-import '../../../../utils/services/admin_services.dart';
-import '../../../../utils/widgets/category_product_chart.dart';
-import '../../models/sales.dart';
 import 'calendar/calendart_widget.dart';
 
 class CalendarScreen extends StatefulWidget {
