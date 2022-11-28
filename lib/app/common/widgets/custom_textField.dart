@@ -15,18 +15,18 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      style: TextStyle(color: Colors.black),
+      style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
       decoration: InputDecoration(
         hintText: hintText,
-        iconColor: Colors.black,
+        iconColor: Colors.white,
         border: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.black38,
+            color: Colors.white,
           ),
         ),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.black38,
+            color: Colors.white,
           ),
         ),
       ),

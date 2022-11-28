@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Task {
-  final String title;
+  late String title;
   final String priority;
   final String description;
   //final List<String> images;

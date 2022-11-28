@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:project_management/app/features/dashboard/models/users.dart';
+import 'package:project_management/app/features/dashboard/views/screens/add_task_screen.dart';
 
 import '../../../common/widgets/loader.dart';
 import '../../../features/dashboard/models/product.dart';
 import '../../../features/dashboard/views/screens/add_product_screen.dart';
 import '../../services/admin_services.dart';
-import '../product_card_prueba_modal.dart';
 
 class ButtonSelectedUser extends StatelessWidget {
   const ButtonSelectedUser({Key? key}) : super(key: key);
@@ -47,7 +48,7 @@ class _FilterDialog extends StatelessWidget {
     return AlertDialog(
       content: Container(
         color: Colors.white,
-        width: MediaQuery.of(context).size.width * .1,
+        width: MediaQuery.of(context).size.width * .2,
         height: MediaQuery.of(context).size.height * .6,
         child: Column(
           children: [
@@ -90,38 +91,23 @@ class ProductPruebaScreen extends StatefulWidget {
 }
 
 class _ProductPruebaScreenState extends State<ProductPruebaScreen> {
-  List<Product>? products;
+  List<Users>? users;
   final AdminServices adminServices = AdminServices();
 
   @override
   void initState() {
     super.initState();
-    fetchAllProducts();
+    fetchAllUsers();
   }
 
-  fetchAllProducts() async {
-    products = await adminServices.fetchAllProducts(context);
+  fetchAllUsers() async {
+    users = await adminServices.fetchAllUsers(context);
     setState(() {});
-  }
-
-  void deleteProduct(Product product, int index) {
-    adminServices.deleteProduct(
-      context: context,
-      product: product,
-      onSuccess: () {
-        products!.removeAt(index);
-        setState(() {});
-      },
-    );
-  }
-
-  void navigateToAddProduct() {
-    Navigator.pushNamed(context, AddProductScreen.routeName);
   }
 
   @override
   Widget build(BuildContext context) {
-    return products == null
+    return users == null
         ? const Loader()
         : SingleChildScrollView(
             child: Column(
@@ -131,38 +117,48 @@ class _ProductPruebaScreenState extends State<ProductPruebaScreen> {
                   width: 350,
                   height: 400,
                   child: ListView.builder(
-                    itemCount: products!.length,
+                    itemCount: users!.length,
                     // gridDelegate:
                     //     const SliverGridDelegateWithFixedCrossAxisCount(
                     //         crossAxisCount: 3),
                     itemBuilder: (context, index) {
-                      final productData = products![index];
-                      return Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ProductModalPrueba(
-                                image: productData.images[0],
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(top: 30),
-                                width: 150,
-                                height: 60,
-                                child: Text(
-                                  productData.name,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
+                      final usersData = users![index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            AddTaskScreen.routeName,
+                            arguments: usersData.email,
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  child: CircleAvatar(
+                                      child: Text(usersData.name[0])),
                                 ),
-                              ),
-                              const Divider(
-                                indent: 2,
-                                color: Colors.indigo,
-                              ),
-                            ],
-                          ),
-                        ],
+                                Container(
+                                  margin: const EdgeInsets.only(top: 30),
+                                  width: 250,
+                                  height: 60,
+                                  child: Text(
+                                    usersData.email,
+                                    // overflow: TextOverflow.ellipsis,
+                                    // maxLines: 2,
+                                  ),
+                                ),
+                                const Divider(
+                                  indent: 2,
+                                  color: Colors.indigo,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       );
                     },
                   ),

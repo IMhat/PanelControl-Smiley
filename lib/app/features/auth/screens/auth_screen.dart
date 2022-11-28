@@ -99,25 +99,25 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // ListTile(
-                      //   tileColor: _auth == Auth.signup
-                      //       ? GlobalVariables.authBackgroundColor
-                      //       : GlobalVariables.greyBackgroundCOlor,
-                      //   title: const Text(
-                      //     'Crear una cuenta',
-                      //     style: TextStyle(fontWeight: FontWeight.bold),
-                      //   ),
-                      //   leading: Radio(
-                      //     activeColor: GlobalVariables.secondaryColor,
-                      //     value: Auth.signup,
-                      //     groupValue: _auth,
-                      //     onChanged: (Auth? val) {
-                      //       setState(() {
-                      //         _auth = val!;
-                      //       });
-                      //     },
-                      //   ),
-                      // ),
+                      ListTile(
+                        tileColor: _auth == Auth.signup
+                            ? GlobalVariables.authBackgroundColor
+                            : GlobalVariables.greyBackgroundCOlor,
+                        title: const Text(
+                          'Crear una cuenta',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        leading: Radio(
+                          activeColor: GlobalVariables.secondaryColor,
+                          value: Auth.signup,
+                          groupValue: _auth,
+                          onChanged: (Auth? val) {
+                            setState(() {
+                              _auth = val!;
+                            });
+                          },
+                        ),
+                      ),
                       if (_auth == Auth.signup)
                         Container(
                           margin: const EdgeInsets.only(top: 30),
@@ -201,7 +201,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               children: [
                                 CustomTextField(
                                   controller: _emailController,
-                                  hintText: 'Email',
+                                  hintText: 'Email', 
                                 ),
                                 const SizedBox(
                                   height: 10,

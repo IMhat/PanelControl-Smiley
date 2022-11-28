@@ -58,6 +58,7 @@ dependencies:
   flutter_quill: ^6.1.2
   syncfusion_flutter_datagrid: ^20.3.56
   responsive_table: ^0.2.0+2
+  select_form_field: ^2.2.0
   #flutter_icons:
   
   

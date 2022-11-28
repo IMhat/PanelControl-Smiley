@@ -1,15 +1,16 @@
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
-// import '../models/task.dart';
 
-// class TaskFormProvider extends ChangeNotifier {
-//   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+import '../models/tasks.dart';
 
-//   Task task;
+class TaskFormProvider extends ChangeNotifier {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-//   TaskFormProvider(this.task);
+  Task task;
 
-//   bool isValidForm() {
-//     return formKey.currentState?.validate() ?? false;
-//   }
-// }
+  TaskFormProvider(this.task);
+
+  bool isValidForm() {
+    return formKey.currentState?.validate() ?? false;
+  }
+}

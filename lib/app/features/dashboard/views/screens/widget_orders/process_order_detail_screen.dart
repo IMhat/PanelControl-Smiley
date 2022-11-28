@@ -9,22 +9,23 @@ import 'package:project_management/app/utils/services/admin_services.dart';
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_orders.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../constans/app_constants.dart';
-import '../../../../shared_components/responsive_builder.dart';
+import '../../../../../constans/app_constants.dart';
+import '../../../../../shared_components/responsive_builder.dart';
+import '../../../models/order_process.dart';
 
-class OrderDetailScreen extends StatefulWidget {
-  static const String routeName = '/order-details';
-  final Order order;
-  const OrderDetailScreen({
+class ProcessDetailScreen extends StatefulWidget {
+  static const String routeName = '/process-order-details';
+  final OrderProcess order;
+  const ProcessDetailScreen({
     Key? key,
     required this.order,
   }) : super(key: key);
 
   @override
-  State<OrderDetailScreen> createState() => _OrderDetailScreenState();
+  State<ProcessDetailScreen> createState() => _ProcessDetailScreenState();
 }
 
-class _OrderDetailScreenState extends State<OrderDetailScreen> {
+class _ProcessDetailScreenState extends State<ProcessDetailScreen> {
   final AdminServices adminServices = AdminServices();
 
   @override
@@ -92,7 +93,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
 class OrderDetail extends StatefulWidget {
   static const String routeName = '/order-details';
-  final Order order;
+  final OrderProcess order;
   const OrderDetail({
     Key? key,
     required this.order,
@@ -117,8 +118,8 @@ class _OrderDetailState extends State<OrderDetail> {
   }
 
   //  !!!ADMIN!!!
-  void changeOrderStatus(int status) {
-    adminServices.changeOrderStatus(
+  void changeOrderProcessStatus(int status) {
+    adminServices.changeOrderProcessStatus(
       context: context,
       status: status + 1,
       order: widget.order,
@@ -293,8 +294,8 @@ class _OrderDetailState extends State<OrderDetail> {
                               padding: const EdgeInsets.only(top: 15),
                               child: CustomButton(
                                 text: 'Done',
-                                onTap: () =>
-                                    changeOrderStatus(details.currentStep),
+                                onTap: () => changeOrderProcessStatus(
+                                    details.currentStep),
                               ),
                             );
                           }

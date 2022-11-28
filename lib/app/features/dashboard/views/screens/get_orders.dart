@@ -10,15 +10,20 @@ import 'package:project_management/app/features/dashboard/views/screens/calendar
 import 'package:project_management/app/features/dashboard/views/screens/calendar/colors_calendar.dart';
 import 'package:project_management/app/features/dashboard/views/screens/orders_detail_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/search_screen.dart';
+
 import 'package:project_management/app/utils/services/admin_services.dart';
 import 'package:project_management/app/utils/widgets/Widgets/dattable_orders.dart';
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_orders.dart';
-import 'package:project_management/app/utils/widgets/single_order.dart';
+import 'package:project_management/app/features/dashboard/views/screens/widget_orders/new_order_card.dart';
 import 'package:project_management/app/utils/widgets/Widgets/products/single_product.dart';
 import 'package:project_management/app/utils/widgets/task_bar2.dart';
 
 import '../../../../constans/app_constants.dart';
 import '../../../../shared_components/responsive_builder.dart';
+import 'orders_screens/complete_order_screen.dart';
+import 'orders_screens/incoming_orders_screen.dart';
+import 'orders_screens/new_orders_screen.dart';
+import 'orders_screens/process_orders_screen.dart';
 
 class OrdersScreen extends StatefulWidget {
   static const String routeName = '/getOrders';
@@ -94,17 +99,21 @@ class MyOrders extends StatefulWidget {
   State<MyOrders> createState() => _MyOrdersState();
 }
 
-class _MyOrdersState extends State<MyOrders> {
-  List<Order>? orders;
+class _MyOrdersState extends State<MyOrders>
+    with SingleTickerProviderStateMixin {
+  int selectedPage = 0;
+  TabController? controller;
   @override
   void initState() {
     super.initState();
-    fetchOrders();
+    controller =
+        TabController(length: 4, initialIndex: selectedPage, vsync: this);
   }
 
-  void fetchOrders() async {
-    orders = await adminServices.fetchAllOrders(context);
-    setState(() {});
+  @override
+  void dispose() {
+    super.dispose();
+    controller!.dispose();
   }
 
   void navigateToSearchScreen(String query) {
@@ -124,185 +133,299 @@ class _MyOrdersState extends State<MyOrders> {
   Widget build(BuildContext context) {
     final currentWidth = MediaQuery.of(context).size.width;
     // The GestureDetector wraps the button.
-    return orders == null
-        ? const Loader()
-        : SingleChildScrollView(
-            child: Wrap(
-              children: [
-                Column(
+    return SingleChildScrollView(
+      child: Wrap(
+        children: [
+          Column(
+            children: [
+              const SizedBox(height: 20),
+              Container(
+                margin: const EdgeInsets.only(right: 40),
+                width: 1450,
+                height: 80,
+                decoration: _buildBoxDecoration1(),
+                child: Row(
                   children: [
-                    const SizedBox(height: 20),
                     Container(
-                      margin: const EdgeInsets.only(right: 40),
-                      width: 1450,
-                      height: 80,
-                      decoration: _buildBoxDecoration1(),
-                      child: Row(
+                      margin: const EdgeInsets.only(left: 20, top: 20),
+                      width: 200,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            margin: const EdgeInsets.only(left: 20, top: 20),
-                            width: 200,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Wrap(children: [
-                                  Text(
-                                    "Orders",
-                                    style: textStyle,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Text(
-                                    "Uteam",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 20),
-                                  ),
-                                ]),
-                              ],
+                          Wrap(children: [
+                            Text(
+                              "Orders",
+                              style: textStyle,
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                          Container(
-                            margin: const EdgeInsets.all(25),
-                            height: 30,
-                            width: 200,
-                            child: Container(
-                              decoration: const BoxDecoration(
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Text(
+                              "Uteam",
+                              style: TextStyle(
                                   color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8))),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      height: 42,
-                                      margin: const EdgeInsets.only(left: 15),
-                                      child: Material(
-                                        borderRadius: BorderRadius.circular(7),
-                                        elevation: 1,
-                                        child: TextFormField(
-                                          onFieldSubmitted:
-                                              navigateToSearchScreen,
-                                          decoration: InputDecoration(
-                                            prefixIcon: InkWell(
-                                              onTap: () {},
-                                              child: const Padding(
-                                                padding: EdgeInsets.only(
-                                                  left: 6,
-                                                ),
-                                                child: Icon(
-                                                  Icons.search,
-                                                  color: Colors.black,
-                                                  size: 23,
-                                                ),
-                                              ),
-                                            ),
-                                            filled: true,
-                                            fillColor: Colors.white,
-                                            contentPadding:
-                                                const EdgeInsets.only(top: 10),
-                                            border: const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(7),
-                                              ),
-                                              borderSide: BorderSide.none,
-                                            ),
-                                            enabledBorder:
-                                                const OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(7),
-                                              ),
-                                              borderSide: BorderSide(
-                                                color: Colors.black38,
-                                                width: 1,
-                                              ),
-                                            ),
-                                            hintText: 'Search Catalog',
-                                            hintStyle: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    color: Colors.transparent,
-                                    height: 42,
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: const Icon(Icons.mic,
-                                        color: Colors.black, size: 25),
-                                  ),
-                                ],
-                              ),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20),
                             ),
-                          ),
+                          ]),
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Wrap(
-                      children: [
-                        headerOrders(),
-                        Container(
-                          width: currentWidth,
-                          height: 900,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Color.fromARGB(255, 90, 90, 90)),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: ListView.builder(
-                              itemCount: orders!.length,
-                              //gridDelegate:
-                              // const SliverGridDelegateWithFixedCrossAxisCount(
-                              //crossAxisCount: 1),
-                              itemBuilder: (context, index) {
-                                final orderData = orders![index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      OrderDetailScreen.routeName,
-                                      arguments: orderData,
-                                    );
-                                  },
-
-                                  // onTap: () {
-                                  //   Navigator.of(context)
-                                  //       .pushNamed(OrderDetailScreen.routeName);
-                                  // },
-
-                                  child: SingleOrder(
-                                    id: orderData.id,
-                                    name: orderData.products[0].name,
-                                    totalPrice: orderData.totalPrice.toString(),
-                                    quantity: orderData.quantity.toString(),
-                                    userId: orderData.userId.toString(),
-                                    status: orderData.status,
+                    const SizedBox(width: 10),
+                    Container(
+                      margin: const EdgeInsets.all(25),
+                      height: 30,
+                      width: 200,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                height: 42,
+                                margin: const EdgeInsets.only(left: 15),
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(7),
+                                  elevation: 1,
+                                  child: TextFormField(
+                                    onFieldSubmitted: navigateToSearchScreen,
+                                    decoration: InputDecoration(
+                                      prefixIcon: InkWell(
+                                        onTap: () {},
+                                        child: const Padding(
+                                          padding: EdgeInsets.only(
+                                            left: 6,
+                                          ),
+                                          child: Icon(
+                                            Icons.search,
+                                            color: Colors.black,
+                                            size: 23,
+                                          ),
+                                        ),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      contentPadding:
+                                          const EdgeInsets.only(top: 10),
+                                      border: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(7),
+                                        ),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      enabledBorder: const OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(7),
+                                        ),
+                                        borderSide: BorderSide(
+                                          color: Colors.black38,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      hintText: 'Search Catalog',
+                                      hintStyle: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 17,
+                                      ),
+                                    ),
                                   ),
-                                );
-                              },
+                                ),
+                              ),
                             ),
-                          ),
+                            Container(
+                              color: Colors.transparent,
+                              height: 42,
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: const Icon(Icons.mic,
+                                  color: Colors.black, size: 25),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
-              ],
-            ),
-          );
+              ),
+              Container(
+                width: 1500,
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom:
+                            BorderSide(width: 1, color: Colors.deepPurple))),
+                child: Material(
+                  color: Colors.white,
+                  child: TabBar(
+                    controller: controller,
+                    labelColor: Colors.black,
+                    unselectedLabelColor: Colors.white,
+                    tabs: [
+                      Tab(
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          width: 150,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 147, 144, 181),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey[850]!.withOpacity(0.29),
+                                  offset: const Offset(-10, 10),
+                                  blurRadius: 10,
+                                )
+                              ]),
+                          child: Wrap(
+                            alignment: WrapAlignment.spaceAround,
+                            children: const [
+                              Text(
+                                'New Orders',
+                              ),
+                              Icon(
+                                Icons.stacked_line_chart_rounded,
+                                color: Color(0xff48409E),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Tab(
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          width: 150,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: (const Color.fromARGB(255, 147, 144, 181)),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey[850]!.withOpacity(0.29),
+                                  offset: const Offset(-10, 10),
+                                  blurRadius: 10,
+                                )
+                              ]),
+                          child: Wrap(
+                            alignment: WrapAlignment.spaceAround,
+                            children: const [
+                              Text(
+                                'Process',
+                              ),
+                              Icon(
+                                Icons.production_quantity_limits,
+                                color: Color(0xff48409E),
+                                size: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Tab(
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          width: 150,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: (const Color.fromARGB(255, 147, 144, 181)),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey[850]!.withOpacity(0.29),
+                                  offset: const Offset(-10, 10),
+                                  blurRadius: 10,
+                                )
+                              ]),
+                          child: Wrap(
+                            alignment: WrapAlignment.spaceAround,
+                            children: const [
+                              Text(
+                                'Incoming',
+                              ),
+                              Icon(
+                                Icons.delivery_dining,
+                                color: Color(0xff48409E),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Tab(
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          width: 150,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: (const Color.fromARGB(255, 147, 144, 181)),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey[850]!.withOpacity(0.29),
+                                  offset: const Offset(-10, 10),
+                                  blurRadius: 10,
+                                )
+                              ]),
+                          child: Wrap(
+                            alignment: WrapAlignment.spaceAround,
+                            children: const [
+                              Text(
+                                'Complete',
+                              ),
+                              Icon(
+                                Icons.check,
+                                color: Color(0xff48409E),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: currentWidth,
+                height: 900,
+                child: TabBarView(
+                  controller: controller,
+                  children: [
+                    Container(
+                      margin:
+                          const EdgeInsets.only(top: 5, left: 20, bottom: 20),
+                      child:
+                          const SingleChildScrollView(child: NewOrdersScreen()),
+                    ),
+                    Container(
+                      margin:
+                          const EdgeInsets.only(top: 5, left: 20, bottom: 20),
+                      child: const SingleChildScrollView(
+                          child: ProcessOrdersScreen()),
+                    ),
+                    Container(
+                      margin:
+                          const EdgeInsets.only(top: 5, left: 20, bottom: 20),
+                      child: const SingleChildScrollView(
+                          child: IncomingOrdersScreen()),
+                    ),
+                    Container(
+                      margin:
+                          const EdgeInsets.only(top: 5, left: 20, bottom: 20),
+                      child: const SingleChildScrollView(
+                          child: OrderCompleteScreen()),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   Container headerOrders() {

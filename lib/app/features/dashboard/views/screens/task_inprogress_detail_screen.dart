@@ -1,5 +1,6 @@
+import 'dart:convert';
 import 'dart:html';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -107,6 +108,29 @@ class TaskInprogressDetails extends StatefulWidget {
 }
 
 class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
+  List categoryItemlist = [];
+
+  Future getAllCategory() async {
+    var baseUrl = "https://server-flutterm.herokuapp.com/admin/get-users";
+
+    http.Response response = await http.get(Uri.parse(baseUrl));
+
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        categoryItemlist = jsonData;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAllCategory();
+  }
+
+  var dropdownvalue;
+
   final AdminServices productDetailsServices = AdminServices();
   final AdminServices adminServices = AdminServices();
   final TextEditingController _tituloController = TextEditingController();
@@ -347,20 +371,6 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
                   const SizedBox(height: 30),
                   Wrap(
                     children: [
-                      Container(
-                        width: 250,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 239, 239, 239),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextFormField(
-                            initialValue: widget.task.assignmentUser,
-                            //controller: _assignmentUserController,
-                            style: const TextStyle(color: Colors.black),
-                            decoration: const InputDecoration(
-                                hintText: "Colaborador",
-                                hintStyle: TextStyle(
-                                    color: Colors.black, fontSize: 20))),
-                      ),
                       const SizedBox(width: 25),
                       const CircleAvatar(
                         radius: 25.0,
@@ -371,7 +381,22 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
                       const SizedBox(
                         width: 3,
                       ),
-                      const ButtonSelectedUser(),
+                      DropdownButton(
+                        hint: const Text('Select User'),
+                        items: categoryItemlist.map((item) {
+                          return DropdownMenuItem(
+                            value: item['email'].toString(),
+                            child: Text(item['email'].toString()),
+                          );
+                        }).toList(),
+                        onChanged: (newVal) {
+                          setState(() {
+                            dropdownvalue = newVal;
+                            print(dropdownvalue);
+                          });
+                        },
+                        value: dropdownvalue,
+                      ),
                       const SizedBox(
                         width: 20,
                       ),

@@ -1,26 +1,23 @@
+import 'dart:convert';
 import 'dart:html';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dotted_border/dotted_border.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:get/get.dart';
+
 import 'package:intl/intl.dart';
 import 'package:project_management/app/features/dashboard/views/components/button_edit_task.dart';
-import 'package:project_management/app/features/dashboard/views/screens/search_screen.dart';
-import 'package:project_management/app/utils/widgets/Buttons/button_selected_user.dart';
+
+
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_task.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../constans/app_constants.dart';
-import '../../../../constans/global_variables.dart';
-import '../../../../constans/utils.dart';
+
 import '../../../../shared_components/responsive_builder.dart';
 import '../../../../utils/services/admin_services.dart';
 import '../../../../utils/widgets/bar_post_task.dart';
 import '../../models/tasks.dart';
-import '../components/button.dart';
+
 import '../components/input_field.dart';
 
 class TaskDetailsScreen extends StatefulWidget {
@@ -112,10 +109,32 @@ class TaskDetails extends StatefulWidget {
 QuillController _controller = QuillController.basic();
 
 class _TaskDetailsState extends State<TaskDetails> {
+  List categoryItemlist = [];
+
+  Future getAllCategory() async {
+    var baseUrl = "https://server-flutterm.herokuapp.com/admin/get-users";
+
+    http.Response response = await http.get(Uri.parse(baseUrl));
+
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        categoryItemlist = jsonData;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAllCategory();
+  }
+
+  var dropdownvalue;
+
   final TextEditingController _tituloController = TextEditingController();
 
-  final TextEditingController _descriptionController =
-      TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _assignmentUserController =
       TextEditingController();
   final TextEditingController _pointsController = TextEditingController();
@@ -177,28 +196,29 @@ class _TaskDetailsState extends State<TaskDetails> {
     'admin',
   ];
 
-  // void updateTask() {
-  //   DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
-  //       .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
-  //   DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
-  //       .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
+  void updateTask() {
+    DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
+    DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
 
-  //   adminServices.update(
-  //       context: context,
-  //       title: _tituloController.text,
-  //       priority: priority,
-  //       description: _descriptionController.text,
-  //       assignmentUser: _assignmentUserController.text,
-  //       points: double.parse(_pointsController.text),
-  //       category: category,
-  //       //images: images,
-  //       status: 'approved',
-  //       createdBy: createdBy,
-  //       label: label,
-  //       startDate: startDate.toString(),
-  //       endDate: endDate.toString(),
-  //       id: widget.task.id.toString());
-  // }
+    adminServices.update(
+        context: context,
+        title: _tituloController.text,
+        priority: priority,
+        description: _descriptionController.text,
+        assignmentUser: _assignmentUserController.text,
+        points: double.parse(_pointsController.text),
+        category: category,
+        //images: images,
+        status: 'approved',
+        createdBy: createdBy,
+        label: label,
+        startDate: startDate.toString(),
+        endDate: endDate.toString(),
+        id: widget.task.id.toString());
+    print(updateTask);
+  }
 
   void sendPoints() {
     adminServices.sendPoints(
@@ -263,20 +283,6 @@ class _TaskDetailsState extends State<TaskDetails> {
                   const SizedBox(height: 30),
                   Wrap(
                     children: [
-                      Container(
-                        width: 250,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 239, 239, 239),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextFormField(
-                            initialValue: widget.task.assignmentUser,
-                            //controller: _assignmentUserController,
-                            style: const TextStyle(color: Colors.black),
-                            decoration: const InputDecoration(
-                                hintText: "Colaborador",
-                                hintStyle: TextStyle(
-                                    color: Colors.black, fontSize: 20))),
-                      ),
                       const SizedBox(width: 25),
                       const CircleAvatar(
                         radius: 25.0,
@@ -287,7 +293,22 @@ class _TaskDetailsState extends State<TaskDetails> {
                       const SizedBox(
                         width: 3,
                       ),
-                      const ButtonSelectedUser(),
+                      DropdownButton(
+                        hint: const Text('Select User'),
+                        items: categoryItemlist.map((item) {
+                          return DropdownMenuItem(
+                            value: item['email'].toString(),
+                            child: Text(item['email'].toString()),
+                          );
+                        }).toList(),
+                        onChanged: (newVal) {
+                          setState(() {
+                            dropdownvalue = newVal;
+                            print(dropdownvalue);
+                          });
+                        },
+                        value: dropdownvalue,
+                      ),
                       const SizedBox(width: 20),
                       Container(
                         padding: const EdgeInsets.all(5.0),
@@ -642,11 +663,11 @@ class _TaskDetailsState extends State<TaskDetails> {
                   const SizedBox(height: 50),
                   Wrap(
                     children: [
-                      // MyButtonEditTask(
-                      //     onTap: () {
-                      //       updateTask;
-                      //     },
-                      //     label: "Edit Task"),
+                      MyButtonEditTask(
+                          onTap: () {
+                            updateTask();
+                          },
+                          label: "Edit Task"),
                       const SizedBox(
                         width: 20,
                       ),

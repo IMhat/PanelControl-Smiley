@@ -20,6 +20,11 @@ import 'package:project_management/app/features/dashboard/models/transaction.dar
 import 'package:project_management/app/features/dashboard/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../features/dashboard/models/order_complete.dart';
+import '../../features/dashboard/models/order_incoming.dart';
+import '../../features/dashboard/models/order_process.dart';
+import '../../features/dashboard/models/users.dart';
+
 class AdminServices {
   void sellProduct({
     required BuildContext context,
@@ -112,7 +117,7 @@ class AdminServices {
   void deleteProduct({
     required BuildContext context,
     required Product product,
-    required VoidCallback onSuccess, 
+    required VoidCallback onSuccess,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
@@ -140,20 +145,48 @@ class AdminServices {
     }
   }
 
-  
+  // get Users
+  Future<List<Users>> fetchAllUsers(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    List<Users> usersList = [];
+
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/admin/get-users'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            usersList.add(
+              Users.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return usersList;
+  }
+
 //search orders
-
-
-
-
-
 
   Future<List<Order>> fetchAllOrders(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Order> orderList = [];
     try {
       http.Response res =
-          await http.get(Uri.parse('$uri/admin/get-orders'), headers: {
+          await http.get(Uri.parse('$uri/admin/get-new-orders'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });
@@ -208,12 +241,198 @@ class AdminServices {
     } catch (e) {
       showSnackBar(context, e.toString());
     }
+  }
 
+//search ordersProcess
 
+  Future<List<OrderProcess>> fetchAllOrderProcess(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<OrderProcess> orderProcessList = [];
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/admin/get-process-orders'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
 
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            orderProcessList.add(
+              OrderProcess.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return orderProcessList;
+  }
 
+  void changeOrderProcessStatus({
+    required BuildContext context,
+    required int status,
+    required OrderProcess order,
+    required VoidCallback onSuccess,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
 
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-order-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': order.id,
+          'status': status,
+        }),
+      );
 
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: onSuccess,
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+//search orderIncomming
+  Future<List<OrderIncoming>> fetchAllOrderIncoming(
+      BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<OrderIncoming> orderIncomingList = [];
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/admin/get-incoming-orders'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            orderIncomingList.add(
+              OrderIncoming.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return orderIncomingList;
+  }
+
+  void changeOrderIncomingStatus({
+    required BuildContext context,
+    required int status,
+    required OrderIncoming order,
+    required VoidCallback onSuccess,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-order-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': order.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: onSuccess,
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  //search orderComplete
+  Future<List<OrderComplete>> fetchAllOrderComplete(
+      BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<OrderComplete> orderIncomingList = [];
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/admin/get-complete-orders'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            orderIncomingList.add(
+              OrderComplete.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return orderIncomingList;
+  }
+
+  void changeOrderCompleteStatus({
+    required BuildContext context,
+    required int status,
+    required OrderComplete order,
+    required VoidCallback onSuccess,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/get-complete-orders'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': order.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: onSuccess,
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
   }
 
   Future<Map<String, dynamic>> getEarnings(BuildContext context) async {
@@ -543,6 +762,7 @@ class AdminServices {
     } catch (e) {
       showSnackBar(context, e.toString());
     }
+    print(update);
   }
 
   //change task status ( approved)
@@ -796,5 +1016,3 @@ class AdminServices {
     return productList;
   }
 }
-
-

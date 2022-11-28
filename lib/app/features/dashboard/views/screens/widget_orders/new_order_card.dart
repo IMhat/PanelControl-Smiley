@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class SingleOrder extends StatefulWidget {
+class NewOrderCard extends StatefulWidget {
   final String id;
   final String name;
   final String totalPrice;
@@ -9,7 +9,7 @@ class SingleOrder extends StatefulWidget {
   final String userId;
   final int status;
 
-  const SingleOrder(
+  const NewOrderCard(
       {Key? key,
       required this.id,
       required this.name,
@@ -20,10 +20,10 @@ class SingleOrder extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<SingleOrder> createState() => _SingleOrderState();
+  State<NewOrderCard> createState() => _NewOrderCardState();
 }
 
-class _SingleOrderState extends State<SingleOrder> {
+class _NewOrderCardState extends State<NewOrderCard> {
   final textStyleTitle = const TextStyle(
       fontSize: 15, fontWeight: FontWeight.w400, color: Colors.grey);
 

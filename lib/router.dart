@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project_management/app/features/auth/screens/auth_screen.dart';
 import 'package:project_management/app/features/dashboard/models/order.dart';
+import 'package:project_management/app/features/dashboard/models/order_process.dart';
 import 'package:project_management/app/features/dashboard/models/task_approved.dart';
 import 'package:project_management/app/features/dashboard/models/task_done.dart';
 import 'package:project_management/app/features/dashboard/models/task_todo.dart';
+import 'package:project_management/app/features/dashboard/models/user.dart';
 import 'package:project_management/app/features/dashboard/views/screens/add_product_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/add_task_screen.dart';
 import 'package:project_management/app/features/dashboard/views/screens/dashboard_screen.dart';
@@ -23,6 +25,7 @@ import 'app/features/dashboard/views/screens/task_approved_details_screen.dart';
 import 'app/features/dashboard/views/screens/task_detail_screen.dart';
 import 'app/features/dashboard/views/screens/task_done_details_screen.dart';
 import 'app/features/dashboard/views/screens/task_inprogress_detail_screen.dart';
+import 'app/features/dashboard/views/screens/widget_orders/process_order_detail_screen.dart';
 import 'app/utils/widgets/Widgets/datatable/datatable_prueba.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
@@ -47,10 +50,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const TasksScreen(),
       );
+
     case AddTaskScreen.routeName:
+      // var user = routeSettings.arguments as User;
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const AddTaskScreen(),
+        builder: (_) => AddTaskScreen(),
       );
     case PostsScreen.routeName:
       return MaterialPageRoute(
@@ -127,6 +132,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => OrderDetailScreen(
+          order: order,
+        ),
+      );
+    case ProcessDetailScreen.routeName:
+      var order = routeSettings.arguments as OrderProcess;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => ProcessDetailScreen(
           order: order,
         ),
       );

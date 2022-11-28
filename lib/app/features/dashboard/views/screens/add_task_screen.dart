@@ -1,16 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 import 'package:project_management/app/common/widgets/custom_button.dart';
-import 'package:project_management/app/common/widgets/custom_textField.dart';
-import 'package:project_management/app/constans/global_variables.dart';
+
 import 'package:project_management/app/constans/utils.dart';
-import 'package:project_management/app/features/dashboard/views/components/button.dart';
+
 import 'package:project_management/app/utils/services/admin_services.dart';
-import 'package:project_management/app/utils/widgets/Buttons/button_selected_user.dart';
+
 import 'package:project_management/app/utils/widgets/bar_post_task.dart';
 import 'package:intl/intl.dart';
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_task.dart';
@@ -19,13 +19,39 @@ import '../components/input_field.dart';
 
 class AddTaskScreen extends StatefulWidget {
   static const String routeName = '/add-task';
-  const AddTaskScreen({Key? key}) : super(key: key);
+
+  AddTaskScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AddTaskScreen> createState() => _AddProductScreenState();
 }
 
 class _AddProductScreenState extends State<AddTaskScreen> {
+  List categoryItemlist = [];
+
+  Future getAllCategory() async {
+    var baseUrl = "https://server-flutterm.herokuapp.com/admin/get-users";
+
+    http.Response response = await http.get(Uri.parse(baseUrl));
+
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        categoryItemlist = jsonData;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAllCategory();
+  }
+
+  var dropdownvalue;
+
   final TextEditingController _tituloController = TextEditingController();
 
   final TextEditingController _descriptionController = TextEditingController();
@@ -50,6 +76,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
   String label = 'Staff augmentation';
 
   List<File> images = [];
+
   final _addProductFormKey = GlobalKey<FormState>();
 
   @override
@@ -100,7 +127,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
       title: _tituloController.text,
       priority: priority,
       description: _descriptionController.text,
-      assignmentUser: _assignmentUserController.text,
+      assignmentUser: dropdownvalue,
       points: double.parse(_pointsController.text),
       category: category,
       images: images,
@@ -178,19 +205,6 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                     const SizedBox(height: 30),
                     Wrap(
                       children: [
-                        Container(
-                          width: 250,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 239, 239, 239),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: TextFormField(
-                              controller: _assignmentUserController,
-                              style: const TextStyle(color: Colors.black),
-                              decoration: const InputDecoration(
-                                  hintText: "Colaborador",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black, fontSize: 20))),
-                        ),
                         const SizedBox(width: 25),
                         Container(
                           child: const CircleAvatar(
@@ -203,20 +217,22 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                         const SizedBox(
                           width: 3,
                         ),
-                        const ButtonSelectedUser(),
-                        // Container(
-                        //   margin: EdgeInsets.only(right: 10),
-                        //   width: 50,
-                        //   height: 50,
-                        //   decoration: BoxDecoration(
-                        //       color: const Color.fromARGB(255, 228, 226, 226),
-                        //       borderRadius: BorderRadius.circular(50)),
-                        //   child: IconButton(
-                        //     onPressed: (() {}),
-                        //     icon: const Icon(Icons.add),
-                        //     color: Colors.black,
-                        //   ),
-                        // ),
+                        DropdownButton(
+                          hint: const Text('Select User'),
+                          items: categoryItemlist.map((item) {
+                            return DropdownMenuItem(
+                              value: item['email'].toString(),
+                              child: Text(item['email'].toString()),
+                            );
+                          }).toList(),
+                          onChanged: (newVal) {
+                            setState(() {
+                              dropdownvalue = newVal;
+                              print(dropdownvalue);
+                            });
+                          },
+                          value: dropdownvalue,
+                        ),
                         const SizedBox(width: 20),
                         Container(
                           padding: const EdgeInsets.all(5.0),

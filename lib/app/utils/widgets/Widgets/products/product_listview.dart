@@ -70,7 +70,7 @@ class _ProductListViewState extends State<ProductListView> {
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(2.0),
-                          child: Row(
+                          child: Wrap(
                             children: [
                               SingleProduct(
                                 image: productData.images[0],
