@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_management/app/features/auth/screens/auth_screen.dart';
 import 'package:project_management/app/features/dashboard/models/order.dart';
+import 'package:project_management/app/features/dashboard/models/order_process.dart';
 import 'package:project_management/app/features/dashboard/models/task_approved.dart';
 import 'package:project_management/app/features/dashboard/models/task_done.dart';
 import 'package:project_management/app/features/dashboard/models/task_todo.dart';
@@ -14,7 +15,7 @@ import 'package:project_management/app/features/dashboard/views/screens/tasks_sc
 import 'app/features/dashboard/models/product.dart';
 import 'app/features/dashboard/models/task_inprogress.dart';
 import 'app/features/dashboard/models/tasks.dart';
-import 'app/features/dashboard/views/screens/analytics_screen.dart';
+import 'app/features/dashboard/views/screens/calendar_screen.dart';
 import 'app/features/dashboard/views/screens/get_orders.dart';
 import 'app/features/dashboard/views/screens/product_details_screen.dart';
 import 'app/features/dashboard/views/screens/search_screen.dart';
@@ -23,6 +24,7 @@ import 'app/features/dashboard/views/screens/task_approved_details_screen.dart';
 import 'app/features/dashboard/views/screens/task_detail_screen.dart';
 import 'app/features/dashboard/views/screens/task_done_details_screen.dart';
 import 'app/features/dashboard/views/screens/task_inprogress_detail_screen.dart';
+import 'app/features/dashboard/views/screens/widget_orders/process_order_detail_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -46,7 +48,9 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const TasksScreen(),
       );
+
     case AddTaskScreen.routeName:
+      // var user = routeSettings.arguments as User;
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const AddTaskScreen(),
@@ -56,6 +60,8 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const PostsScreen(),
       );
+    
+      
     // case CategoryDealsScreen.routeName:
     //   var category = routeSettings.arguments as String;
     //   return MaterialPageRoute(
@@ -124,15 +130,23 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           order: order,
         ),
       );
+    case ProcessDetailScreen.routeName:
+      var order = routeSettings.arguments as OrderProcess;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => ProcessDetailScreen(
+          order: order,
+        ),
+      );
     case OrdersScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const OrdersScreen(),
       );
-    case AnalyticsScreen.routeName:
+    case CalendarScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const AnalyticsScreen(),
+        builder: (_) => const CalendarScreen(),
       );
     default:
       return MaterialPageRoute(

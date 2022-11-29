@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:project_management/app/utils/widgets/single_todo_task.dart';
 
 import '../views/screens/task_ToDo_details_screen.dart';
-import '../views/screens/task_detail_screen.dart';
 
 class TasksToDo extends StatefulWidget {
   const TasksToDo({Key? key}) : super(key: key);
@@ -40,7 +39,7 @@ class _TasksToDoState extends State<TasksToDo> {
     return tasks == null
         ? const Loader()
         : Container(
-            margin: EdgeInsets.only(right: 20),
+            margin: const EdgeInsets.only(right: 20),
                 width: 275,
                 height: 710,
                 decoration: const BoxDecoration(

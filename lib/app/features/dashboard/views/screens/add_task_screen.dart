@@ -1,15 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 import 'package:project_management/app/common/widgets/custom_button.dart';
-import 'package:project_management/app/common/widgets/custom_textField.dart';
-import 'package:project_management/app/constans/global_variables.dart';
+
 import 'package:project_management/app/constans/utils.dart';
-import 'package:project_management/app/features/dashboard/views/components/button.dart';
+
 import 'package:project_management/app/utils/services/admin_services.dart';
+
 import 'package:project_management/app/utils/widgets/bar_post_task.dart';
 import 'package:intl/intl.dart';
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_task.dart';
@@ -18,13 +19,39 @@ import '../components/input_field.dart';
 
 class AddTaskScreen extends StatefulWidget {
   static const String routeName = '/add-task';
-  const AddTaskScreen({Key? key}) : super(key: key);
+
+  const AddTaskScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AddTaskScreen> createState() => _AddProductScreenState();
 }
 
 class _AddProductScreenState extends State<AddTaskScreen> {
+  List categoryItemlist = [];
+
+  Future getAllCategory() async {
+    var baseUrl = "https://server-flutterm.herokuapp.com/admin/get-users";
+
+    http.Response response = await http.get(Uri.parse(baseUrl));
+
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        categoryItemlist = jsonData;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAllCategory();
+  }
+
+  var dropdownvalue;
+
   final TextEditingController _tituloController = TextEditingController();
 
   final TextEditingController _descriptionController = TextEditingController();
@@ -37,7 +64,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
   DateTime _selectedDate = DateTime.now();
 
   DateTime _startDate = DateTime.now();
-  DateTime _endDate = DateTime.now().add(Duration(minutes: 5));
+  DateTime _endDate = DateTime.now().add(const Duration(minutes: 5));
 
   late String _startTime = DateFormat('hh:mm a').format(_startDate).toString();
   late String _endTime = DateFormat('hh:mm a').format(_endDate).toString();
@@ -49,6 +76,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
   String label = 'Staff augmentation';
 
   List<File> images = [];
+
   final _addProductFormKey = GlobalKey<FormState>();
 
   @override
@@ -89,27 +117,27 @@ class _AddProductScreenState extends State<AddTaskScreen> {
     'admin',
   ];
 
-  void addTask() {
-    DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
-        .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
-    DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
-        .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
-    adminServices.createTask(
-      context: context,
-      title: _tituloController.text,
-      priority: priority,
-      description: _descriptionController.text,
-      assignmentUser: _assignmentUserController.text,
-      points: double.parse(_pointsController.text),
-      category: category,
-      images: images,
-      status: status,
-      createdBy: createdBy,
-      label: label,
-      startDate: startDate.toString(),
-      endDate: endDate.toString(),
-    );
-  }
+  // void addTask() {
+  //   DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
+  //       .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
+  //   DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
+  //       .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
+  //   adminServices.createTask(
+  //     context: context,
+  //     title: _tituloController.text,
+  //     priority: priority,
+  //     description: _descriptionController.text,
+  //     assignmentUser: dropdownvalue,
+  //     points: double.parse(_pointsController.text),
+  //     category: category,
+  //     images: images,
+  //     status: status,
+  //     createdBy: createdBy,
+  //     label: label,
+  //     startDate: startDate.toString(),
+  //     endDate: endDate.toString(),
+  //   );
+  // }
 
   void selectImages() async {
     var res = await pickImages();
@@ -145,10 +173,10 @@ class _AddProductScreenState extends State<AddTaskScreen> {
       ),
       body: SingleChildScrollView(
         child: Wrap(children: [
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           const SidebarTask(),
-          SizedBox(width: 200),
-          Container(
+          const SizedBox(width: 200),
+          SizedBox(
             width: 1000,
             height: 1200,
             child: Form(
@@ -158,7 +186,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    Container(
+                    SizedBox(
                       //margin: const EdgeInsets.only(right: 100),
                       width: 850,
                       child: Column(
@@ -177,43 +205,31 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                     const SizedBox(height: 30),
                     Wrap(
                       children: [
-                        Container(
-                          width: 250,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 239, 239, 239),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: TextFormField(
-                              controller: _assignmentUserController,
-                              style: const TextStyle(color: Colors.black),
-                              decoration: const InputDecoration(
-                                  hintText: "Colaborador",
-                                  hintStyle: TextStyle(
-                                      color: Colors.black, fontSize: 20))),
-                        ),
                         const SizedBox(width: 25),
-                        Container(
-                          child: const CircleAvatar(
-                            radius: 25.0,
-                            backgroundColor: Color.fromARGB(255, 211, 211, 211),
-                            backgroundImage:
-                                AssetImage('assets/images/raster/avatar-1.png'),
-                          ),
+                        const CircleAvatar(
+                          radius: 25.0,
+                          backgroundColor: Color.fromARGB(255, 211, 211, 211),
+                          backgroundImage:
+                              AssetImage('assets/images/raster/avatar-1.png'),
                         ),
                         const SizedBox(
                           width: 3,
                         ),
-                        Container(
-                          margin: EdgeInsets.only(right: 10),
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 228, 226, 226),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: IconButton(
-                            onPressed: (() {}),
-                            icon: const Icon(Icons.add),
-                            color: Colors.black,
-                          ),
+                        DropdownButton(
+                          hint: const Text('Select User'),
+                          items: categoryItemlist.map((item) {
+                            return DropdownMenuItem(
+                              value: item['email'].toString(),
+                              child: Text(item['email'].toString()),
+                            );
+                          }).toList(),
+                          onChanged: (newVal) {
+                            setState(() {
+                              dropdownvalue = newVal;
+                              // print(dropdownvalue);
+                            });
+                          },
+                          value: dropdownvalue,
                         ),
                         const SizedBox(width: 20),
                         Container(
@@ -320,7 +336,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                               width: 20,
                             ),
                             Container(
-                              margin: EdgeInsets.only(right: 400),
+                              margin: const EdgeInsets.only(right: 400),
                               padding: const EdgeInsets.all(2.0),
                               width: 150,
                               height: 50,
@@ -360,7 +376,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                       children: [
                         Flex(direction: Axis.vertical, children: [
                           Container(
-                            padding: EdgeInsets.all(5.0),
+                            padding: const EdgeInsets.all(5.0),
                             width: 500,
                             height: 80,
                             decoration: BoxDecoration(
@@ -439,7 +455,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    Container(
+                    SizedBox(
                       width: 800,
                       child: Row(
                         children: [
@@ -481,7 +497,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                         ],
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: 800,
                       child: Row(
                         children: [
@@ -539,9 +555,13 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                     //   label: "Create Task",
                     //   onTap: addTask,
                     // ),
-                    CustomButton(
-                      text: 'Sell',
-                      onTap: addTask,
+                    SizedBox(
+                      width: 120,
+                      height: 50,
+                      child: CustomButton(
+                        text: 'Sell',
+                        onTap: addTask,
+                      ),
                     ),
                     const SizedBox(
                       height: 30.0,
@@ -567,12 +587,39 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                   // hintText: 'Points',
                 ),
               ),
-              SizedBox(width: 250),
+              const SizedBox(width: 250),
               const BarPost()
             ],
           )
         ]),
       ),
+    );
+  }
+
+  void addTask() {
+    DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
+    DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
+
+    adminServices.createTask(
+      context: context,
+      title: _tituloController.text,
+      priority: priority,
+      description: _descriptionController.text,
+      assignmentUser: dropdownvalue,
+      points: double.parse(_pointsController.text),
+      category: category,
+      images: images,
+      status: status,
+      createdBy: createdBy,
+      label: label,
+      startDate: DateFormat('MM/dd/yyyy hh:mm a')
+          .parse('${DateFormat.yMd().format(_startDate)} $_startTime')
+          .toString(),
+      endDate: DateFormat('MM/dd/yyyy hh:mm a')
+          .parse('${DateFormat.yMd().format(_endDate)} $_endTime')
+          .toString(),
     );
   }
 

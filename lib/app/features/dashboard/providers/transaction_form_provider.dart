@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-import '../models/transaction.dart';
+// import '../models/transaction.dart';
 
-class TransactionFormProvider extends ChangeNotifier {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+// class TransactionFormProvider extends ChangeNotifier {
+//   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  Transaction transaction;
+//   Transaction transaction;
 
-  TransactionFormProvider(this.transaction);
+//   TransactionFormProvider(this.transaction);
 
-  bool isValidForm() {
-    return formKey.currentState?.validate() ?? false;
-  }
-}
+//   bool isValidForm() {
+//     return formKey.currentState?.validate() ?? false;
+//   }
+// }

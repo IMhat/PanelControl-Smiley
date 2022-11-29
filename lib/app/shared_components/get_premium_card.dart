@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project_management/app/constans/app_constants.dart';
 
@@ -32,12 +33,12 @@ class GetPremiumCard extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.topRight,
-                // child: SvgPicture.asset(
-                //   ImageVectorPath.wavyBus,
-                //   width: 180,
-                //   height: 180,
-                //   fit: BoxFit.contain,
-                // ),
+                child: SvgPicture.asset(
+                  ImageVectorPath.wavyBus,
+                  width: 180,
+                  height: 180,
+                  fit: BoxFit.contain,
+                ),
               ),
               const Padding(
                 padding: EdgeInsets.all(15),
@@ -61,7 +62,7 @@ class _Info extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Get\nPremium\nAccount",
+          "Fly\nWhit\nYour Team",
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),

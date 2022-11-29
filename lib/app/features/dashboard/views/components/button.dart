@@ -5,10 +5,10 @@ class MyButton extends StatelessWidget {
   final Function onTap;
   final String label;
 
-  MyButton({
+   const MyButton({Key? key, 
     required this.onTap,
     required this.label,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

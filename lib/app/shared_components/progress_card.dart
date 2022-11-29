@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project_management/app/constans/app_constants.dart';
 import 'package:project_management/app/utils/widgets/button_check.dart';
@@ -26,6 +27,7 @@ class ProgressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: const Color(0xff4332F7),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(kBorderRadius),
       ),
@@ -40,10 +42,10 @@ class ProgressCard extends StatelessWidget {
                 child: SizedBox(
                   height: 200,
                   width: 200,
-                  // child: SvgPicture.asset(
-                  //   ImageVectorPath.happy2,
-                  //   fit: BoxFit.fitHeight,
-                  // ),
+                  child: SvgPicture.asset(
+                    ImageVectorPath.happy2,
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
               ),
             ),
@@ -58,11 +60,12 @@ class ProgressCard extends StatelessWidget {
               children: [
                 Text(
                   "You Have ${data.totalUndone} Undone Tasks",
-                  style: const TextStyle(fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w500, color: Colors.white),
                 ),
                 Text(
                   "${data.totalTaskInProress} Tasks are in progress",
-                  style: TextStyle(color: kFontColorPallets[1]),
+                  style: const TextStyle(color: Colors.white),
                 ),
                 const SizedBox(height: kSpacing),
                 const MyButtonCheck()

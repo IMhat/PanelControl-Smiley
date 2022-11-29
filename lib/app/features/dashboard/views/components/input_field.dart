@@ -16,7 +16,7 @@ class InputField extends StatelessWidget {
     Widget widget = this.widget ?? Container();
 
     return Container(
-        margin: EdgeInsets.only(top: 16.0),
+        margin: const EdgeInsets.only(top: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -24,11 +24,11 @@ class InputField extends StatelessWidget {
               title,
               style: titleTextStle,
             ),
-            SizedBox(
+            const SizedBox(
               height: 8.0,
             ),
             Container(
-              padding: EdgeInsets.only(left: 14.0),
+              padding: const EdgeInsets.only(left: 14.0),
               height: 52,
               decoration: BoxDecoration(
                   border: Border.all(
@@ -45,7 +45,7 @@ class InputField extends StatelessWidget {
                       cursorColor:
                           Get.isDarkMode ? Colors.grey[100] : Colors.grey[600],
                       readOnly: widget is Container ? false : true,
-                      controller: this.controller,
+                      controller: controller,
                       style: subTitleTextStle,
                       decoration: InputDecoration(
                         hintText: hint,

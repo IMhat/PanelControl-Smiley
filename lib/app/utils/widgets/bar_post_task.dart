@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 
 class BarPost extends StatelessWidget {
   const BarPost({Key? key}) : super(key: key);
@@ -18,7 +17,7 @@ class BarPost extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(
-            height: 10,
+            height: 30,
           ),
           TextButton(
               onPressed: () {},
@@ -153,7 +152,7 @@ class BarPost extends StatelessWidget {
                 ),
               )),
           const SizedBox(
-            height: 120,
+            height: 100,
           ),
           TextButton(
               onPressed: () {},

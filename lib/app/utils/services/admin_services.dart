@@ -20,6 +20,11 @@ import 'package:project_management/app/features/dashboard/models/transaction.dar
 import 'package:project_management/app/features/dashboard/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../features/dashboard/models/order_complete.dart';
+import '../../features/dashboard/models/order_incoming.dart';
+import '../../features/dashboard/models/order_process.dart';
+import '../../features/dashboard/models/users.dart';
+
 class AdminServices {
   void sellProduct({
     required BuildContext context,
@@ -140,12 +145,48 @@ class AdminServices {
     }
   }
 
+  // get Users
+  Future<List<Users>> fetchAllUsers(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    List<Users> usersList = [];
+
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/admin/get-users'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            usersList.add(
+              Users.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return usersList;
+  }
+
+//search orders
+
   Future<List<Order>> fetchAllOrders(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Order> orderList = [];
     try {
       http.Response res =
-          await http.get(Uri.parse('$uri/admin/get-orders'), headers: {
+          await http.get(Uri.parse('$uri/admin/get-new-orders'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });
@@ -182,6 +223,198 @@ class AdminServices {
     try {
       http.Response res = await http.post(
         Uri.parse('$uri/admin/change-order-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': order.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: onSuccess,
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+//search ordersProcess
+
+  Future<List<OrderProcess>> fetchAllOrderProcess(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<OrderProcess> orderProcessList = [];
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/admin/get-process-orders'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            orderProcessList.add(
+              OrderProcess.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return orderProcessList;
+  }
+
+  void changeOrderProcessStatus({
+    required BuildContext context,
+    required int status,
+    required OrderProcess order,
+    required VoidCallback onSuccess,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-order-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': order.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: onSuccess,
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+//search orderIncomming
+  Future<List<OrderIncoming>> fetchAllOrderIncoming(
+      BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<OrderIncoming> orderIncomingList = [];
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/admin/get-incoming-orders'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            orderIncomingList.add(
+              OrderIncoming.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return orderIncomingList;
+  }
+
+  void changeOrderIncomingStatus({
+    required BuildContext context,
+    required int status,
+    required OrderIncoming order,
+    required VoidCallback onSuccess,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-order-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': order.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: onSuccess,
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  //search orderComplete
+  Future<List<OrderComplete>> fetchAllOrderComplete(
+      BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<OrderComplete> orderIncomingList = [];
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/admin/get-complete-orders'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            orderIncomingList.add(
+              OrderComplete.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return orderIncomingList;
+  }
+
+  void changeOrderCompleteStatus({
+    required BuildContext context,
+    required int status,
+    required OrderComplete order,
+    required VoidCallback onSuccess,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/get-complete-orders'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -478,18 +711,18 @@ class AdminServices {
 // update task!
   void update({
     required BuildContext context,
-    required String status,
     required String title,
     required String priority,
+    required String description,
+    required double points,
     required String category,
     required String assignmentUser,
+    required String status,
     required String createdBy,
-    required String description,
     required String label,
     required String startDate,
     required String endDate,
     required String id,
-    required double points,
     //required List<File> images,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -507,10 +740,11 @@ class AdminServices {
           createdBy: createdBy,
           label: label,
           startDate: startDate,
-          endDate: endDate);
+          endDate: endDate,
+          id: id);
 
-      http.Response res = await http.put(
-        Uri.parse('$uri/api/tasks/${task.id}'),
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/update-task'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -523,12 +757,13 @@ class AdminServices {
         context: context,
         onSuccess: () {
           showSnackBar(context, 'Successfully!');
-          //Navigator.pop(context);
+          Navigator.pop(context);
         },
       );
     } catch (e) {
       showSnackBar(context, e.toString());
     }
+    // print(update);
   }
 
   //change task status ( approved)
@@ -537,6 +772,146 @@ class AdminServices {
     required BuildContext context,
     required String status,
     required Task task,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-task-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': task.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Task approved Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+//change taskToDo status ( approved)
+
+  void changeTaskToDoStatus({
+    required BuildContext context,
+    required String status,
+    required TaskToDo task,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-task-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': task.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Task approved Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  //change taskInprogress status ( approved)
+
+  void changeTaskInprogressStatus({
+    required BuildContext context,
+    required String status,
+    required TaskInprogress task,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-task-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': task.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Task approved Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+//change taskDone status ( approved)
+
+  void changeTaskDoneStatus({
+    required BuildContext context,
+    required String status,
+    required TaskDone task,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-task-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': task.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          showSnackBar(context, 'Task approved Successfully!');
+          Navigator.pop(context);
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+//change taskApproved status ( approved)
+
+  void changeTaskApprovedStatus({
+    required BuildContext context,
+    required String status,
+    required TaskApproved task,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 

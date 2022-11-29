@@ -8,7 +8,6 @@ import 'package:project_management/app/utils/services/admin_services.dart';
 import 'package:flutter/material.dart';
 import 'package:project_management/app/utils/widgets/single_done_task.dart';
 
-import '../views/screens/task_detail_screen.dart';
 import '../views/screens/task_done_details_screen.dart';
 
 class TasksDone extends StatefulWidget {
@@ -40,7 +39,7 @@ class _TasksDoneState extends State<TasksDone> {
     return tasks == null
         ? const Loader()
         : Container(
-            margin: EdgeInsets.only(right: 20),
+            margin: const EdgeInsets.only(right: 20),
             width: 275,
             height: 710,
             decoration: const BoxDecoration(
