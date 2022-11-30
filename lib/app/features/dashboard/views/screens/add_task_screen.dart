@@ -117,27 +117,27 @@ class _AddProductScreenState extends State<AddTaskScreen> {
     'admin',
   ];
 
-  void addTask() {
-    DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
-        .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
-    DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
-        .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
-    adminServices.createTask(
-      context: context,
-      title: _tituloController.text,
-      priority: priority,
-      description: _descriptionController.text,
-      assignmentUser: dropdownvalue,
-      points: double.parse(_pointsController.text),
-      category: category,
-      images: images,
-      status: status,
-      createdBy: createdBy,
-      label: label,
-      startDate: startDate.toString(),
-      endDate: endDate.toString(),
-    );
-  }
+  // void addTask() {
+  //   DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
+  //       .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
+  //   DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
+  //       .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
+  //   adminServices.createTask(
+  //     context: context,
+  //     title: _tituloController.text,
+  //     priority: priority,
+  //     description: _descriptionController.text,
+  //     assignmentUser: dropdownvalue,
+  //     points: double.parse(_pointsController.text),
+  //     category: category,
+  //     images: images,
+  //     status: status,
+  //     createdBy: createdBy,
+  //     label: label,
+  //     startDate: startDate.toString(),
+  //     endDate: endDate.toString(),
+  //   );
+  // }
 
   void selectImages() async {
     var res = await pickImages();
@@ -226,7 +226,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                           onChanged: (newVal) {
                             setState(() {
                               dropdownvalue = newVal;
-                             // print(dropdownvalue);
+                              // print(dropdownvalue);
                             });
                           },
                           value: dropdownvalue,
@@ -593,6 +593,33 @@ class _AddProductScreenState extends State<AddTaskScreen> {
           )
         ]),
       ),
+    );
+  }
+
+  void addTask() {
+    DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
+    DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
+
+    adminServices.createTask(
+      context: context,
+      title: _tituloController.text,
+      priority: priority,
+      description: _descriptionController.text,
+      assignmentUser: dropdownvalue,
+      points: double.parse(_pointsController.text),
+      category: category,
+      images: images,
+      status: status,
+      createdBy: createdBy,
+      label: label,
+      startDate: DateFormat('MM/dd/yyyy hh:mm a')
+          .parse('${DateFormat.yMd().format(_startDate)} $_startTime')
+          .toString(),
+      endDate: DateFormat('MM/dd/yyyy hh:mm a')
+          .parse('${DateFormat.yMd().format(_endDate)} $_endTime')
+          .toString(),
     );
   }
 

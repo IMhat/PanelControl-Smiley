@@ -5,8 +5,8 @@ class Task {
   final String priority;
   final String description;
   //final List<String> images;
-  final String category;
   final double points;
+  final String category;
   final String assignmentUser;
   final String status;
   final String createdBy;
@@ -71,5 +71,3 @@ class Task {
 
   factory Task.fromJson(String source) => Task.fromMap(json.decode(source));
 }
-
-

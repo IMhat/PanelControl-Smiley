@@ -1,17 +1,14 @@
 import 'dart:convert';
 import 'dart:html';
+import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'package:project_management/app/features/dashboard/models/task_inprogress.dart';
-import 'package:project_management/app/features/dashboard/views/screens/search_screen.dart';
-
 import '../../../../constans/app_constants.dart';
 import '../../../../shared_components/responsive_builder.dart';
 import '../../../../utils/services/admin_services.dart';
-import '../../../../utils/widgets/Buttons/button_selected_user.dart';
 import '../../../../utils/widgets/bar_post_task.dart';
 import '../../../../utils/widgets/sidebar/sidebar_task.dart';
 import '../components/button_edit_task.dart';
@@ -53,6 +50,8 @@ class _TaskInprogressDetailsScreenState
           return Column(children: [
             const SizedBox(height: kSpacing * (kIsWeb ? 1 : 2)),
             TaskInprogressDetails(task: widget.task),
+            const BarPost()
+            // _buildHeader(onPressedMenu: () => controller.openDrawer()),
           ]);
         },
         tabletBuilder: (context, constraints) {
@@ -63,7 +62,10 @@ class _TaskInprogressDetailsScreenState
                 flex: (constraints.maxWidth < 950) ? 6 : 9,
                 child: TaskInprogressDetails(task: widget.task),
               ),
-              //const Flexible(flex: 4, child: TaskResponsive())
+              const Flexible(
+                flex: 4,
+                child: SidebarTask(),
+              )
             ],
           );
         },
@@ -85,6 +87,7 @@ class _TaskInprogressDetailsScreenState
                 flex: 9,
                 child: TaskInprogressDetails(task: widget.task),
               ),
+              const Flexible(flex: 4, child: BarPost())
             ],
           );
         },
@@ -107,6 +110,8 @@ class TaskInprogressDetails extends StatefulWidget {
   _TaskInprogressDetailsState createState() => _TaskInprogressDetailsState();
 }
 
+QuillController _controller = QuillController.basic();
+
 class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
   List categoryItemlist = [];
 
@@ -126,20 +131,29 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
   @override
   void initState() {
     super.initState();
+
     getAllCategory();
+    _pointsController.text = widget.task.points.toString();
+    _assignmentUserController.text = widget.task.assignmentUser;
+    _descriptionController.text = widget.task.description;
+    _tituloController.text = widget.task.title;
+    // _descriptionController.dispose();
+    // _assignmentUserController.dispose();
+    // _pointsController.dispose();
   }
 
   var dropdownvalue;
 
-  final AdminServices productDetailsServices = AdminServices();
-  final AdminServices adminServices = AdminServices();
   final TextEditingController _tituloController = TextEditingController();
 
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _assignmentUserController =
       TextEditingController();
   final TextEditingController _pointsController = TextEditingController();
-  DateTime _selectedDate = DateTime.now();
+
+  final AdminServices adminServices = AdminServices();
+
+  final DateTime _selectedDate = DateTime.now();
 
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now().add(const Duration(minutes: 5));
@@ -155,16 +169,6 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
 
   List<File> images = [];
   final _addProductFormKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    super.dispose();
-    _tituloController.dispose();
-
-    _descriptionController.dispose();
-    _assignmentUserController.dispose();
-    _pointsController.dispose();
-  }
 
   List<String> taskCategories = [
     'Development',
@@ -194,28 +198,30 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
     'admin',
   ];
 
-  // void updateTask() {
-  //   DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
-  //       .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
-  //   DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
-  //       .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
+  void updateTask() {
+    DateTime startDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_startDate)} $_startTime');
+    DateTime endDate = DateFormat('MM/dd/yyyy hh:mm a')
+        .parse('${DateFormat.yMd().format(_endDate)} $_endTime');
 
-  //   adminServices.update(
-  //       context: context,
-  //       title: _tituloController.text,
-  //       priority: priority,
-  //       description: _descriptionController.text,
-  //       assignmentUser: _assignmentUserController.text,
-  //       points: double.parse(_pointsController.text),
-  //       category: category,
-  //       //images: images,
-  //       status: 'approved',
-  //       createdBy: createdBy,
-  //       label: label,
-  //       startDate: startDate.toString(),
-  //       endDate: endDate.toString(),
-  //       id: widget.task.id.toString());
-  // }
+    adminServices.update(
+        context: context,
+        title: _tituloController.text,
+        priority: priority,
+        description: _descriptionController.text,
+        points: double.parse(_pointsController.text),
+        category: widget.task.category,
+        assignmentUser: dropdownvalue,
+        //images: images,
+        status: status,
+        createdBy: createdBy,
+        label: widget.task.label,
+        startDate: startDate.toString(),
+        endDate: endDate.toString(),
+        id: widget.task.id.toString());
+
+    print(_addProductFormKey);
+  }
 
   void sendPoints() {
     adminServices.sendPoints(
@@ -232,107 +238,29 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
       task: widget.task,
     );
   }
-
-  // void acept() {
-  //   productDetailsServices.accept(
-  //     context: context,
-  //     assignmentUser: widget.task.assignmentUser,
-  //     category: widget.task.category,
-  //     createdBy: widget.task.createdBy,
-  //     description: widget.task.description,
-  //     points: widget.task.points,
-  //     priority: widget.task.priority,
-  //     id: widget.task.id,
-  //     title: widget.task.title,
-  //     status: "inprogress",
-
-  //     // Navigator.pushNamed(
-  //     //   context,
-  //     //   'ChallengeAcepted',
-  //     // );
-  //   );
-  //   Navigator.pushNamed(
-  //     context,
-  //     'ChallengeAcepted',
-  //   );
+  // void selectImages() async {
+  //   var res = await pickImages();
+  //   setState(() {
+  //     images = res;
+  //   });
   // }
 
-  // double avgRating = 0;
-  // double myRating = 0;
+  @override
+  void dispose() {
+    super.dispose();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   double totalRating = 0;
-  //   for (int i = 0; i < widget.product.rating!.length; i++) {
-  //     totalRating += widget.product.rating![i].rating;
-  //     if (widget.product.rating![i].userId ==
-  //         Provider.of<UserProvider>(context, listen: false).user.id) {
-  //       myRating = widget.product.rating![i].rating;
-  //     }
-  //   }
+    _tituloController.dispose();
 
-  //   if (totalRating != 0) {
-  //     avgRating = totalRating / widget.product.rating!.length;
-  //   }
-  // }
+    _descriptionController.dispose();
 
-  // void acept() {
-  //   productDetailsServices.accept(
-  //     context: context,
-  //     assignmentUser: widget.task.assignmentUser,
-  //     category: widget.task.category,
-  //     createdBy: widget.task.createdBy,
-  //     description: widget.task.description,
-  //     points: widget.task.points,
-  //     priority: widget.task.priority,
-  //     id: widget.task.id,
-  //     title: widget.task.title,
-  //     status: "inprogress",
+    _assignmentUserController.dispose();
 
-  //     // Navigator.pushNamed(
-  //     //   context,
-  //     //   'ChallengeAcepted',
-  //     // );
-  //   );
-  //   Navigator.pushNamed(
-  //     context,
-  //     'ChallengeAcepted',
-  //   );
-  // }
-
-  // double avgRating = 0;
-  // double myRating = 0;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   double totalRating = 0;
-  //   for (int i = 0; i < widget.product.rating!.length; i++) {
-  //     totalRating += widget.product.rating![i].rating;
-  //     if (widget.product.rating![i].userId ==
-  //         Provider.of<UserProvider>(context, listen: false).user.id) {
-  //       myRating = widget.product.rating![i].rating;
-  //     }
-  //   }
-
-  //   if (totalRating != 0) {
-  //     avgRating = totalRating / widget.product.rating!.length;
-  //   }
-  // }
-
-  void navigateToSearchScreen(String query) {
-    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+    _pointsController.dispose();
   }
 
-  // void addToCart() {
-  //   productDetailsServices.addToCart(
-  //     context: context,
-  //     product: widget.product,
-  //   );
-  // }
   @override
   Widget build(BuildContext context) {
+    //Task task = ModalRoute.of(context).settings.arguments;
     final now = DateTime.now();
     final dt = DateTime(
         now.year, now.month, now.day, now.hour, now.minute, now.second);
@@ -357,8 +285,9 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
                     child: Column(
                       children: [
                         TextFormField(
-                            initialValue: widget.task.title,
-                            // controller: _tituloController,
+                            //initialValue: widget.task.title,
+
+                            controller: _tituloController,
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 30),
                             decoration: const InputDecoration(
@@ -392,13 +321,10 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
                         onChanged: (newVal) {
                           setState(() {
                             dropdownvalue = newVal;
-                            print(dropdownvalue);
+                            //print(dropdownvalue);
                           });
                         },
                         value: dropdownvalue,
-                      ),
-                      const SizedBox(
-                        width: 20,
                       ),
                       const SizedBox(width: 20),
                       Container(
@@ -540,10 +466,10 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
-                                initialValue: widget.task.points.toString(),
+                                //initialValue: widget.task.points.toString(),
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w600),
-                                // controller: _pointsController,
+                                controller: _pointsController,
                                 decoration: const InputDecoration(
                                     hintText: "    Puntos",
                                     hintStyle: TextStyle(
@@ -558,7 +484,6 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
                     ],
                   ),
                   const SizedBox(height: 10),
-
                   const SizedBox(height: 10),
                   Wrap(
                     children: [
@@ -571,8 +496,8 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
                               color: const Color.fromARGB(255, 239, 239, 239),
                               borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
-                            initialValue: widget.task.description,
-                            //controller: _descriptionController,
+                            //initialValue: widget.task.description,
+                            controller: _descriptionController,
                             style: const TextStyle(color: Colors.black),
                             decoration: const InputDecoration(
                                 hintText: "Descripción",
@@ -583,64 +508,6 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
                         ),
                       ]),
                       const SizedBox(width: 20),
-                      // Container(
-                      //   margin: const EdgeInsets.only(right: 10),
-                      //   width: 200,
-                      //   height: 100,
-                      //   child: images.isNotEmpty
-                      //       ? CarouselSlider(
-                      //           items: images.map(
-                      //             (i) {
-                      //               return Builder(
-                      //                 builder: (BuildContext context) =>
-                      //                     Image.file(
-                      //                   i,
-                      //                   fit: BoxFit.cover,
-                      //                   height: 200,
-                      //                 ),
-                      //               );
-                      //             },
-                      //           ).toList(),
-                      //           options: CarouselOptions(
-                      //             viewportFraction: 1,
-                      //             height: 200,
-                      //           ),
-                      //         )
-                      //       : GestureDetector(
-                      //           onTap: selectImages,
-                      //           child: DottedBorder(
-                      //             borderType: BorderType.RRect,
-                      //             radius: const Radius.circular(10),
-                      //             dashPattern: const [10, 4],
-                      //             strokeCap: StrokeCap.round,
-                      //             child: Container(
-                      //               width: double.infinity,
-                      //               height: 150,
-                      //               decoration: BoxDecoration(
-                      //                 borderRadius: BorderRadius.circular(10),
-                      //               ),
-                      //               child: Column(
-                      //                 mainAxisAlignment:
-                      //                     MainAxisAlignment.center,
-                      //                 children: [
-                      //                   const Icon(
-                      //                     Icons.folder_open,
-                      //                     size: 40,
-                      //                   ),
-                      //                   const SizedBox(height: 15),
-                      //                   Text(
-                      //                     'Select Tasks Images',
-                      //                     style: TextStyle(
-                      //                       fontSize: 15,
-                      //                       color: Colors.grey.shade400,
-                      //                     ),
-                      //                   ),
-                      //                 ],
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      // ),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -754,11 +621,11 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
                   const SizedBox(height: 50),
                   Wrap(
                     children: [
-                      // MyButtonEditTask(
-                      //     onTap: () {
-                      //       updateTask;
-                      //     },
-                      //     label: "Edit Task"),
+                      MyButtonEditTask(
+                          onTap: () {
+                            updateTask();
+                          },
+                          label: "Edit Task"),
                       const SizedBox(
                         width: 20,
                       ),
@@ -769,42 +636,45 @@ class _TaskInprogressDetailsState extends State<TaskInprogressDetails> {
                           label: "Approved task"),
                     ],
                   ),
-
-                  // const SizedBox(height: 10),
-                  // Container(
-                  //   width: 150,
-                  //   height: 40,
-                  //   child: CustomButton(
-                  //     text: 'add',
-                  //     onTap: addTask,
-                  //   ),
-                  // ),
+                  SizedBox(
+                    width: 500,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: QuillToolbar.basic(controller: _controller),
+                        ),
+                        Flex(direction: Axis.vertical, children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 237, 236, 237),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey[850]!.withOpacity(0.29),
+                                    offset: const Offset(-10, 10),
+                                    blurRadius: 10,
+                                  )
+                                ]),
+                            child: QuillEditor.basic(
+                              controller: _controller,
+                              readOnly: false,
+                              keyboardAppearance: Brightness.light,
+                            ),
+                          ),
+                        ])
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
         ),
-        Column(
-          children: const [SizedBox(width: 250), BarPost()],
-        )
       ]),
     );
   }
-
-  // DateTime _now = new DateTime.now();
-
-  // DateTime start = DateFormat('dd/MM/yyyy HH:mm aa')
-  //     .parse('${task.date} ${task.startTime}');
-  // DateTime end =
-  //     DateFormat('dd/MM/yyyy HH:mm aa').parse('${task.date} ${task.endTime}');
-
-  // tz.TZDateTime tzStart = tz.TZDateTime(
-  //     tz.local, _now.year, _now.month, _now.day, start.hour, start.minute);
-
-  // tz.TZDateTime tzEnd = tz.TZDateTime(
-  //     tz.local, _now.year, _now.month, _now.day, end.hour, end.minute);
-
-  // tz.TZDateTime tzNow = tz.TZDateTime(tz.local, _now.year, )
 
   double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute / 60.0;
 

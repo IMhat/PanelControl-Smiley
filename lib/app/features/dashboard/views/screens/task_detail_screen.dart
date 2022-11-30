@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:project_management/app/features/dashboard/views/components/button_edit_task.dart';
 
-
 import 'package:project_management/app/utils/widgets/sidebar/sidebar_task.dart';
 
 import '../../../../constans/app_constants.dart';
@@ -54,6 +53,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
           return Column(children: [
             const SizedBox(height: kSpacing * (kIsWeb ? 1 : 2)),
             TaskDetails(task: widget.task),
+            // _buildHeader(onPressedMenu: () => controller.openDrawer()),
           ]);
         },
         tabletBuilder: (context, constraints) {
@@ -64,7 +64,10 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                 flex: (constraints.maxWidth < 950) ? 6 : 9,
                 child: TaskDetails(task: widget.task),
               ),
-              //const Flexible(flex: 4, child: TaskResponsive())
+              const Flexible(
+                flex: 4,
+                child: SidebarTask(),
+              )
             ],
           );
         },
@@ -86,6 +89,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                 flex: 9,
                 child: TaskDetails(task: widget.task),
               ),
+              const Flexible(flex: 4, child: BarPost())
             ],
           );
         },
@@ -127,7 +131,15 @@ class _TaskDetailsState extends State<TaskDetails> {
   @override
   void initState() {
     super.initState();
+
     getAllCategory();
+    _pointsController.text = widget.task.points.toString();
+    _assignmentUserController.text = widget.task.assignmentUser;
+    _descriptionController.text = widget.task.description;
+    _tituloController.text = widget.task.title;
+    // _descriptionController.dispose();
+    // _assignmentUserController.dispose();
+    // _pointsController.dispose();
   }
 
   var dropdownvalue;
@@ -157,16 +169,6 @@ class _TaskDetailsState extends State<TaskDetails> {
 
   List<File> images = [];
   final _addProductFormKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    super.dispose();
-    _tituloController.dispose();
-
-    _descriptionController.dispose();
-    _assignmentUserController.dispose();
-    _pointsController.dispose();
-  }
 
   List<String> taskCategories = [
     'Development',
@@ -207,17 +209,18 @@ class _TaskDetailsState extends State<TaskDetails> {
         title: _tituloController.text,
         priority: priority,
         description: _descriptionController.text,
-        assignmentUser: _assignmentUserController.text,
         points: double.parse(_pointsController.text),
-        category: category,
+        category: widget.task.category,
+        assignmentUser: dropdownvalue,
         //images: images,
-        status: 'approved',
+        status: status,
         createdBy: createdBy,
-        label: label,
+        label: widget.task.label,
         startDate: startDate.toString(),
         endDate: endDate.toString(),
         id: widget.task.id.toString());
-   // print(updateTask);
+
+    print(_addProductFormKey);
   }
 
   void sendPoints() {
@@ -241,6 +244,19 @@ class _TaskDetailsState extends State<TaskDetails> {
   //     images = res;
   //   });
   // }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _tituloController.dispose();
+
+    _descriptionController.dispose();
+
+    _assignmentUserController.dispose();
+
+    _pointsController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -269,8 +285,9 @@ class _TaskDetailsState extends State<TaskDetails> {
                     child: Column(
                       children: [
                         TextFormField(
-                            initialValue: widget.task.title,
-                            // controller: _tituloController,
+                            //initialValue: widget.task.title,
+
+                            controller: _tituloController,
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 30),
                             decoration: const InputDecoration(
@@ -449,10 +466,10 @@ class _TaskDetailsState extends State<TaskDetails> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
-                                initialValue: widget.task.points.toString(),
+                                //initialValue: widget.task.points.toString(),
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w600),
-                                // controller: _pointsController,
+                                controller: _pointsController,
                                 decoration: const InputDecoration(
                                     hintText: "    Puntos",
                                     hintStyle: TextStyle(
@@ -480,8 +497,8 @@ class _TaskDetailsState extends State<TaskDetails> {
                               color: const Color.fromARGB(255, 239, 239, 239),
                               borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
-                            initialValue: widget.task.description,
-                            //controller: _descriptionController,
+                            //initialValue: widget.task.description,
+                            controller: _descriptionController,
                             style: const TextStyle(color: Colors.black),
                             decoration: const InputDecoration(
                                 hintText: "Descripción",
@@ -724,9 +741,6 @@ class _TaskDetailsState extends State<TaskDetails> {
             ),
           ),
         ),
-        Column(
-          children: const [SizedBox(width: 250), BarPost()],
-        )
       ]),
     );
   }

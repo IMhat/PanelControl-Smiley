@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import '../../../../../utils/widgets/task_bar.dart';
 import '../../../../../utils/widgets/task_bar2.dart';
@@ -14,7 +12,7 @@ import '../add_task_screen.dart';
 
 class TaskResponsive extends StatelessWidget {
   const TaskResponsive({Key? key}) : super(key: key);
- final textStyle = const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
+  final textStyle = const TextStyle(fontSize: 15, fontWeight: FontWeight.bold);
   final decoration = const BoxDecoration(
       color: Color.fromARGB(255, 255, 255, 255),
       borderRadius: BorderRadius.only(

@@ -75,14 +75,18 @@ class _TaskDetailsState extends State<_TaskDetails> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.title.toString(),
-                  style: const TextStyle(
-                      fontSize: 14,
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontWeight: FontWeight.bold),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                SizedBox(
+                  width: 150,
+                  height: 40,
+                  child: Text(
+                    widget.title.toString(),
+                    style: const TextStyle(
+                        fontSize: 14,
+                        color: (Color(0xff6F6F6F)),
+                        fontWeight: FontWeight.bold),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 const Icon(
                   Icons.menu,

@@ -711,18 +711,18 @@ class AdminServices {
 // update task!
   void update({
     required BuildContext context,
-    required String status,
     required String title,
     required String priority,
+    required String description,
+    required double points,
     required String category,
     required String assignmentUser,
+    required String status,
     required String createdBy,
-    required String description,
     required String label,
     required String startDate,
     required String endDate,
     required String id,
-    required double points,
     //required List<File> images,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -740,10 +740,11 @@ class AdminServices {
           createdBy: createdBy,
           label: label,
           startDate: startDate,
-          endDate: endDate);
+          endDate: endDate,
+          id: id);
 
-      http.Response res = await http.put(
-        Uri.parse('$uri/api/tasks/${task.id}'),
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/update-task'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
@@ -762,7 +763,7 @@ class AdminServices {
     } catch (e) {
       showSnackBar(context, e.toString());
     }
-   // print(update);
+    // print(update);
   }
 
   //change task status ( approved)
