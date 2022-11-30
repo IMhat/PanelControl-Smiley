@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_management/app/constans/global_variables.dart';
 import 'package:project_management/app/features/dashboard/models/product.dart';
 import 'package:project_management/app/utils/services/admin_services.dart';
 
 import '../../../../common/widgets/loader.dart';
-import '../../../../utils/widgets/address_box.dart';
 import '../../../../utils/widgets/searched_product.dart';
 import 'product_details_screen.dart';
 

@@ -64,7 +64,7 @@ class _TaskInprogressDetailsScreenState
               ),
               const Flexible(
                 flex: 4,
-                child: SidebarTask(),
+                child: BarPost(),
               )
             ],
           );

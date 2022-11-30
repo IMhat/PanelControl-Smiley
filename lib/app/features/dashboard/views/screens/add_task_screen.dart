@@ -559,7 +559,7 @@ class _AddProductScreenState extends State<AddTaskScreen> {
                       width: 120,
                       height: 50,
                       child: CustomButton(
-                        text: 'Sell',
+                        text: 'Create',
                         onTap: addTask,
                       ),
                     ),

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../common/widgets/loader.dart';
 import '../../../../../utils/services/admin_services.dart';
-import '../../../models/order.dart';
 import '../../../models/order_process.dart';
-import '../orders_detail_screen.dart';
 import '../search_screen.dart';
 import '../widget_orders/new_order_card.dart';
 import '../widget_orders/process_order_detail_screen.dart';
@@ -116,7 +114,7 @@ class _ProcessOrdersScreenState extends State<ProcessOrdersScreen> {
       width: 1600,
       height: 50,
       decoration: BoxDecoration(
-          border: Border.all(color: Color.fromARGB(255, 59, 59, 59)),
+          border: Border.all(color: const Color.fromARGB(255, 59, 59, 59)),
           borderRadius: BorderRadius.circular(10)),
       child: Wrap(
         children: [

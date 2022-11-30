@@ -68,7 +68,7 @@ class _TaskToDoDetailsScreenState extends State<TaskToDoDetailsScreen> {
               ),
               const Flexible(
                 flex: 4,
-                child: SidebarTask(),
+                child: BarPost(),
               )
             ],
           );

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../utils/widgets/task_bar.dart';
@@ -41,105 +40,114 @@ class TaskResponsive extends StatelessWidget {
               ],
             )),
         SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              Column(
+          scrollDirection: Axis.vertical,
+          child: SizedBox(
+            height: 1800,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
                 children: [
-                  Row(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        "Backlog Tasks",
-                        style: textStyleTitle,
+                      Row(
+                        children: [
+                          Text(
+                            "Backlog Tasks",
+                            style: textStyleTitle,
+                          ),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.more_horiz,
+                                color: Color.fromARGB(255, 0, 130, 153),
+                              ))
+                        ],
                       ),
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.more_horiz,
-                            color: Color.fromARGB(255, 0, 130, 153),
-                          ))
+                      Flex(direction: Axis.vertical, children: const [ Tasks()]),
+                      Container(
+                        margin: const EdgeInsets.only(right: 40),
+                        child: OutlinedButton.icon(
+                          icon: const Icon(Icons.add,
+                              color: Color.fromARGB(255, 255, 255, 255)),
+                          label: const Text(
+                            "Add New Task",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () {
+                            // Navigate to the overview page using a named route.
+                            Navigator.pushNamed(
+                                context, AddTaskScreen.routeName);
+                          },
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: (const Color(0xff48409E)),
+                            elevation: 10,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                  const Tasks(),
-                  Container(
-                    margin: const EdgeInsets.only(right: 40),
-                    child: OutlinedButton.icon(
-                      icon: const Icon(Icons.add,
-                          color: Color.fromARGB(255, 255, 255, 255)),
-                      label: const Text(
-                        "Add New Task",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () {
-                        // Navigate to the overview page using a named route.
-                        Navigator.pushNamed(context, AddTaskScreen.routeName);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        backgroundColor: (const Color(0xff48409E)),
-                        elevation: 10,
-                      ),
+                  Column(children: [
+                    Row(
+                      children: [
+                        Text("To Do Tasks", style: textStyleTitle),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.more_horiz,
+                              color: Color.fromARGB(255, 0, 130, 153),
+                            ))
+                      ],
                     ),
-                  ),
+                    Flex(direction: Axis.vertical, children: const [TasksToDo()])
+                  ]),
+                  Column(children: [
+                    Row(
+                      children: [
+                        Text("In Progress", style: textStyleTitle),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.more_horiz,
+                              color: Color.fromARGB(255, 0, 130, 153),
+                            ))
+                      ],
+                    ),
+                    Flex(
+                        direction: Axis.vertical, children: const [TasksInprogress()])
+                  ]),
+                  Column(children: [
+                    Row(
+                      children: [
+                        Text("Done", style: textStyleTitle),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.more_horiz,
+                              color: Color.fromARGB(255, 0, 130, 153),
+                            ))
+                      ],
+                    ),
+                    Flex(direction: Axis.vertical, children: const [TasksDone()])
+                  ]),
+                  const SizedBox(width: 10),
+                  Column(children: [
+                    Row(
+                      children: [
+                        Text("Approved", style: textStyleTitle),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.more_horiz,
+                              color: Color.fromARGB(255, 0, 130, 153),
+                            ))
+                      ],
+                    ),
+                    Flex(direction: Axis.vertical, children: const [TasksApproved()])
+                  ]),
                 ],
               ),
-              Column(children: [
-                Row(
-                  children: [
-                    Text("To Do Tasks", style: textStyleTitle),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.more_horiz,
-                          color: Color.fromARGB(255, 0, 130, 153),
-                        ))
-                  ],
-                ),
-                const TasksToDo()
-              ]),
-              Column(children: [
-                Row(
-                  children: [
-                    Text("In Progress", style: textStyleTitle),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.more_horiz,
-                          color: Color.fromARGB(255, 0, 130, 153),
-                        ))
-                  ],
-                ),
-                const TasksInprogress()
-              ]),
-              Column(children: [
-                Row(
-                  children: [
-                    Text("Done", style: textStyleTitle),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.more_horiz,
-                          color: Color.fromARGB(255, 0, 130, 153),
-                        ))
-                  ],
-                ),
-                const TasksDone()
-              ]),
-              const SizedBox(width: 10),
-              Column(children: [
-                Row(
-                  children: [
-                    Text("Approved", style: textStyleTitle),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.more_horiz,
-                          color: Color.fromARGB(255, 0, 130, 153),
-                        ))
-                  ],
-                ),
-                const TasksApproved()
-              ]),
-            ],
+            ),
           ),
         ),
         // const SizedBox(height: kSpacing),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:project_management/app/constans/app_constants.dart';
 import 'package:project_management/app/features/dashboard/models/task_done.dart';
-
-import 'package:project_management/app/shared_components/today_text.dart';
 
 class SingleDoneTask extends StatelessWidget {
   final TaskDone task;
@@ -11,6 +10,15 @@ class SingleDoneTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime startDate = DateTime.parse(task.startDate);
+    DateTime endDate = DateTime.parse(task.endDate);
+
+    String ymdStartDate = DateFormat('dd/MM/yyyy').format(startDate);
+    String ymdEndDate = DateFormat('dd/MM/yyyy').format(endDate);
+
+    String hmStartDate = DateFormat('HH:mm aa').format(startDate);
+    String hmEndDate = DateFormat('HH:mm aa').format(endDate);
+
     return Container(
       padding: const EdgeInsets.all(2.0),
       margin: const EdgeInsets.only(top: 2),
@@ -26,6 +34,12 @@ class SingleDoneTask extends StatelessWidget {
             // subTitle: task.description,
             type: task.status,
             priority: task.priority,
+            ymdStartDate: ymdStartDate =
+                DateFormat('dd/MM/yyyy').format(startDate),
+            ymdEndDate: ymdEndDate = DateFormat('dd/MM/yyyy').format(endDate),
+
+            hmStartDate: hmStartDate = DateFormat('HH:mm aa').format(startDate),
+            hmEndDate: hmEndDate = DateFormat('HH:mm aa').format(endDate),
           ),
         ],
       ),
@@ -42,9 +56,21 @@ class _TaskDetails extends StatefulWidget {
   final String? title;
   final String? type;
   final String? priority;
+  final String? ymdStartDate;
+  final String? ymdEndDate;
+  final String? hmStartDate;
+  final String? hmEndDate;
   //final String? subTitle;
 
-  const _TaskDetails({this.title, this.type, this.priority});
+  const _TaskDetails({
+    this.title,
+    this.type,
+    this.priority,
+    this.ymdStartDate,
+    this.ymdEndDate,
+    this.hmStartDate,
+    this.hmEndDate,
+  });
 
   @override
   State<_TaskDetails> createState() => _TaskDetailsState();
@@ -94,7 +120,6 @@ class _TaskDetailsState extends State<_TaskDetails> {
                 ),
               ],
             ),
-
             SizedBox(
               height: 30,
               child: Text(
@@ -131,12 +156,16 @@ class _TaskDetailsState extends State<_TaskDetails> {
                 )
               ],
             ),
-            // Text(
-            //   widget.subTitle.toString(),
-            //   style: const TextStyle(
-            //       fontSize: 15, color: Color.fromARGB(255, 9, 0, 0)),
-            // ),
-            const TodayText(),
+            Text(
+              '${widget.ymdStartDate} - ${widget.hmStartDate}',
+              style: const TextStyle(
+                  fontSize: 13, color: Color.fromARGB(255, 0, 0, 0)),
+            ),
+            Text(
+              "${widget.ymdEndDate} - ${widget.hmEndDate}",
+              style: const TextStyle(
+                  fontSize: 13, color: Color.fromARGB(255, 255, 0, 0)),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             ),

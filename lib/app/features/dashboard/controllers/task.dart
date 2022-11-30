@@ -38,36 +38,9 @@ class _TasksState extends State<Tasks> {
         ? const Loader()
         : Column(
             children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Container(
-              //       padding: const EdgeInsets.only(left: 15),
-              //       child: const Text(
-              //         'Your Wallet',
-              //         style: TextStyle(
-              //           fontSize: 18,
-              //           fontWeight: FontWeight.w600,
-              //         ),
-              //       ),
-              //     ),
-              //     // Container(
-              //     //   padding: const EdgeInsets.only(right: 15),
-              //     //   child: Text(
-              //     //     'See all',
-              //     //     style: TextStyle(
-              //     //       color: GlobalVariables.selectedNavBarColor,
-              //     //     ),
-              //     //   ),
-              //     // ),
-              //   ],
-              // ),
-
-              // DISPLAY ORDERS
               Container(
                 margin: const EdgeInsets.only(right: 20),
                 width: 275,
-                height: 680,
                 decoration: const BoxDecoration(
                   color: Color(0xffBFB9FF),
                   borderRadius: BorderRadius.all(Radius.circular(10)),

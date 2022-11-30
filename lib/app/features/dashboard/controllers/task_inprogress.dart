@@ -41,7 +41,7 @@ class _TasksInprogressState extends State<TasksInprogress> {
         : Container(
             margin: const EdgeInsets.only(right: 20),
             width: 275,
-            height: 710,
+           
             decoration: const BoxDecoration(
               color: Color(0xffBFB9FF),
               borderRadius: BorderRadius.all(Radius.circular(10)),

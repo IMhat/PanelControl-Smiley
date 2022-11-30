@@ -64,7 +64,7 @@ class _TaskApprovedDetailsScreenState extends State<TaskApprovedDetailsScreen> {
               ),
               const Flexible(
                 flex: 4,
-                child: SidebarTask(),
+                child: BarPost(),
               )
             ],
           );
